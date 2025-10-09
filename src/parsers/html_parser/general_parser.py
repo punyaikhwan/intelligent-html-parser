@@ -68,6 +68,7 @@ class GeneralHTMLParser:
             List of dictionaries containing extracted data
         """
         soup = BeautifulSoup(html, 'html.parser')
+        logging.info(soup.prettify())
         
         # Find potential containers that might hold the entities
         containers = self._find_entity_containers(soup, entity)
@@ -93,38 +94,8 @@ class GeneralHTMLParser:
         """
         containers = []
         
-        # # Strategy 1: Look for containers with class/id names related to entity
-        # entity_patterns = [entity, noun._pluralize_noun(entity), entity + '-item', entity + '_item', 
-        #                   'item-' + entity, 'item_' + entity]
-        
-        # for pattern in entity_patterns:
-        #     # Find by class
-        #     elements = soup.find_all(attrs={'class': re.compile(pattern, re.I)})
-        #     containers.extend(elements)
-            
-        #     # Find by id
-        #     elements = soup.find_all(attrs={'id': re.compile(pattern, re.I)})
-        #     containers.extend(elements)
-        
-        # # Strategy 2: Look for common container patterns
-        # common_containers = soup.find_all(['div', 'section', 'article', 'li', 'tr'])
-        
-        # # Filter containers that might contain multiple attributes
-        # for container in common_containers:
-        #     if self._is_likely_entity_container(container, entity):
-        #         containers.append(container)
-        
-        # # Strategy 3: If no specific containers found, look for repeated structures
-        # if not containers:
+        # Find repeated structures first, because they are more likely to contain multiple entities
         containers = self._find_repeated_structures(soup)
-        
-        # Remove duplicates while preserving order
-        # seen = set()
-        # unique_containers = []
-        # for container in containers:
-        #     if container not in seen:
-        #         seen.add(container)
-        #         unique_containers.append(container)
         
         return containers
     
@@ -442,6 +413,14 @@ class GeneralHTMLParser:
                 text = self._get_element_text(tag)
                 if text:
                     return text
+                
+            # Check data-* attributes
+            for attr_key, attr_value in tag.attrs.items():
+                if attr_key.startswith('data-') and attr_value:
+                    if attribute.lower() in attr_value.lower() or attr_value.lower() in attribute.lower():
+                        text = self._get_element_text(tag)
+                        if text:
+                            return text
         
         return None
     
@@ -470,14 +449,21 @@ class GeneralHTMLParser:
                 classes = ' '.join(tag.get('class', []))
                 tag_id = tag.get('id', '')
                 tag_name = tag.get('name', '')
-                
+
                 for text in [classes, tag_id, tag_name]:
                     if text.strip():
                         candidates.append(text)
                         elements.append(tag)
+
+                # Check data-* attributes
+                for attr_key, attr_value in tag.attrs.items():
+                    if attr_key.startswith('data-') and attr_value:
+                        candidates.append(attr_value)
+                        elements.append(tag)
             
             if not candidates:
-                return fallback_text if fallback_text else None
+                if attribute in ['name', 'title', 'description', 'info', 'information', 'detail', 'details', 'label']:
+                    return fallback_text if fallback_text else None
             
             if candidates and len(candidates) > 0:
                 # Calculate similarities

@@ -14,6 +14,11 @@ from html_parser import IntelligentHTMLParser
 # Initialize Flask app
 app = Flask(__name__)
 
+# Configure Flask app for larger HTML files
+# Set maximum request size to 16MB (adjust as needed)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB
+app.config['JSON_SORT_KEYS'] = False
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -96,6 +101,7 @@ def parse_html():
             raise BadRequest("No form data provided")
         
         html = request.form.get('html')
+        logging.debug(f"Received HTML content of length: {len(html) if html else 'None'}")
         query = request.form.get('query')
         
         if not html:
@@ -104,14 +110,17 @@ def parse_html():
         if not query:
             raise BadRequest("Missing 'query' field in form data")
         
-        # Validate input lengths
-        if len(html) > 10 * 1024 * 1024:  # 10MB limit
-            raise BadRequest("HTML content too large (max 10MB)")
-        
         if len(query) > 1000:  # 1000 character limit for query
             raise BadRequest("Query too long (max 1000 characters)")
         
-        logger.info(f"Processing parse request - Query: {query[:100]}...")
+        # Check HTML size (provide helpful error message)
+        html_size_mb = len(html.encode('utf-8')) / (1024 * 1024)
+        max_size_mb = app.config['MAX_CONTENT_LENGTH'] / (1024 * 1024)
+        
+        if html_size_mb > max_size_mb:
+            raise BadRequest(f"HTML content too large ({html_size_mb:.2f}MB). Maximum allowed size is {max_size_mb:.0f}MB")
+        
+        logger.info(f"Processing parse request - Query: {query[:100]}... | HTML size: {html_size_mb:.2f}MB")
         
         # Get parser and process
         parser_instance = get_parser()
@@ -145,7 +154,104 @@ def parse_html():
             }
         }), 500
 
+@app.route('/parse-from-file', methods=['POST'])
+def parse_html_from_file():
+    """
+    Main parsing endpoint.
+    
+    Expected form data:
+    - html: HTML file location to parse
+    - query: Natural language query describing what to extract
+    
+    Returns JSON with structure:
+    {
+        "results": {
+            "entity_name": [
+                {
+                    "attribute1": "value1",
+                    "attribute2": "value2"
+                }
+            ]
+        },
+        "message": "Found N entity_name on this page",
+        "metadata": {
+            "processing_time_ms": 245,
+            "model_used": "custom-html-parser-v1"
+        }
+    }
+    """
+    try:
+        # Validate request
+        if not request.form:
+            raise BadRequest("No form data provided")
+        
+        html_path = request.form.get('html')
+        html = read_html_from_file(html_path)
+        query = request.form.get('query')
+        
+        if not html:
+            raise BadRequest("Missing 'html' field in form data")
+        
+        if not query:
+            raise BadRequest("Missing 'query' field in form data")
+        
+        if len(query) > 1000:  # 1000 character limit for query
+            raise BadRequest("Query too long (max 1000 characters)")
+        
+        # Get parser and process
+        parser_instance = get_parser()
+        result = parser_instance.parse(html, query)
+        
+        logger.info(f"Parse completed - Processing time: {result.get('metadata', {}).get('processing_time_ms', 0)}ms")
+        
+        return jsonify(result)
+        
+    except BadRequest as e:
+        logger.warning(f"Bad request: {e}")
+        return jsonify({
+            "results": {},
+            "message": f"Bad request: {e}",
+            "metadata": {
+                "processing_time_ms": 0,
+                "model_used": "custom-html-parser-v1",
+                "error": True
+            }
+        }), 400
+        
+    except Exception as e:
+        logger.error(f"Error processing request: {e}")
+        return jsonify({
+            "results": {},
+            "message": f"Internal server error: {str(e)}",
+            "metadata": {
+                "processing_time_ms": 0,
+                "model_used": "custom-html-parser-v1",
+                "error": True
+            }
+        }), 500
 
+def read_html_from_file(file_path):
+    """Read HTML content from a file."""
+    try:
+        if not os.path.exists(file_path):
+            print(f"✗ File not found: {file_path}")
+            return None
+        
+        with open(file_path, 'r', encoding='utf-8') as file:
+            html_content = file.read().strip()
+        
+        if not html_content:
+            print(f"✗ File is empty: {file_path}")
+            return None
+        
+        print(f"✓ HTML content loaded from: {file_path}")
+        print(f"  File size: {len(html_content)} characters")
+        return html_content
+    
+    except Exception as e:
+        print(f"✗ Error reading file {file_path}: {e}")
+        return None
+    
 @app.errorhandler(404)
 def not_found(error):
     """Handle 404 errors."""

@@ -111,7 +111,7 @@ class IntelligentHTMLParser:
                 approaches_used["query_parsing"]["entity_extraction_approach"] = entity_extraction_approach
                 approaches_used["query_parsing"]["attribute_extraction_approach"] = attribute_extraction_approach
 
-            return self._create_success_response(entity, results, processing_time, approaches_used)
+            return self._create_success_response(entity, attributes, results, processing_time, approaches_used)
 
         except Exception as e:
             self.logger.error(f"Error in parsing: {e}")
@@ -119,8 +119,8 @@ class IntelligentHTMLParser:
                 f"Parsing error: {str(e)}",
                 time.time() - start_time
             )
-    
-    def _create_success_response(self, entity: str, results: List[Dict[str, Any]], 
+
+    def _create_success_response(self, entity: str, attributes: List[str], results: List[Dict[str, Any]], 
                                processing_time: float, approaches_used: Dict[str, str]) -> Dict[str, Any]:
         """Create a successful response following the specified format."""
         # Format results according to the specification
@@ -135,7 +135,7 @@ class IntelligentHTMLParser:
                 "processing_time_ms": round(processing_time * 1000),
                 "model_used": "custom-html-parser-v1",
                 "entity": entity,
-                "attributes_requested": len(results[0].keys()) if results else 0,
+                "attributes_requested": attributes,
                 "approaches_used": approaches_used,
             }
         }
