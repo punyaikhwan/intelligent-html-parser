@@ -4,6 +4,8 @@ Query parser module for extracting entities and attributes from natural language
 import re
 from typing import List, Tuple, Optional
 
+from utils import noun
+
 try:
     import nltk
     from nltk.tokenize import word_tokenize
@@ -117,15 +119,13 @@ class QueryParser:
         for i, word in enumerate(words):
             if word == 'the' and i + 1 < len(words):
                 potential_entity = words[i + 1]
-                potential_entity = self._singularize_noun(potential_entity)
-                print(f"Detected entity using 'the' pattern: {potential_entity}")
+                potential_entity = noun._singularize_noun(potential_entity)
                 return potential_entity, "the-pattern"
         
         # Use POS tagging to find nouns if NLTK is available
         if NLTK_AVAILABLE:
             entity = self._extract_entity_with_pos(query)
             if entity:
-                print(f"Detected entity using POS tagging: {entity}")
                 return entity, "pos-tagging"
         
         # Fallback: simplified approach - look for the first meaningful noun
@@ -133,8 +133,7 @@ class QueryParser:
         for word in words:
             if word not in self.FRONT_STOPWORDS and word not in self.END_STOPWORDS:
                 if len(word) > 2:  # Simple heuristic for meaningful words
-                    word = self._singularize_noun(word)
-                    print(f"Detected entity using simple approach: {word}")
+                    word = noun._singularize_noun(word)
                     return word, "simple-heuristic"
         
         return None
@@ -186,7 +185,7 @@ class QueryParser:
                 entity = candidate_nouns[0]
                 
                 # Convert plural to singular
-                entity = self._singularize_noun(entity)
+                entity = noun._singularize_noun(entity)
                 
                 return entity
             
@@ -197,103 +196,6 @@ class QueryParser:
         
         return None
     
-    def _singularize_noun(self, noun: str) -> str:
-        """
-        Convert plural noun to singular form using simple rules.
-        
-        Args:
-            noun: Plural noun to convert
-            
-        Returns:
-            Singular form of the noun
-        """
-        if not noun:
-            return noun
-        
-        # Handle common irregular plurals
-        irregular_plurals = {
-            'children': 'child',
-            'people': 'person',
-            'men': 'man',
-            'women': 'woman',
-            'feet': 'foot',
-            'teeth': 'tooth',
-            'mice': 'mouse',
-            'geese': 'goose'
-        }
-        
-        if noun in irregular_plurals:
-            return irregular_plurals[noun]
-        
-        # Handle regular plural patterns
-        if noun.endswith('ies') and len(noun) > 3:
-            # companies -> company, stories -> story
-            return noun[:-3] + 'y'
-        elif noun.endswith('ves') and len(noun) > 3:
-            # knives -> knife, wolves -> wolf
-            return noun[:-3] + 'f'
-        elif noun.endswith('ses') and len(noun) > 3:
-            # glasses -> glass, classes -> class
-            return noun[:-2]
-        elif noun.endswith('es') and len(noun) > 2:
-            # boxes -> box, dishes -> dish
-            if noun.endswith(('ches', 'shes', 'xes', 'zes')):
-                return noun[:-2]
-            else:
-                return noun[:-1]
-        elif noun.endswith('s') and len(noun) > 1:
-            # books -> book, cars -> car
-            return noun[:-1]
-        
-        return noun
-
-    def _pluralize_noun(self, noun: str) -> str:
-        """
-        Convert singular noun to plural form using simple rules.
-        
-        Args:
-            noun: Singular noun to convert
-            
-        Returns:
-            Plural form of the noun
-        """
-        if not noun:
-            return noun
-        
-        # Handle common irregular singulars
-        irregular_singulars = {
-            'child': 'children',
-            'person': 'people',
-            'man': 'men',
-            'woman': 'women',
-            'foot': 'feet',
-            'tooth': 'teeth',
-            'mouse': 'mice',
-            'goose': 'geese'
-        }
-
-        if noun in irregular_singulars:
-            return irregular_singulars[noun]
-
-        # Handle regular plural patterns
-        if noun.endswith('y') and len(noun) > 2:
-            # baby -> babies, city -> cities
-            return noun[:-1] + 'ies'
-        elif noun.endswith('f') and len(noun) > 2:
-            # knife -> knives, wolf -> wolves
-            return noun[:-1] + 'ves'
-        elif noun.endswith('s') and len(noun) > 2:
-            # glass -> glasses, class -> classes
-            return noun
-        elif noun.endswith('o') and len(noun) > 2:
-            # photo -> photos, piano -> pianos
-            return noun + 's'
-        elif len(noun) > 1:
-            # book -> books, car -> cars
-            return noun + 's'
-
-        return noun
-
     def _extract_attributes(self, query: str, entity: Optional[str]) -> Tuple[List[str], str]:
         """
         Extract attributes from the query using rule-based approach.
@@ -302,7 +204,7 @@ class QueryParser:
         # Remove entity from query if found
         if entity:
             # Try both singular and plural forms
-            plural_form = self._pluralize_noun(entity)
+            plural_form = noun._pluralize_noun(entity)
             entity_patterns = [entity, plural_form, 'the ' + entity, 'the ' + plural_form]
             for pattern in entity_patterns:
                 query = query.replace(pattern, '')

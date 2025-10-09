@@ -14,10 +14,6 @@ fi
 echo "Activating virtual environment..."
 source venv/bin/activate
 
-# Install dependencies
-echo "Installing dependencies..."
-pip install -r requirements.txt
-
 # Set environment variables
 export FLASK_APP=app.py
 export FLASK_ENV=development
