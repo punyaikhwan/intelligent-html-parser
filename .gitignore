@@ -1,0 +1,8 @@
+*.env
+specs.md
+venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+.idea/
+.vscode/
