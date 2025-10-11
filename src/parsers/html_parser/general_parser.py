@@ -27,8 +27,11 @@ class GeneralHTMLParser:
 
     # Attributes to check for matching
     TARGET_ATTRIBUTES = {'class', 'id', 'name', 'data-*'}
-    COMMON_ATTRIBUTES = {'name', 'title', 'description', 'info', 'information', 'detail', 'details', 'label'}
-    CONTAINER_TAGS = {'div', 'span', 'article', 'section', 'ul', 'ol', 'li'}
+    COMMON_ATTRIBUTES = {'name', 'names', 'title', 'description', 'info', 'information', 'detail', 'details', 'label'}
+    CONTAINER_TAGS = {'div', 'span', 'article', 'section', 'ul', 'ol', 'li', 'figcaption', 'figure'}
+    TEXT_TAGS = {'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'span', 'strong', 'em', 'b', 'i'}
+    IMAGE_KEYWORDS = {'image', 'img', 'photo', 'picture', 'thumbnail', 'avatar', 'logo', 'icon', 'banner'}
+    LINK_KEYWORDS = {'link', 'url', 'website', 'web', 'site'}
     
     def __init__(self, similarity_model: str = "sentence-transformers/all-MiniLM-L6-v2", 
                  similarity_threshold: float = 0.7):
@@ -75,17 +78,87 @@ class GeneralHTMLParser:
         # 1. Find repeated structures that might represent entities. If found, extract attributes from each.
         # 2. If no repeated structures, search for likely containers that might hold the entity. If found, extract attributes but return only one set with highest confidence.
         # Find potential containers that might hold the entities
-        containers = self._find_repeated_structures(soup, entity)
-        if containers and len(containers) > 0:
-            # Print first containers for debugging
-            logging.info(f"First repeated structure container HTML: {str(containers[0])[:200]}...")  # Log first 200 chars of first container
-            results = []
-            for container in containers:
-                result = self._extract_attributes_from_container(container, attributes)
-                if result and any(value.strip() for value in result.values()):
-                    results.append(result)
+        container_groups = self._find_repeated_structures(soup, entity)
+        if container_groups and len(container_groups) > 0:
+            map_groups_to_filled_attrs = {}
+            map_groups_to_overall_confidence = {}
+            # Evaluate the first container in each group of containers and extract attributes
+            # We will get the most promising group of containers based on number of attributes found
+            for group_idx, containers in enumerate(container_groups):
+                logging.info(f"=============Evaluating group {group_idx} with {len(containers)} containers.==============")
+                if containers and len(containers) > 0:            
+                    # we need to ensure that the containers are holding the attributes we are looking for
+                    # Since this is a repeated structure, we can assume that if one container has the attributes, others will have them too
+                    # So we will check the first container only
+                    # is_containers_valid = False
+                    # while not is_containers_valid and len(containers) > 0:
+                        first_container = containers[0]
+                        extracted_attrs = self._extract_attributes_from_container(first_container, attributes)
+                        logging.info(f"Extracted attributes from first container: {extracted_attrs}")
+                        found_attrs = [attr for attr, value in extracted_attrs.items() if value is not None]    
+                        for attr in found_attrs:
+                            attr_result = extracted_attrs[attr]
+                            if attr_result is not None:
+                                value, similarity_score = attr_result
+                                logging.info(f"Attribute '{attr}' found with value: {value} and similarity score: {similarity_score}")
+
+                        logging.info(f"Found {len(found_attrs)} out of {len(attributes)} attributes in first container.")
+                        if len(found_attrs) >= max(1, len(attributes) // 2):  # At least half of the attributes should be found
+                            # is_containers_valid = True
+                            map_groups_to_filled_attrs[group_idx] = len(found_attrs)
+                            overall_confidence = self._overall_attributes_confidence(extracted_attrs)
+                            map_groups_to_overall_confidence[group_idx] = overall_confidence
+                            # container_groups[group_idx] = containers
+                            if len(found_attrs) == len(attributes) and self._all_attributes_high_confidence(extracted_attrs):
+                                logging.info(f"All attributes found with high confidence in group {group_idx}. Stopping further search.")
+                                break  # Stop if we found a group with all attributes at high confidence
+                        # else:
+                        #     # If not valid, we need to repopulate the containers with their children that are also repeated structures
+                        #     logging.info(f"First container does not have enough attributes. Found {len(found_attrs)} out of {len(attributes)}. Searching children containers.")
+                        #     parent_containers = containers
+                        #     containers = []
+                        #     for container in parent_containers:
+                        #         child_containers = container.find_all(self.CONTAINER_TAGS, recursive=False)
+                        #         # we need length of children containers at least same as length of attributes
+                        #         if child_containers and len(child_containers) >= len(attributes):
+                        #             containers.extend(child_containers)
             
-            return results
+            for group_idx, count in map_groups_to_filled_attrs.items():
+                logging.info(f"Group {group_idx} has {count} attributes found.")
+
+            if not map_groups_to_filled_attrs:
+                logging.info("No promising group of containers found based on attributes.")
+            
+            most_promising_group_idx = 0
+            highest_count = 0
+            highest_confidence = 0.0
+            for group_idx, count in map_groups_to_filled_attrs.items():
+                confidence = map_groups_to_overall_confidence.get(group_idx, 0.0)
+                if confidence > highest_confidence:
+                    highest_confidence = confidence
+                    most_promising_group_idx = group_idx
+                elif confidence == highest_confidence:
+                    number_of_containers = len(container_groups[group_idx])
+                    if count > highest_count:
+                        highest_count = count
+                        most_promising_group_idx = group_idx
+                    elif count == highest_count and number_of_containers > len(container_groups[most_promising_group_idx]):
+                        most_promising_group_idx = group_idx
+
+            logging.info(f"Most promising group: {most_promising_group_idx} with {map_groups_to_filled_attrs.get(most_promising_group_idx, 0)} attributes found and confidence {map_groups_to_overall_confidence.get(most_promising_group_idx, 0.0)}.")
+
+            containers = container_groups[most_promising_group_idx] if most_promising_group_idx is not None else []
+            if containers and len(containers) > 0:
+                results = []
+                for container in containers:
+                    result = self._extract_attributes_from_container(container, attributes)
+                    logging.info(f"Extracted attributes from container: {result}")
+                    if result and any(value for value in result.values()):
+                        # keep only attributes and values without similarity score
+                        cleaned_result = {attr: (value[0] if value is not None else None) for attr, value in result.items()}
+                        results.append(cleaned_result)
+
+                return results
         
         # If no repeated structures found, fall back to searching for likely containers
         containers = self._find_likely_entity_container(soup, soup, entity, attributes)
@@ -96,7 +169,7 @@ class GeneralHTMLParser:
             for container in containers:
                 result = self._extract_attributes_from_container(container, attributes)
                 if result:
-                    attributes_found = sum(1 for value in result.values() if value.strip())
+                    attributes_found = sum(1 for value in result.values() if value is not None)
                     if attributes_found > max_attributes_found:
                         max_attributes_found = attributes_found
                         best_result = result
@@ -128,8 +201,8 @@ class GeneralHTMLParser:
         
         return containers
 
-    def _find_repeated_structures(self, soup: BeautifulSoup, entity: str) -> List[Tag]:
-        """Find repeated HTML structures that might represent entities."""
+    def _find_repeated_structures(self, soup: BeautifulSoup, entity: str) -> List[List[Tag]]:
+        """Find group of repeated HTML structures that might represent entities."""
         # Look for patterns like multiple elements with same class
         containers = []
         
@@ -175,45 +248,62 @@ class GeneralHTMLParser:
                     containers.extend(elements)
         
         logging.info(f"Found {len(containers)} repeated structures based on class names.")
-
         
-        # Filter out nested repeated structures - keep only outermost ones
-        containers = self._filter_outermost_containers(containers)
-        logging.info(f"{len(containers)} outermost repeated structures identified as containers.")
+        # # Filter out nested repeated structures - keep only outermost ones
+        # containers = self._filter_outermost_containers(containers)
+        # logging.info(f"{len(containers)} outermost repeated structures identified as containers.")
 
-        # get all containers that all have same class name, the most common class name
-        class_count = {}
-        class_names = set()
-        for container in containers:
-            class_name = map_element_to_class.get(container, None)
-            if class_name:
-                class_count[class_name] = class_count.get(class_name, 0) + 1
-                class_names.add(class_name)
+        # # Only keep groups of outermost containers
+        # outermost_container_classes = set()
+        # for container in containers:
+        #     class_name = map_element_to_class.get(container, None)
+        #     if class_name:
+        #         outermost_container_classes.add(class_name)
 
-        # Return the most common class name
-        if class_count:
-            # if present, get the class name with highest similarity score with the entity name
-            # if not present, get the most common class name
-            most_similar_class, most_similar_class_score = self._get_most_similar_tag_attr_vals(class_names, entity)
-            most_similar_dataid, most_similar_dataid_score = self._get_most_similar_tag_attr_vals(set(map_dataid_to_class.keys()), entity)
-            most_common_class = max(class_count, key=class_count.get)
-            most_common_class_score = self._get_similarity_score(most_common_class, entity) if class_count[most_common_class] >= 2 else 0.0
+        # logging.info(f"Outermost container classes: {outermost_container_classes}")
 
-            # get the best score
-            if most_similar_class_score >= most_similar_dataid_score and most_similar_class_score >= most_common_class_score:
-                most_common_class = most_similar_class
-            elif most_similar_dataid_score >= most_similar_class_score and most_similar_dataid_score >= most_common_class_score:
-                most_common_class = map_dataid_to_class.get(most_similar_dataid, most_common_class)
+        containers_grouped_by_class = []
+        # for class_name in outermost_container_classes:
+        #     elements = elements_by_class.get(class_name, [])
+        #     if elements and len(elements) > 1:
+        #         containers_grouped_by_class.append(elements)
+        for class_name, elements in elements_by_class.items():
+            if elements and len(elements) > 1:
+                containers_grouped_by_class.append(elements)
 
-            # If the most common class appears less than 2 times, return empty list
-            if class_count[most_common_class] < 2:
-                return []
+        # sort container groups by length descending
+        containers_grouped_by_class = sorted(containers_grouped_by_class, key=lambda x: len(x), reverse=True)
+        logging.info("============= Final grouped containers =============")
+        for group in containers_grouped_by_class:
+            if group and len(group) > 0:
+                class_name = map_element_to_class.get(group[0], None)
+                logging.info(f"Group with class '{class_name}' has {len(group)} containers.")
+
+        return containers_grouped_by_class
+
+        # if outermost_container_classes and entity:
+        #     # if present, get the class name with highest similarity score with the entity name
+        #     # if not present, get the most common class name
+        #     most_similar_class, most_similar_class_score = self._get_most_similar_tag_attr_vals(most_similar_class, entity)
+        #     most_similar_dataid, most_similar_dataid_score = self._get_most_similar_tag_attr_vals(set(map_dataid_to_class.keys()), entity)
+        #     most_common_class = max(class_count, key=class_count.get)
+        #     most_common_class_score = self._get_similarity_score(most_common_class, entity) if class_count[most_common_class] >= 2 else 0.0
+
+        #     # get the best score
+        #     if most_similar_class_score >= most_similar_dataid_score and most_similar_class_score >= most_common_class_score:
+        #         most_common_class = most_similar_class
+        #     elif most_similar_dataid_score >= most_similar_class_score and most_similar_dataid_score >= most_common_class_score:
+        #         most_common_class = map_dataid_to_class.get(most_similar_dataid, most_common_class)
+
+        #     # If the most common class appears less than 2 times, return empty list
+        #     if class_count[most_common_class] < 2:
+        #         return []
             
-            result = [container for container in containers if map_element_to_class.get(container) == most_common_class]
-            logging.info(f"Most common class: {most_common_class}, Count: {class_count[most_common_class]}")
-            return result
+        #     result = [container for container in containers if map_element_to_class.get(container) == most_common_class]
+        #     logging.info(f"Most common class: {most_common_class}, Count: {class_count[most_common_class]}")
+        #     return result
 
-        return containers
+        # return containers
     
     def _have_similar_child_structure(self, elements: List[Tag]) -> bool:
         """
@@ -450,7 +540,7 @@ class GeneralHTMLParser:
             current = current.parent
         return False
     
-    def _extract_attributes_from_container(self, container: Tag, attributes: List[str]) -> Dict[str, Any]:
+    def _extract_attributes_from_container(self, container: Tag, attributes: List[str]) -> Dict[str, Tuple[Optional[str], float]]:
         """
         Extract attribute values from a container element.
         
@@ -466,11 +556,11 @@ class GeneralHTMLParser:
         for attribute in attributes:
             logging.info(f"Extracting attribute '{attribute}' from container.")
             value = self._find_attribute_value(container, attribute)
-            result[attribute] = value if value else ""
+            result[attribute] = value
         
         return result
     
-    def _find_attribute_value(self, container: Tag, attribute: str) -> Optional[str]:
+    def _find_attribute_value(self, container: Tag, attribute: str) -> Optional[Tuple[str, float]]:
         """
         Find the value for a specific attribute within a container.
         
@@ -486,26 +576,48 @@ class GeneralHTMLParser:
         exact_match = self._find_by_exact_match(container, attribute)
         if exact_match:
             logging.info(f"Found exact match for attribute '{attribute}': {exact_match}")
-            return exact_match
+            return exact_match, 1.0
         logging.info(f"No exact match found for attribute '{attribute}'.")  
         
-        # Strategy 2: Similarity matching if model is available
+        # Strategy 1.5: If attribute is likely an image or link, try to find <img> or <a> tags
+        is_image_or_link = False
+        attr_lower = attribute.lower()
+        if any(keyword in attr_lower for keyword in self.IMAGE_KEYWORDS):
+            is_image_or_link = True
+            logging.info(f"Finding value for attribute '{attribute}' as image URL.")
+            img_tag = container.find('img')
+            if img_tag and img_tag.get('src'):
+                logging.info(f"Found image URL for attribute '{attribute}': {img_tag['src']}")
+                return img_tag['src'], 1.0
+            
+        if any(keyword in attr_lower for keyword in self.LINK_KEYWORDS) and not is_image_or_link:
+            is_image_or_link = True
+            logging.info(f"Finding value for attribute '{attribute}' as link URL.")
+            a_tag = container.find('a')
+            if a_tag and a_tag.get('href'):
+                logging.info(f"Found link URL for attribute '{attribute}': {a_tag['href']}")
+                return a_tag['href'], 1.0
+        
+        # Strategy 2: Similarity matching if model is available, for non-image/link attributes
+        if is_image_or_link:
+            logging.info(f"Attribute '{attribute}' identified as image or link. Skipping similarity match.")
+            return None
         logging.info(f"Finding value for attribute '{attribute}' using similarity match.")
         if self._model_loaded:
             similarity_match, similarity_score = self._find_by_similarity(container, attribute)
-            if similarity_match:
+            if similarity_match is not None:
                 logging.info(f"Found similarity match for attribute '{attribute}': {similarity_match} (Score: {similarity_score})")
-                return similarity_match
+                return similarity_match, similarity_score
         
-        # Strategy 3: Text content matching
-        logging.info(f"Finding value for attribute '{attribute}' using text content match.")
-        text_match = self._find_by_text_content(container, attribute)
-        if text_match:
-            logging.info(f"Found text content match for attribute '{attribute}': {text_match}")
-            return text_match
+        # # Strategy 3: Text content matching
+        # logging.info(f"Finding value for attribute '{attribute}' using text content match.")
+        # text_match = self._find_by_text_content(container, attribute)
+        # if text_match:
+        #     logging.info(f"Found text content match for attribute '{attribute}': {text_match}")
+        #     return text_match
 
-        logging.info(f"No match found for attribute '{attribute}'.")
-        return None
+        # logging.info(f"No match found for attribute '{attribute}'.")
+        # return None
     
     def _find_by_exact_match(self, container: Tag, attribute: str) -> Optional[str]:
         """Find attribute value using exact string matching."""
@@ -549,23 +661,54 @@ class GeneralHTMLParser:
         
         return None
 
+    def _get_element_similarity_to_common_attr(self, container: Tag) -> float:
+        """Get the highest similarity score between container's attributes and common attributes."""
+        if not self._model_loaded:
+            return 0.0
+        
+        texts_to_check = []
+        classes = ' '.join(container.get('class', []))
+        if classes.strip():
+            texts_to_check.append(classes)
+        
+        tag_id = container.get('id', '')
+        if tag_id.strip():
+            texts_to_check.append(tag_id)
+        
+        tag_name = container.get('name', '')
+        if tag_name.strip():
+            texts_to_check.append(tag_name)
+        
+        for attr_key, attr_value in container.attrs.items():
+            if attr_key.startswith('data-') and attr_value:
+                texts_to_check.append(attr_value)
+        
+        highest_score = 0.0
+        for text in texts_to_check:
+            score = self._get_common_attributes_similarity_score(text)
+            if score > highest_score:
+                highest_score = score
+        
+        return highest_score
+    
     # Find attribute value using semantic similarity. Requires sentence-transformers and sklearn.
     # Output the value and the similarity score.
     def _find_by_similarity(self, container: Tag, attribute: str) -> Tuple[Optional[str], float]:
         """Find attribute value using semantic similarity."""
         if not self._model_loaded:
             return None, 0.0
-
+        
+        # Get tag similarity score with common attributes
+        common_attr_score = self._get_element_similarity_to_common_attr(container)
         try:
             candidates = []
             elements = []
             fallback_text = str()
             for tag in container.find_all(recursive=False):
-                # if tag name is p, h1-h6, a, span, strong, em, b, set found_text_tag to True
-                if tag.name in ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'span', 'strong', 'em', 'b'] and fallback_text == str():
+                # if tag name is kind of text container set found_text_tag to True
+                if tag.name in self.TEXT_TAGS and not fallback_text:
                     text = self._get_element_text(tag)
-                    if text:
-                        fallback_text = text # use the first found text tag as fallback
+                    fallback_text = text if text else ""
                 
                 # Collect potential matching texts
                 classes = ' '.join(tag.get('class', []))
@@ -585,8 +728,8 @@ class GeneralHTMLParser:
             
             logging.info(f"Found {len(candidates)} candidates for similarity matching of attribute '{attribute}'.")
             if not candidates:
-                if attribute in self.COMMON_ATTRIBUTES:
-                    return fallback_text if fallback_text else None, 0.0
+                if common_attr_score > 0.0:
+                    return fallback_text, common_attr_score
             
             if candidates and len(candidates) > 0:
                 logging.info(f"Candidates for similarity matching: {candidates}")
@@ -602,7 +745,6 @@ class GeneralHTMLParser:
                 similarity_score = similarities[best_idx]
                 best_element = (candidates[best_idx], similarity_score)
                 best_element_tag = elements[best_idx]
-                common_attr_score = self._get_common_attributes_similarity_score(attribute)
 
                 logging.info(f"Best similarity match for attribute '{attribute}': '{best_element[0]}' with score {best_element[1]:.2f}")
                 
@@ -619,7 +761,7 @@ class GeneralHTMLParser:
                         # If not, compare similarity score with common attributes similarity score
                         # If common attributes score is better than similarity score, return fallback text if available
                         if common_attr_score > similarity_score:
-                            return fallback_text if fallback_text else None, common_attr_score
+                            return fallback_text if fallback_text else None, similarity_score
                         
                         # But if not, return None with similarity score 0, because it is likely not found
                         return None, 0.0
@@ -648,23 +790,25 @@ class GeneralHTMLParser:
                         # If not, compare similarity score with common attributes similarity score
                         # If common attributes score is better than similarity score, return fallback text if available
                         if common_attr_score > similarity_score:
-                            return fallback_text if fallback_text else None, common_attr_score
+                            return fallback_text, similarity_score
 
                         # But if not, return None with similarity score 0, because it is likely not found
                         return None, 0.0
                 # If the best element is not a container tag, return its text if similarity is above threshold
                 else:
+                    logging.info(f"Best match is a non-container tag '{best_element_tag.name}'.")
                     # If similarity score is above threshold, return the text
                     if similarity_score >= self.similarity_threshold:
                         return self._get_element_text(best_element_tag), similarity_score
                     
                     # If not, compare similarity score with common attributes similarity score
                     # If common attributes score is better than similarity score, return fallback text if available
-                    if common_attr_score > similarity_score:
-                        return fallback_text if fallback_text else None, common_attr_score
+                    logging.info(f"Best match similarity score {similarity_score:.2f} is below threshold {self.similarity_threshold}. Comparing with common attributes similarity score {common_attr_score:.2f}.")
+                    # if common_attr_score > similarity_score:
+                    return fallback_text, similarity_score
                     
                     # But if not, return None with similarity score 0, because it is likely not found
-                    return None, 0.0
+                    # return None, 0.0
 
         except Exception as e:
             logging.error(f"Error in similarity matching: {e}")
@@ -717,7 +861,37 @@ class GeneralHTMLParser:
             return None
         
         return text
-
+    
+    def _all_attributes_high_confidence(self, attributes: Dict[str, Tuple[Optional[str], float]]) -> bool:
+        logging.info(f"Checking if all attributes have high confidence scores.")
+        if attributes is None:
+            return False
+        """Check if all attributes have high confidence scores."""
+        attributes_items = list(attributes.items())
+        for attributes_item in attributes_items:
+            if attributes_item is None:
+                return False
+            attr, (value, score) = attributes_item
+            if value is None or score < self.similarity_threshold:
+                return False
+        return True
+    
+    def _overall_attributes_confidence(self, attributes: Dict[str, Tuple[Optional[str], float]]) -> float:
+        logging.info(f"Calculating overall confidence score for attributes.")
+        if attributes is None:
+            return 0.0
+        
+        """Calculate overall confidence score as average of individual attribute scores."""
+        total_score = 0.0
+        count = 0
+        attributes_items = list(attributes.items())
+        for attribute_item in attributes_items:
+            if attribute_item is not None:
+                if attribute_item[1] is not None:
+                    value, score = attribute_item[1]
+                    total_score += score
+            count += 1
+        return total_score / count if count > 0 else 0.0
 
 def test_general_parser():
     """Test function for the general HTML parser."""
