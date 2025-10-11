@@ -115,6 +115,9 @@ Attributes: title, location, salary, company name
 Query: "Get product name, description and price"
 Attributes: name, description, price
 
+Query: "Get product names"
+Attributes: name
+
 Query: "{query}"
 Attributes:"""
         return prompt
@@ -193,6 +196,11 @@ class HybridQueryParser:
         
         # Check if we have sufficient attributes
         if len(attributes) >= self.min_attributes:
+            return entity, attributes, "rule-based", entity_approach, attr_approach
+        
+        # Will fallback to ML only if not enough attributes found AND at least one attribute has very long length
+        if len(attributes) > 0 and all(len(attr) < 10 for attr in attributes):
+            logging.info("Rule-based parser found less than minimum attributes, but all are short. Not falling back to ML.")
             return entity, attributes, "rule-based", entity_approach, attr_approach
         
         # Fallback to ML approach if rule-based didn't find enough attributes

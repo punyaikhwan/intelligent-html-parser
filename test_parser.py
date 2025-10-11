@@ -20,7 +20,9 @@ def test_query_parser():
         test_cases = [
             "Can you give me the book: name and price?",
             "Extract job title, location, salary, and company name from the listings",
-            "Get the product name, price, and description"
+            "Get the product name, price, and description",
+            "Get the club names, logo image links and their official websites",
+            "Get the club names, logo image links and their official phone from the website"
         ]
         
         for query in test_cases:

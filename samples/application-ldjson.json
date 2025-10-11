@@ -1,0 +1,2420 @@
+                "props": {
+                    "pageProps": {
+                        "homeDetails": {
+                            "amenities": [
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bbq.svg"
+                                        },
+                                        "listOrder": 20
+                                    },
+                                    "amenityId": "02c29e67-ca3b-402d-bdc5-e3d9a8f2bea2",
+                                    "comment": null,
+                                    "name": "BBQ"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bfe8aeef-9989-480f-83e4-0da0589233f9",
+                                            "listOrder": 50,
+                                            "name": "Heating \u0026 Cooling"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/heating.svg"
+                                        },
+                                        "listOrder": 50
+                                    },
+                                    "amenityId": "8cf9db3e-df90-4f9b-b9d1-cd5dfdc2dd46",
+                                    "comment": null,
+                                    "name": "Heating"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "872f56cc-ee46-4fb5-b6e1-b2947291798d",
+                                            "listOrder": 130,
+                                            "name": "Pool/Spa"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hot-tub.svg"
+                                        },
+                                        "listOrder": 60
+                                    },
+                                    "amenityId": "1775d8ef-45a5-4012-bbfd-6f1f5e3f23c6",
+                                    "comment": null,
+                                    "name": "Hot Tub"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "7bb7f9bf-95ce-4b55-8277-e0bd085534bd",
+                                            "listOrder": 40,
+                                            "name": "Games \u0026 Entertainment"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/tv.svg"
+                                        },
+                                        "listOrder": 70
+                                    },
+                                    "amenityId": "f34ea004-7cb7-4c38-9018-47740e840fb8",
+                                    "comment": null,
+                                    "name": "TV"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "798f3f35-6010-4e56-843d-8f056482ed11",
+                                            "listOrder": 110,
+                                            "name": "Outdoor"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/patio.svg"
+                                        },
+                                        "listOrder": 80
+                                    },
+                                    "amenityId": "9e7016c2-0f07-44db-afab-92ce315ca731",
+                                    "comment": null,
+                                    "name": "Patio"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f9e678-117b-11ec-9a76-00155dd3f5e1",
+                                            "listOrder": 60,
+                                            "name": "Housekeeping"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/washing-machine.svg"
+                                        },
+                                        "listOrder": 100
+                                    },
+                                    "amenityId": "b35ed7c2-0c47-49c2-a7ee-47e13d651917",
+                                    "comment": null,
+                                    "name": "Washing Machine"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f9e678-117b-11ec-9a76-00155dd3f5e1",
+                                            "listOrder": 60,
+                                            "name": "Housekeeping"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dryer.svg"
+                                        },
+                                        "listOrder": 110
+                                    },
+                                    "amenityId": "1ce31040-7209-4403-a71e-fc3968cacf37",
+                                    "comment": null,
+                                    "name": "Dryer"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54fa01c6-117b-11ec-bf56-00155dd3f5e1",
+                                            "listOrder": 70,
+                                            "name": "Internet \u0026 Workspace"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/wifi.svg"
+                                        },
+                                        "listOrder": 120
+                                    },
+                                    "amenityId": "bf82e2e5-dc03-11ea-99e7-45cc6685527e",
+                                    "comment": null,
+                                    "name": "Wifi"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf3f98ae-dc03-11ea-99e7-7d402a19d825",
+                                            "listOrder": 140,
+                                            "name": "Safety"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/smartlock.svg"
+                                        },
+                                        "listOrder": 150
+                                    },
+                                    "amenityId": "9728ff8f-ed7d-4a2e-a19c-358ea4274a20",
+                                    "comment": null,
+                                    "name": "Smartlock"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "a7a35df0-b3b3-11e9-8295-54bf640ae12e",
+                                            "listOrder": 10,
+                                            "name": "Bath"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hair-dryer.svg"
+                                        },
+                                        "listOrder": 190
+                                    },
+                                    "amenityId": "b4a94048-8847-4a67-946b-924bfb5ee9b1",
+                                    "comment": null,
+                                    "name": "Hair Dryer"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bfe8aeef-9989-480f-83e4-0da0589233f9",
+                                            "listOrder": 50,
+                                            "name": "Heating \u0026 Cooling"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fireplace.svg"
+                                        },
+                                        "listOrder": 220
+                                    },
+                                    "amenityId": "1aca3309-3018-40a2-890e-5a15f02d1362",
+                                    "comment": null,
+                                    "name": "Fireplace"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "a7a35df0-b3b3-11e9-8295-54bf640ae12e",
+                                            "listOrder": 10,
+                                            "name": "Bath"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/travel-sized-toiletries.svg"
+                                        },
+                                        "listOrder": 320
+                                    },
+                                    "amenityId": "54f95b9a-117b-11ec-bc04-00155dd3f5e1",
+                                    "comment": null,
+                                    "name": "Travel-Sized Toiletries (Shower Gel, Shampoo, Conditioner, Soap)"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "a7a35df0-b3b3-11e9-8295-54bf640ae12e",
+                                            "listOrder": 10,
+                                            "name": "Bath"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/towels.svg"
+                                        },
+                                        "listOrder": 340
+                                    },
+                                    "amenityId": "9862b614-16db-4573-b1d6-00f879b464d3",
+                                    "comment": null,
+                                    "name": "Towels"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f976e8-117b-11ec-a139-00155dd3f5e1",
+                                            "listOrder": 20,
+                                            "name": "Bedrooms"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bedding-and-sheets.svg"
+                                        },
+                                        "listOrder": 350
+                                    },
+                                    "amenityId": "54f99376-117b-11ec-bb10-00155dd3f5e1",
+                                    "comment": null,
+                                    "name": "Beddings and Sheets"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f976e8-117b-11ec-a139-00155dd3f5e1",
+                                            "listOrder": 20,
+                                            "name": "Bedrooms"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pillows-and-blankets.svg"
+                                        },
+                                        "listOrder": 360
+                                    },
+                                    "amenityId": "8e4e1163-5bbd-43b1-81a1-378175e53177",
+                                    "comment": null,
+                                    "name": "Pillows and Blankets"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f976e8-117b-11ec-a139-00155dd3f5e1",
+                                            "listOrder": 20,
+                                            "name": "Bedrooms"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hangers.svg"
+                                        },
+                                        "listOrder": 370
+                                    },
+                                    "amenityId": "5ce3b130-a339-4cab-baf2-39df0fba555d",
+                                    "comment": null,
+                                    "name": "Hangers"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "79b513cf-2c86-4eb2-a473-2cde7d1d76fa",
+                                            "listOrder": 30,
+                                            "name": "Family-friendly"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pack-n-play-travel-crib.svg"
+                                        },
+                                        "listOrder": 380
+                                    },
+                                    "amenityId": "b3c99bf4-ea55-4617-8663-c7ad2b1f706d",
+                                    "comment": null,
+                                    "name": "Pack n Play Travel Crib"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "7bb7f9bf-95ce-4b55-8277-e0bd085534bd",
+                                            "listOrder": 40,
+                                            "name": "Games \u0026 Entertainment"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/board-games.svg"
+                                        },
+                                        "listOrder": 480
+                                    },
+                                    "amenityId": "54f9aea6-117b-11ec-b43c-00155dd3f5e1",
+                                    "comment": null,
+                                    "name": "Board Games"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f9e678-117b-11ec-9a76-00155dd3f5e1",
+                                            "listOrder": 60,
+                                            "name": "Housekeeping"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/iron.svg"
+                                        },
+                                        "listOrder": 660
+                                    },
+                                    "amenityId": "e7943eea-b112-4689-91fa-52e52c28dbe6",
+                                    "comment": null,
+                                    "name": "Iron"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f9e678-117b-11ec-9a76-00155dd3f5e1",
+                                            "listOrder": 60,
+                                            "name": "Housekeeping"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/iron-board.svg"
+                                        },
+                                        "listOrder": 670
+                                    },
+                                    "amenityId": "50d25316-83cc-4ce8-8c95-59a4c7686bd4",
+                                    "comment": null,
+                                    "name": "Iron Board"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f9e678-117b-11ec-9a76-00155dd3f5e1",
+                                            "listOrder": 60,
+                                            "name": "Housekeeping"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/cleaning-supplies.svg"
+                                        },
+                                        "listOrder": 680
+                                    },
+                                    "amenityId": "942782de-118e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Cleaning Supplies"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54f9e678-117b-11ec-9a76-00155dd3f5e1",
+                                            "listOrder": 60,
+                                            "name": "Housekeeping"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/loundry-detergent.svg"
+                                        },
+                                        "listOrder": 690
+                                    },
+                                    "amenityId": "94278518-118e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Laundry Detergent"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54fa01c6-117b-11ec-bf56-00155dd3f5e1",
+                                            "listOrder": 70,
+                                            "name": "Internet \u0026 Workspace"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/desk.svg"
+                                        },
+                                        "listOrder": 700
+                                    },
+                                    "amenityId": "7d748e91-8765-4148-b3da-44193fb5c75d",
+                                    "comment": null,
+                                    "name": "Desk"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/basic-cooking-essentials.svg"
+                                        },
+                                        "listOrder": 750
+                                    },
+                                    "amenityId": "215d68e4-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Basic Cooking Essentials"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dishwasher.svg"
+                                        },
+                                        "listOrder": 760
+                                    },
+                                    "amenityId": "d5d69128-3483-417c-a1c4-a9e464575f51",
+                                    "comment": null,
+                                    "name": "Dishwasher"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/ground-coffe.svg"
+                                        },
+                                        "listOrder": 770
+                                    },
+                                    "amenityId": "215d69f2-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Drip Coffee Maker"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bakeware.svg"
+                                        },
+                                        "listOrder": 790
+                                    },
+                                    "amenityId": "13de0066-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Bakeware"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/cookware.svg"
+                                        },
+                                        "listOrder": 800
+                                    },
+                                    "amenityId": "215d6966-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Cookware (Pots, Pans, Cutting Boards, Knives)"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dinnerware.svg"
+                                        },
+                                        "listOrder": 810
+                                    },
+                                    "amenityId": "215d69b6-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Dinnerware (Bowls, Plates, Mugs)"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/oven.svg"
+                                        },
+                                        "listOrder": 840
+                                    },
+                                    "amenityId": "bdfbfaca-dd41-4d1b-b008-af2d9294de75",
+                                    "comment": null,
+                                    "name": "Oven"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fridge.svg"
+                                        },
+                                        "listOrder": 880
+                                    },
+                                    "amenityId": "b600b70a-000e-43d0-926d-c0420b63c22c",
+                                    "comment": null,
+                                    "name": "Fridge"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/glassware.svg"
+                                        },
+                                        "listOrder": 890
+                                    },
+                                    "amenityId": "215d6af6-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Glassware"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/ground-coffe.svg"
+                                        },
+                                        "listOrder": 900
+                                    },
+                                    "amenityId": "215d6b32-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Ground Coffee \u0026 Tea"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/kitchen-cleaning-supplies.svg"
+                                        },
+                                        "listOrder": 930
+                                    },
+                                    "amenityId": "215d6bb4-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Kitchen Cleaning Supplies"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/microwave.svg"
+                                        },
+                                        "listOrder": 940
+                                    },
+                                    "amenityId": "a5791b6a-0e99-4491-a206-ff67ddc3bad7",
+                                    "comment": null,
+                                    "name": "Microwave"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/serveware.svg"
+                                        },
+                                        "listOrder": 950
+                                    },
+                                    "amenityId": "215d6c54-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Serveware"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/silverware.svg"
+                                        },
+                                        "listOrder": 960
+                                    },
+                                    "amenityId": "215d6c7c-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Silverware (Forks, Spoons, Knives)"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/stove.svg"
+                                        },
+                                        "listOrder": 980
+                                    },
+                                    "amenityId": "575f738d-5423-45f9-b1ce-59016172ddb5",
+                                    "comment": null,
+                                    "name": "Stove"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/toaster.svg"
+                                        },
+                                        "listOrder": 990
+                                    },
+                                    "amenityId": "ddc2ea7c-a7aa-4eb7-8e54-c0e7b95613ce",
+                                    "comment": null,
+                                    "name": "Toaster"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/water-filter.svg"
+                                        },
+                                        "listOrder": 1010
+                                    },
+                                    "amenityId": "215d6d1c-119e-11ec-9689-0242ac120003",
+                                    "comment": null,
+                                    "name": "Water Filter"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/wood-stove.svg"
+                                        },
+                                        "listOrder": 1020
+                                    },
+                                    "amenityId": "44688cb3-d3e3-42c3-8f42-7a2ed9831ad3",
+                                    "comment": null,
+                                    "name": "Wood Stove"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "798f3f35-6010-4e56-843d-8f056482ed11",
+                                            "listOrder": 110,
+                                            "name": "Outdoor"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/balcony.svg"
+                                        },
+                                        "listOrder": 1180
+                                    },
+                                    "amenityId": "242933f2-57d7-4c2e-a06c-7b1f35aa8487",
+                                    "comment": null,
+                                    "name": "Balcony"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "872f56cc-ee46-4fb5-b6e1-b2947291798d",
+                                            "listOrder": 130,
+                                            "name": "Pool/Spa"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pool.svg"
+                                        },
+                                        "listOrder": 1230
+                                    },
+                                    "amenityId": "d6339a30-dc03-11ea-99e7-ab9c7ee14df7",
+                                    "comment": null,
+                                    "name": "Communal Pool"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf3f98ae-dc03-11ea-99e7-7d402a19d825",
+                                            "listOrder": 140,
+                                            "name": "Safety"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/carbon-monoxide-detector.svg"
+                                        },
+                                        "listOrder": 1250
+                                    },
+                                    "amenityId": "bf3fbfbf-dc03-11ea-99e7-4d6d6382c2ea",
+                                    "comment": null,
+                                    "name": "Carbon Monoxide Detector"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf3f98ae-dc03-11ea-99e7-7d402a19d825",
+                                            "listOrder": 140,
+                                            "name": "Safety"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/deadbolt-lock.svg"
+                                        },
+                                        "listOrder": 1260
+                                    },
+                                    "amenityId": "bf456517-dc03-11ea-99e7-f7b979215ad8",
+                                    "comment": null,
+                                    "name": "Deadbolt Lock"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf3f98ae-dc03-11ea-99e7-7d402a19d825",
+                                            "listOrder": 140,
+                                            "name": "Safety"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fire-extinguisher.svg"
+                                        },
+                                        "listOrder": 1270
+                                    },
+                                    "amenityId": "bf43de73-dc03-11ea-99e7-e984ac7fe27d",
+                                    "comment": null,
+                                    "name": "Fire Extinguisher"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf3f98ae-dc03-11ea-99e7-7d402a19d825",
+                                            "listOrder": 140,
+                                            "name": "Safety"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/first-aid-kit.svg"
+                                        },
+                                        "listOrder": 1280
+                                    },
+                                    "amenityId": "bf42f411-dc03-11ea-99e7-93a54addbb96",
+                                    "comment": null,
+                                    "name": "First Aid Kit"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf3f98ae-dc03-11ea-99e7-7d402a19d825",
+                                            "listOrder": 140,
+                                            "name": "Safety"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/smoke-detector.svg"
+                                        },
+                                        "listOrder": 1300
+                                    },
+                                    "amenityId": "bf44a1c5-dc03-11ea-99e7-ffe034acb44f",
+                                    "comment": null,
+                                    "name": "Smoke Detector"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "7db97cf3-30c0-4bab-bbab-760fe8440706",
+                                            "listOrder": 9999,
+                                            "name": "Accessibility"
+                                        },
+                                        "iconImage": null,
+                                        "listOrder": 9999
+                                    },
+                                    "amenityId": "63030dd8-527e-4c73-8660-6b9650e2819b",
+                                    "comment": null,
+                                    "name": "Accessible parking spot"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "a7a35df0-b3b3-11e9-8295-54bf640ae12e",
+                                            "listOrder": 10,
+                                            "name": "Bath"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bathtub.svg"
+                                        },
+                                        "listOrder": 9999
+                                    },
+                                    "amenityId": "4034f4b3-e883-4d79-8ee4-c81d99de7d2f",
+                                    "comment": null,
+                                    "name": "Bathtub"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "872f56cc-ee46-4fb5-b6e1-b2947291798d",
+                                            "listOrder": 130,
+                                            "name": "Pool/Spa"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hot-tub.svg"
+                                        },
+                                        "listOrder": 9999
+                                    },
+                                    "amenityId": "df61cdf9-a72d-40e7-bbe3-ddfb034c6b20",
+                                    "comment": null,
+                                    "name": "Communal Hot Tub"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "54fa1f4e-117b-11ec-a036-00155dd3f5e1",
+                                            "listOrder": 120,
+                                            "name": "Parking \u0026 Facilities"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/parking.svg"
+                                        },
+                                        "listOrder": 9999
+                                    },
+                                    "amenityId": "9d80786b-1f85-47a3-b710-1b8fb0d77df9",
+                                    "comment": null,
+                                    "name": "Free Parking"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "7db97cf3-30c0-4bab-bbab-760fe8440706",
+                                            "listOrder": 9999,
+                                            "name": "Accessibility"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/single-level-home.svg"
+                                        },
+                                        "listOrder": 9999
+                                    },
+                                    "amenityId": "8cef5c2c-3085-431d-a56e-e2ad6f670df8",
+                                    "comment": null,
+                                    "name": "Home Step Free Access"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bfe8aeef-9989-480f-83e4-0da0589233f9",
+                                            "listOrder": 50,
+                                            "name": "Heating \u0026 Cooling"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hotwater.svg"
+                                        },
+                                        "listOrder": 9999
+                                    },
+                                    "amenityId": "9a3ec883-f4f5-4ff7-9b69-fa274e46b8f7",
+                                    "comment": null,
+                                    "name": "Hot Water"
+                                },
+                                {
+                                    "amenity": {
+                                        "amenityGroup": {
+                                            "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd",
+                                            "listOrder": 80,
+                                            "name": "Kitchen \u0026 Dining"
+                                        },
+                                        "iconImage": {
+                                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/kitchen.svg"
+                                        },
+                                        "listOrder": 9999
+                                    },
+                                    "amenityId": "3a67dfae-40a1-411c-8c42-f637167342cf",
+                                    "comment": null,
+                                    "name": "Kitchen"
+                                },
+                                {
+                                    "amenity": {"amenityGroup": {
+                                        "id": "54fa01c6-117b-11ec-bf56-00155dd3f5e1",
+                                        "listOrder": 70,
+                                        "name": "Internet \u0026 Workspace"
+                                    },
+                                    "iconImage": {
+                                        "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/laptop-friendly.svg"
+                                    },
+                                    "listOrder": 9999
+                                },
+                                "amenityId": "b0a9a78e-e17e-478a-85d5-986f7851eb85",
+                                "comment": null,
+                                "name": "Laptop Friendly Workspace"
+                            },
+                            {
+                                "amenity": {
+                                    "amenityGroup": {
+                                        "id": "7db97cf3-30c0-4bab-bbab-760fe8440706",
+                                        "listOrder": 9999,
+                                        "name": "Accessibility"
+                                    },
+                                    "iconImage": null,
+                                    "listOrder": 9999
+                                },
+                                "amenityId": "c4df1b73-c651-42df-a609-ed665bba4492",
+                                "comment": null,
+                                "name": "Lit path to the guest entrance"
+                            },
+                            {
+                                "amenity": {
+                                    "amenityGroup": {
+                                        "id": "798f3f35-6010-4e56-843d-8f056482ed11",
+                                        "listOrder": 110,
+                                        "name": "Outdoor"
+                                    },
+                                    "iconImage": {
+                                        "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/outdoor-dining-area.svg"
+                                    },
+                                    "listOrder": 9999
+                                },
+                                "amenityId": "d084c91b-f5f9-4518-b0b1-4fb4fea85a15",
+                                "comment": null,
+                                "name": "Outdoor Dining Area"
+                            },
+                            {
+                                "amenity": {
+                                    "amenityGroup": {
+                                        "id": "54fa1f4e-117b-11ec-a036-00155dd3f5e1",
+                                        "listOrder": 120,
+                                        "name": "Parking \u0026 Facilities"
+                                    },
+                                    "iconImage": {
+                                        "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/private-entrance.svg"
+                                    },
+                                    "listOrder": 9999
+                                },
+                                "amenityId": "ff93faa2-d656-42b4-93b3-e35b4ceb1a4a",
+                                "comment": null,
+                                "name": "Private Entrance"
+                            },
+                            {
+                                "amenity": {
+                                    "amenityGroup": {
+                                        "id": "bf3f98ae-dc03-11ea-99e7-7d402a19d825",
+                                        "listOrder": 140,
+                                        "name": "Safety"
+                                    },
+                                    "iconImage": {
+                                        "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/secutiry-camera.svg"
+                                    },
+                                    "listOrder": 9999
+                                },
+                                "amenityId": "3f312813-d0c3-4750-9937-e83804f00ce5",
+                                "comment": null,
+                                "name": "Security Camera"
+                            }
+                        ],
+                        "area": 2944,
+                        "badges": [
+                            "SPARKLING_CLEAN",
+                            "WORK_FRIENDLY_SPACE",
+                            "TECH_ENABLED_LOCKS"
+                        ],
+                        "bathroomsCount": 4,
+                        "bedsCount": 5,
+                        "checkTime": {"checkIn": "16:00:00",
+                        "checkOut": "11:00:00"
+                    },
+                    "city": "Park City",
+                    "description": "Welcome to Silverado. Modern mountain charm and sophistication come together to provide the ideal haven for family ski vacations or romantic mountain getaways. Majestic views, beautiful hardwood floors, and timeless finishes make this mountain retreat feel just like home. After a day on the slopes, warm up by the fireplace on the plush sofa with the après-ski snacks you prepared in the state-of-the-art kitchen and take in the majestic mountain landscape. When you've finished shredding for the day, head to the hot tub on the balcony and enjoy some much-deserved rest and relaxation.  \n\nLocal Attractions: Deer Valley Mountain Resort, Main Street, The Farm Restaurant, Park City Alpine Slide, High West Distillery, No Name Saloon \\\u0026 Grill.  \n\nPark City, Utah's most famous ski town, offers big adventures within a small, charming community. Winter sports enthusiasts flock here for great powder, while The Sundance Film Festival in January attracts industry names and fans of indie cinema. What sets Park City apart from other ski towns are summers that are just as special as the winter peak season. Hot air ballooning, fly fishing, rafting, spa-ing, and 400 miles of panoramic hiking trails mean there's never a dull moment in this vibrant city of activity, art, and nature.  \n\nExperience Park City, AvantStay style.  \n\nAvantStay provides an upscale experience with services that elevate your stay and save time so you can enjoy every moment. Guests have access to a 24/7 support team. Whether it's fridge stocking or in-home massages, AvantStay offers a variety of upgrades \\\u0026 experiences to enhance your stay.  \n\nHome Truths:  \n- The Apex pool and hot tub will be closed starting Tuesday, September 2 for cleaning and re-plastering (approx. 1 week). Afterward, the pool will reopen without heat for 30 days to allow surfaces to bond, while the hot tub remains closed until heating resumes. The pool deck and surrounding amenities will stay open. Heating restarts on Monday, October 20, when both will be fully operational.  \n- This is a Ski In/ Ski Out home with access to the Apex Clubhouse, which features a spa, pool, fitness center, massage room, sauna, and workspace.  \n- Please note our occupancy includes an additional two beyond bed count. Trifold floor mattresses and additional linens can be provided upon request.  \n- As a ski town, many construction projects happen around town all summer. Working hours are 7am-9pm.  \n- You must be 25 years or older to book this home.  \n- Please be advised that window cleanings for the homes will take place between June 3rd to mid June. Additionally, the HOA will be refinishing the decks and siding on the entire building during this period.  \n\nParking Details:  \n- 1 dedicated/reserved parking spot (secured resident parking garage).  \n- Additional guest parking right in front of the unit.  \n\nThis home comes with a pack n' play travel crib available. A high chair can be provided upon request with at least 24hrs advanced notice. Just ask and we are happy to accommodate you and your little ones!  \n\nAll bookings over 28 days require a security deposit to be charged after booking.",
+                    "featured": true,
+                    "halfBathroomsCount": 0,
+                    "hash": "503003",
+                    "hasPool": true,
+                    "highSpeedInternet": true,
+                    "hotelId": null,
+                    "id": "d286c99c-8ae7-11ec-86e8-37cacbb5e300",
+                    "images": [
+                        {
+                            "description": "Welcome to Silverado!\n",
+                            "listOrder": 0,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Home/d286c99c-8ae7-11ec-86e8-37cacbb5e300/a9e12764-8833-11f0-bd61-152807cf3238.jpg"
+                        },
+                        {
+                            "description": "Take a dip in the hot tub after a day skiing the slopes.",
+                            "listOrder": 1,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875147.jpeg"
+                        },
+                        {
+                            "description": "Elegant dining area with plenty of room to entertain.",
+                            "listOrder": 2,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875156.jpeg"
+                        },
+                        {
+                            "description": "Fire up the grill and enjoy alfresco meals on the patio.",
+                            "listOrder": 3,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875149.jpeg"
+                        },
+                        {
+                            "description": "Kitchen features an island with countertop stool seating.",
+                            "listOrder": 4,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875143.jpeg"
+                        },
+                        {
+                            "description": "Stay cozy by the fire.",
+                            "listOrder": 5,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875154.jpeg"
+                        },
+                        {
+                            "description": "Open floor plan.",
+                            "listOrder": 6,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875158.jpeg"
+                        },
+                        {
+                            "description": "Spacious, sleek living area.",
+                            "listOrder": 7,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875148.jpeg"
+                        },
+                        {
+                            "description": "Incredible mountain views from the main living area.",
+                            "listOrder": 8,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875153.jpeg"
+                        },
+                        {
+                            "description": "Dining table seats 10.",
+                            "listOrder": 9,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875157.jpeg"
+                        },
+                        {
+                            "description": "Whip up a feast in the kitchen to enjoy with friends and family.",
+                            "listOrder": 10,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875142.jpeg"
+                        },
+                        {
+                            "description": "Modern appliances and a sleek finish.",
+                            "listOrder": 11,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875159.jpeg"
+                        },
+                        {
+                            "description": "Second living area is perfect for a movie night!",
+                            "listOrder": 12,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875152.jpeg"
+                        },
+                        {
+                            "description": "Grab a friend and a tub of popcorn.",
+                            "listOrder": 13,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875151.jpeg"
+                        },
+                        {
+                            "description": "Balcony off the second living area.",
+                            "listOrder": 14,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875150.jpeg"
+                        },
+                        {
+                            "description": "Primary bedroom features a king bed, private balcony, and ensuite.",
+                            "listOrder": 15,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875160.jpeg"
+                        },
+                        {
+                            "description": "Primary's ensuite.",
+                            "listOrder": 16,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875162.jpeg"
+                        },
+                        {
+                            "description": "Watch a movie or get cozy by the fireplace in the primary bedroom.",
+                            "listOrder": 17,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875161.jpeg"
+                        },
+                        {
+                            "description": "Get some fresh air on your private balcony.",
+                            "listOrder": 18,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875144.jpeg"
+                        },
+                        {
+                            "description": "Standing tub and walk-in shower.",
+                            "listOrder": 19,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875163.jpeg"
+                        },
+                        {
+                            "description": "Bedroom 2 features a king bed and ensuite.",
+                            "listOrder": 20,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875164.jpeg"
+                        },
+                        {
+                            "description": "Bedroom 2's ensuite.",
+                            "listOrder": 21,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875165.jpeg"
+                        },
+                        {
+                            "description": "Bedroom 3 features a queen bed and ensuite.",
+                            "listOrder": 22,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875166.jpeg"
+                        },
+                        {
+                            "description": "Bedroom 3.",
+                            "listOrder": 23,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875167.jpeg"
+                        },
+                        {
+                            "description": "Bedroom 3's ensuite.",
+                            "listOrder": 24,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875168.jpeg"
+                        },
+                        {
+                            "description": "Bedroom 4 features a bunk bed.",
+                            "listOrder": 25,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875145.jpeg"
+                        },
+                        {
+                            "description": "Incredible views from bedroom 4.",
+                            "listOrder": 26,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875169.jpeg"
+                        },
+                        {
+                            "description": "Full bathroom.",
+                            "listOrder": 27,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875170.jpeg"
+                        },
+                        {
+                            "description": "Hot tub with a view!",
+                            "listOrder": 28,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875141.jpeg"
+                        },
+                        {
+                            "description": "Steps from the gondola and ski lift.",
+                            "listOrder": 29,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875171.jpeg"
+                        },
+                        {
+                            "description": "The ski slopes await!",
+                            "listOrder": 30,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875172.jpeg"
+                        },
+                        {
+                            "description": "Your dream Park City vacation.",
+                            "listOrder": 31,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875173.jpeg"
+                        },
+                        {
+                            "description": "Close to the slopes.",
+                            "listOrder": 32,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875146.jpeg"
+                        },
+                        {
+                            "description": "Park City awaits!",
+                            "listOrder": 33,
+                            "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875140.jpeg"
+                        }
+                    ],
+                    "includedInBlackFriday": false,
+                    "isVaykIntegrated": false,
+                    "latitude": 40.685,
+                    "longitude": -111.56,
+                    "maxAdults": 11,
+                    "maxOccupancy": 11,
+                    "maxPets": 0,
+                    "minimumAgeOfResponsibleParty": 25,
+                    "nonLuxeParentProperty": null,
+                    "overriddenPetPolicyDescription": "",
+                    "offsiteEligible": false,
+                    "originalTSAId": null,
+                    "pageTitle": null,
+                    "petLeaseAmount": 0,
+                    "petPolicy": "NOT_APPROVED",
+                    "poolType": "COMMUNAL_POOL",
+                    "redirect": false,
+                    "region": {
+                        "id": "d02d76e0-ebb1-11e9-a94a-bf83202d1910",
+                        "name": "Park City",
+                        "publicRegionId": "b182c15f-e177-4e74-9beb-d163d91308d8"
+                    },
+                    "rooms": [
+                        {
+                            "bathroomAmenities": [
+                                {
+                                    "amenityId": "f0001713-a281-4afa-b0e1-abeee4d792ac",
+                                    "name": "Ensuite",
+                                    "quantity": 1
+                                }
+                            ],
+                            "id": "9a83b225-b69f-11ec-b9c6-35930bf15f68",
+                            "images": [
+                                {
+                                    "listOrder": 15,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875160.jpeg"
+                                },
+                                {
+                                    "listOrder": 16,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875162.jpeg"
+                                },
+                                {
+                                    "listOrder": 17,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875161.jpeg"
+                                },
+                                {
+                                    "listOrder": 18,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875144.jpeg"
+                                },
+                                {
+                                    "listOrder": 19,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875163.jpeg"
+                                }
+                            ],
+                            "kind": "BEDROOM",
+                            "listOrder": 0,
+                            "maxOccupancy": 2,
+                            "name": "Primary Bedroom",
+                            "roomAmenities": [
+                                {
+                                    "amenityId": "0e71dad6-c037-11e9-a60a-02462f6cb93c",
+                                    "name": "TV",
+                                    "quantity": 1
+                                },
+                                {
+                                    "amenityId": "0e71dfea-c037-11e9-a60a-02462f6cb93c",
+                                    "name": "Balcony",
+                                    "quantity": 1
+                                }
+                            ],
+                            "sleepingPlaces": [
+                                {
+                                    "amenityId": "0e71ea30-c037-11e9-a60a-02462f6cb93c",
+                                    "name": "King Bed",
+                                    "quantity": 1
+                                }
+                            ],
+                            "thumbnail": {
+                                "id": "ecae500c-d67f-11ec-9570-3339a99c9a7d",
+                                "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875160.jpeg"
+                            }
+                        },
+                        {
+                            "bathroomAmenities": [
+                                {
+                                    "amenityId": "f0001713-a281-4afa-b0e1-abeee4d792ac",
+                                    "name": "Ensuite",
+                                    "quantity": 1
+                                }
+                            ],
+                            "id": "9a87a9c8-b69f-11ec-b9c6-79c27b337762",
+                            "images": [
+                                {
+                                    "listOrder": 20,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875164.jpeg"
+                                },
+                                {
+                                    "listOrder": 21,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875165.jpeg"
+                                }
+                            ],
+                            "kind": "BEDROOM",
+                            "listOrder": 1,
+                            "maxOccupancy": 2,
+                            "name": "Bedroom 2",
+                            "roomAmenities": [
+                                {
+                                    "amenityId": "0e71dad6-c037-11e9-a60a-02462f6cb93c",
+                                    "name": "TV",
+                                    "quantity": 1
+                                }
+                            ],
+                            "sleepingPlaces": [
+                                {
+                                    "amenityId": "0e71ea30-c037-11e9-a60a-02462f6cb93c",
+                                    "name": "King Bed",
+                                    "quantity": 1
+                                }
+                            ],
+                            "thumbnail": {
+                                "id": "f52e1041-d67f-11ec-9570-0778bd3da0e6",
+                                "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875164.jpeg"
+                            }
+                        },
+                        {
+                            "bathroomAmenities": [
+                            ],
+                            "id": "9a89ccab-b69f-11ec-b9c6-855b417d7a17",
+                            "images": [
+                                {
+                                    "listOrder": 22,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875166.jpeg"
+                                },
+                                {
+                                    "listOrder": 23,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875167.jpeg"
+                                },
+                                {
+                                    "listOrder": 24,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875168.jpeg"
+                                }
+                            ],
+                            "kind": "BEDROOM",
+                            "listOrder": 2,
+                            "maxOccupancy": 2,
+                            "name": "Bedroom 3",
+                            "roomAmenities": [
+                                {
+                                    "amenityId": "0e71dad6-c037-11e9-a60a-02462f6cb93c",
+                                    "name": "TV",
+                                    "quantity": 1
+                                }
+                            ],
+                            "sleepingPlaces": [
+                                {
+                                    "amenityId": "0e71e512-c037-11e9-a60a-02462f6cb93c",
+                                    "name": "Queen Bed",
+                                    "quantity": 1
+                                }
+                            ],
+                            "thumbnail": {
+                                "id": "f80e73e3-d67f-11ec-9570-4d42629b807d",
+                                "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875166.jpeg"
+                            }
+                        },
+                        {
+                            "bathroomAmenities": [
+                            ],
+                            "id": "9a8bef8e-b69f-11ec-b9c6-63b1835bde80",
+                            "images": [
+                                {
+                                    "listOrder": 25,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875145.jpeg"
+                                },
+                                {
+                                    "listOrder": 26,
+                                    "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875169.jpeg"
+                                }
+                            ],
+                            "kind": "BEDROOM",
+                            "listOrder": 3,
+                            "maxOccupancy": 4,
+                            "name": "Bedroom 4",
+                            "roomAmenities": [
+                            ],
+                            "sleepingPlaces": [
+                                {
+                                    "amenityId": "0e71e97c-c037-11e9-a60a-02462f6cb93c",
+                                    "name": "Double Bed",
+                                    "quantity": 2
+                                }
+                            ],
+                            "thumbnail": {
+                                "id": "fc2ad9f6-d67f-11ec-9570-85635f37cd5e",
+                                "url": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/homes/d286c99c-8ae7-11ec-86e8-37cacbb5e300/images/original_160875145.jpeg"
+                            }
+                        }
+                    ],
+                    "roomsCount": 4,
+                    "shortDescription": "Silverado is a 4BR escape that shows you the best of Park City. Enjoy incredible design, a hot tub, and a fireplace.",
+                    "state": {
+                        "code": "UT",
+                        "name": "Utah"
+                    },
+                    "strPermit": "1326749",
+                    "thumbnail": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Home/d286c99c-8ae7-11ec-86e8-37cacbb5e300/a9e12764-8833-11f0-bd61-152807cf3238.jpg",
+                    "title": "Silverado",
+                    "bedroomsCount": 4,
+                    "isLeased": false,
+                    "reviews": [
+                    ]
+                },
+                "houseRules": [
+                    {
+                        "icon": "club-25",
+                        "title": "Special Restrictions",
+                        "text": "You must be at least 25 years old to book this property."
+                    },
+                    {
+                        "icon": "pets-not-approved",
+                        "text": "Pets are not permitted at this property. Unauthorized pets may be subject to a fine.",
+                        "title": "Humans Only"
+                    },
+                    {
+                        "icon": "no-smoking",
+                        "title": "Thank You For Not Smoking",
+                        "text": "This is a smoke-free home. Violation of the no-smoking policy will result in a $500 fee for additional cleaning and other related costs, in addition to the Guest being responsible for any damages attributable to smoking beyond said fee."
+                    },
+                    {
+                        "icon": "no-music",
+                        "title": "Respect Community Rules",
+                        "text": "Please be considerate of your neighbors and mindful of noise levels. Noise violations may result in fines. Please also note we do not provide speakers or sound systems."
+                    }
+                ],
+                "amenities": [
+                    {
+                        "comment": null,
+                        "id": "02c29e67-ca3b-402d-bdc5-e3d9a8f2bea2",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bbq.svg",
+                        "name": "BBQ"
+                    },
+                    {
+                        "comment": null,
+                        "id": "8cf9db3e-df90-4f9b-b9d1-cd5dfdc2dd46",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/heating.svg",
+                        "name": "Heating"
+                    },
+                    {
+                        "comment": null,
+                        "id": "1775d8ef-45a5-4012-bbfd-6f1f5e3f23c6",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hot-tub.svg",
+                        "name": "Hot Tub"
+                    },
+                    {
+                        "comment": null,
+                        "id": "f34ea004-7cb7-4c38-9018-47740e840fb8",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/tv.svg",
+                        "name": "TV"
+                    },
+                    {
+                        "comment": null,
+                        "id": "9e7016c2-0f07-44db-afab-92ce315ca731",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/patio.svg",
+                        "name": "Patio"
+                    },
+                    {
+                        "comment": null,
+                        "id": "b35ed7c2-0c47-49c2-a7ee-47e13d651917",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/washing-machine.svg",
+                        "name": "Washing Machine"
+                    },
+                    {
+                        "comment": null,
+                        "id": "1ce31040-7209-4403-a71e-fc3968cacf37",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dryer.svg",
+                        "name": "Dryer"
+                    },
+                    {
+                        "comment": null,
+                        "id": "bf82e2e5-dc03-11ea-99e7-45cc6685527e",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/wifi.svg",
+                        "name": "Wifi"
+                    },
+                    {
+                        "comment": null,
+                        "id": "9728ff8f-ed7d-4a2e-a19c-358ea4274a20",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/smartlock.svg",
+                        "name": "Smartlock"
+                    },
+                    {
+                        "comment": null,
+                        "id": "b4a94048-8847-4a67-946b-924bfb5ee9b1",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hair-dryer.svg",
+                        "name": "Hair Dryer"
+                    },
+                    {
+                        "comment": null,
+                        "id": "1aca3309-3018-40a2-890e-5a15f02d1362",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fireplace.svg",
+                        "name": "Fireplace"
+                    },
+                    {
+                        "comment": null,
+                        "id": "54f95b9a-117b-11ec-bc04-00155dd3f5e1",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/travel-sized-toiletries.svg",
+                        "name": "Travel-Sized Toiletries (Shower Gel, Shampoo, Conditioner, Soap)"
+                    },
+                    {
+                        "comment": null,
+                        "id": "9862b614-16db-4573-b1d6-00f879b464d3",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/towels.svg",
+                        "name": "Towels"
+                    },
+                    {
+                        "comment": null,
+                        "id": "54f99376-117b-11ec-bb10-00155dd3f5e1",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bedding-and-sheets.svg",
+                        "name": "Beddings and Sheets"
+                    },
+                    {
+                        "comment": null,
+                        "id": "8e4e1163-5bbd-43b1-81a1-378175e53177",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pillows-and-blankets.svg",
+                        "name": "Pillows and Blankets"
+                    },
+                    {
+                        "comment": null,
+                        "id": "5ce3b130-a339-4cab-baf2-39df0fba555d",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hangers.svg",
+                        "name": "Hangers"
+                    },
+                    {
+                        "comment": null,
+                        "id": "b3c99bf4-ea55-4617-8663-c7ad2b1f706d",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pack-n-play-travel-crib.svg",
+                        "name": "Pack n Play Travel Crib"
+                    },
+                    {
+                        "comment": null,
+                        "id": "54f9aea6-117b-11ec-b43c-00155dd3f5e1",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/board-games.svg",
+                        "name": "Board Games"
+                    },
+                    {
+                        "comment": null,
+                        "id": "e7943eea-b112-4689-91fa-52e52c28dbe6",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/iron.svg",
+                        "name": "Iron"
+                    },
+                    {
+                        "comment": null,
+                        "id": "50d25316-83cc-4ce8-8c95-59a4c7686bd4",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/iron-board.svg",
+                        "name": "Iron Board"
+                    },
+                    {
+                        "comment": null,
+                        "id": "942782de-118e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/cleaning-supplies.svg",
+                        "name": "Cleaning Supplies"
+                    },
+                    {
+                        "comment": null,
+                        "id": "94278518-118e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/loundry-detergent.svg",
+                        "name": "Laundry Detergent"
+                    },
+                    {
+                        "comment": null,
+                        "id": "7d748e91-8765-4148-b3da-44193fb5c75d",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/desk.svg",
+                        "name": "Desk"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d68e4-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/basic-cooking-essentials.svg",
+                        "name": "Basic Cooking Essentials"
+                    },
+                    {
+                        "comment": null,
+                        "id": "d5d69128-3483-417c-a1c4-a9e464575f51",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dishwasher.svg",
+                        "name": "Dishwasher"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d69f2-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/ground-coffe.svg",
+                        "name": "Drip Coffee Maker"
+                    },
+                    {
+                        "comment": null,
+                        "id": "13de0066-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bakeware.svg",
+                        "name": "Bakeware"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d6966-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/cookware.svg",
+                        "name": "Cookware (Pots, Pans, Cutting Boards, Knives)"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d69b6-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dinnerware.svg",
+                        "name": "Dinnerware (Bowls, Plates, Mugs)"
+                    },
+                    {
+                        "comment": null,
+                        "id": "bdfbfaca-dd41-4d1b-b008-af2d9294de75",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/oven.svg",
+                        "name": "Oven"
+                    },
+                    {
+                        "comment": null,
+                        "id": "b600b70a-000e-43d0-926d-c0420b63c22c",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fridge.svg",
+                        "name": "Fridge"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d6af6-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/glassware.svg",
+                        "name": "Glassware"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d6b32-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/ground-coffe.svg",
+                        "name": "Ground Coffee \u0026 Tea"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d6bb4-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/kitchen-cleaning-supplies.svg",
+                        "name": "Kitchen Cleaning Supplies"
+                    },
+                    {
+                        "comment": null,
+                        "id": "a5791b6a-0e99-4491-a206-ff67ddc3bad7",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/microwave.svg",
+                        "name": "Microwave"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d6c54-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/serveware.svg",
+                        "name": "Serveware"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d6c7c-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/silverware.svg",
+                        "name": "Silverware (Forks, Spoons, Knives)"
+                    },
+                    {
+                        "comment": null,
+                        "id": "575f738d-5423-45f9-b1ce-59016172ddb5",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/stove.svg",
+                        "name": "Stove"
+                    },
+                    {
+                        "comment": null,
+                        "id": "ddc2ea7c-a7aa-4eb7-8e54-c0e7b95613ce",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/toaster.svg",
+                        "name": "Toaster"
+                    },
+                    {
+                        "comment": null,
+                        "id": "215d6d1c-119e-11ec-9689-0242ac120003",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/water-filter.svg",
+                        "name": "Water Filter"
+                    },
+                    {
+                        "comment": null,
+                        "id": "44688cb3-d3e3-42c3-8f42-7a2ed9831ad3",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/wood-stove.svg",
+                        "name": "Wood Stove"
+                    },
+                    {
+                        "comment": null,
+                        "id": "242933f2-57d7-4c2e-a06c-7b1f35aa8487",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/balcony.svg",
+                        "name": "Balcony"
+                    },
+                    {
+                        "comment": null,
+                        "id": "d6339a30-dc03-11ea-99e7-ab9c7ee14df7",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pool.svg",
+                        "name": "Communal Pool"
+                    },
+                    {
+                        "comment": null,
+                        "id": "bf3fbfbf-dc03-11ea-99e7-4d6d6382c2ea",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/carbon-monoxide-detector.svg",
+                        "name": "Carbon Monoxide Detector"
+                    },
+                    {
+                        "comment": null,
+                        "id": "bf456517-dc03-11ea-99e7-f7b979215ad8",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/deadbolt-lock.svg",
+                        "name": "Deadbolt Lock"
+                    },
+                    {
+                        "comment": null,
+                        "id": "bf43de73-dc03-11ea-99e7-e984ac7fe27d",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fire-extinguisher.svg",
+                        "name": "Fire Extinguisher"
+                    },
+                    {
+                        "comment": null,
+                        "id": "bf42f411-dc03-11ea-99e7-93a54addbb96",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/first-aid-kit.svg",
+                        "name": "First Aid Kit"
+                    },
+                    {
+                        "comment": null,
+                        "id": "bf44a1c5-dc03-11ea-99e7-ffe034acb44f",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/smoke-detector.svg",
+                        "name": "Smoke Detector"
+                    },
+                    {
+                        "comment": null,
+                        "id": "63030dd8-527e-4c73-8660-6b9650e2819b",
+                        "icon": "",
+                        "name": "Accessible parking spot"
+                    },
+                    {
+                        "comment": null,
+                        "id": "4034f4b3-e883-4d79-8ee4-c81d99de7d2f",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bathtub.svg",
+                        "name": "Bathtub"
+                    },
+                    {
+                        "comment": null,
+                        "id": "df61cdf9-a72d-40e7-bbe3-ddfb034c6b20",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hot-tub.svg",
+                        "name": "Communal Hot Tub"
+                    },
+                    {
+                        "comment": null,
+                        "id": "9d80786b-1f85-47a3-b710-1b8fb0d77df9",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/parking.svg",
+                        "name": "Free Parking"
+                    },
+                    {
+                        "comment": null,
+                        "id": "8cef5c2c-3085-431d-a56e-e2ad6f670df8",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/single-level-home.svg",
+                        "name": "Home Step Free Access"
+                    },
+                    {
+                        "comment": null,
+                        "id": "9a3ec883-f4f5-4ff7-9b69-fa274e46b8f7",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hotwater.svg",
+                        "name": "Hot Water"
+                    },
+                    {
+                        "comment": null,
+                        "id": "3a67dfae-40a1-411c-8c42-f637167342cf",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/kitchen.svg",
+                        "name": "Kitchen"
+                    },
+                    {
+                        "comment": null,
+                        "id": "b0a9a78e-e17e-478a-85d5-986f7851eb85",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/laptop-friendly.svg",
+                        "name": "Laptop Friendly Workspace"
+                    },
+                    {
+                        "comment": null,
+                        "id": "c4df1b73-c651-42df-a609-ed665bba4492",
+                        "icon": "",
+                        "name": "Lit path to the guest entrance"
+                    },
+                    {
+                        "comment": null,
+                        "id": "d084c91b-f5f9-4518-b0b1-4fb4fea85a15",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/outdoor-dining-area.svg",
+                        "name": "Outdoor Dining Area"
+                    },
+                    {
+                        "comment": null,
+                        "id": "ff93faa2-d656-42b4-93b3-e35b4ceb1a4a",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/private-entrance.svg",
+                        "name": "Private Entrance"
+                    },
+                    {
+                        "comment": null,
+                        "id": "3f312813-d0c3-4750-9937-e83804f00ce5",
+                        "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/secutiry-camera.svg",
+                        "name": "Security Camera"
+                    }
+                ],
+                "amenityGroups": [
+                    {
+                        "amenities": [
+                            {
+                                "comment": null,
+                                "id": "b4a94048-8847-4a67-946b-924bfb5ee9b1",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hair-dryer.svg",
+                                "name": "Hair Dryer"
+                            },
+                            {
+                                "comment": null,
+                                "id": "54f95b9a-117b-11ec-bc04-00155dd3f5e1",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/travel-sized-toiletries.svg",
+                                "name": "Travel-Sized Toiletries (Shower Gel, Shampoo, Conditioner, Soap)"
+                            },
+                            {
+                                "comment": null,
+                                "id": "9862b614-16db-4573-b1d6-00f879b464d3",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/towels.svg",
+                                "name": "Towels"
+                            },
+                            {
+                                "comment": null,
+                                "id": "4034f4b3-e883-4d79-8ee4-c81d99de7d2f",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bathtub.svg",
+                                "name": "Bathtub"
+                            }
+                        ],
+                        "name": "Bath",
+                        "id": "a7a35df0-b3b3-11e9-8295-54bf640ae12e"
+                    },
+                    {
+                        "amenities": [
+                            {
+                                "comment": null,
+                                "id": "54f99376-117b-11ec-bb10-00155dd3f5e1",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bedding-and-sheets.svg",
+                                "name": "Beddings and Sheets"
+                            },
+                            {
+                                "comment": null,
+                                "id": "8e4e1163-5bbd-43b1-81a1-378175e53177",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pillows-and-blankets.svg",
+                                "name": "Pillows and Blankets"
+                            },
+                            {
+                                "comment": null,
+                                "id": "5ce3b130-a339-4cab-baf2-39df0fba555d",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hangers.svg",
+                                "name": "Hangers"
+                            }
+                        ],
+                        "name": "Bedrooms",
+                        "id": "54f976e8-117b-11ec-a139-00155dd3f5e1"
+                    },
+                    {
+                        "amenities": [
+                            {
+                                "comment": null,
+                                "id": "b3c99bf4-ea55-4617-8663-c7ad2b1f706d",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pack-n-play-travel-crib.svg",
+                                "name": "Pack n Play Travel Crib"
+                            }
+                        ],
+                        "name": "Family-friendly",
+                        "id": "79b513cf-2c86-4eb2-a473-2cde7d1d76fa"
+                    },
+                    {
+                        "amenities": [
+                            {
+                                "comment": null,
+                                "id": "f34ea004-7cb7-4c38-9018-47740e840fb8",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/tv.svg",
+                                "name": "TV"
+                            },
+                            {
+                                "comment": null,
+                                "id": "54f9aea6-117b-11ec-b43c-00155dd3f5e1",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/board-games.svg",
+                                "name": "Board Games"
+                            }
+                        ],
+                        "name": "Games \u0026 Entertainment",
+                        "id": "7bb7f9bf-95ce-4b55-8277-e0bd085534bd"
+                    },
+                    {
+                        "amenities": [
+                            {
+                                "comment": null,
+                                "id": "8cf9db3e-df90-4f9b-b9d1-cd5dfdc2dd46",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/heating.svg",
+                                "name": "Heating"
+                            },
+                            {
+                                "comment": null,
+                                "id": "1aca3309-3018-40a2-890e-5a15f02d1362",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fireplace.svg",
+                                "name": "Fireplace"
+                            },
+                            {
+                                "comment": null,
+                                "id": "9a3ec883-f4f5-4ff7-9b69-fa274e46b8f7",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hotwater.svg",
+                                "name": "Hot Water"
+                            }
+                        ],
+                        "name": "Heating \u0026 Cooling",
+                        "id": "bfe8aeef-9989-480f-83e4-0da0589233f9"
+                    },
+                    {
+                        "amenities": [
+                            {
+                                "comment": null,
+                                "id": "b35ed7c2-0c47-49c2-a7ee-47e13d651917",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/washing-machine.svg",
+                                "name": "Washing Machine"
+                            },
+                            {
+                                "comment": null,
+                                "id": "1ce31040-7209-4403-a71e-fc3968cacf37",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dryer.svg",
+                                "name": "Dryer"
+                            },
+                            {
+                                "comment": null,
+                                "id": "e7943eea-b112-4689-91fa-52e52c28dbe6",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/iron.svg",
+                                "name": "Iron"
+                            },
+                            {
+                                "comment": null,
+                                "id": "50d25316-83cc-4ce8-8c95-59a4c7686bd4",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/iron-board.svg",
+                                "name": "Iron Board"
+                            },
+                            {
+                                "comment": null,
+                                "id": "942782de-118e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/cleaning-supplies.svg",
+                                "name": "Cleaning Supplies"
+                            },
+                            {
+                                "comment": null,
+                                "id": "94278518-118e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/loundry-detergent.svg",
+                                "name": "Laundry Detergent"
+                            }
+                        ],
+                        "name": "Housekeeping",
+                        "id": "54f9e678-117b-11ec-9a76-00155dd3f5e1"
+                    },
+                    {
+                        "amenities": [
+                            {
+                                "comment": null,
+                                "id": "bf82e2e5-dc03-11ea-99e7-45cc6685527e",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/wifi.svg",
+                                "name": "Wifi"
+                            },
+                            {
+                                "comment": null,
+                                "id": "7d748e91-8765-4148-b3da-44193fb5c75d",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/desk.svg",
+                                "name": "Desk"
+                            },
+                            {
+                                "comment": null,
+                                "id": "b0a9a78e-e17e-478a-85d5-986f7851eb85",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/laptop-friendly.svg",
+                                "name": "Laptop Friendly Workspace"
+                            }
+                        ],
+                        "name": "Internet \u0026 Workspace",
+                        "id": "54fa01c6-117b-11ec-bf56-00155dd3f5e1"
+                    },
+                    {
+                        "amenities": [
+                            {
+                                "comment": null,
+                                "id": "02c29e67-ca3b-402d-bdc5-e3d9a8f2bea2",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bbq.svg",
+                                "name": "BBQ"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d68e4-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/basic-cooking-essentials.svg",
+                                "name": "Basic Cooking Essentials"
+                            },
+                            {
+                                "comment": null,
+                                "id": "d5d69128-3483-417c-a1c4-a9e464575f51",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dishwasher.svg",
+                                "name": "Dishwasher"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d69f2-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/ground-coffe.svg",
+                                "name": "Drip Coffee Maker"
+                            },
+                            {
+                                "comment": null,
+                                "id": "13de0066-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/bakeware.svg",
+                                "name": "Bakeware"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d6966-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/cookware.svg",
+                                "name": "Cookware (Pots, Pans, Cutting Boards, Knives)"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d69b6-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/dinnerware.svg",
+                                "name": "Dinnerware (Bowls, Plates, Mugs)"
+                            },
+                            {
+                                "comment": null,
+                                "id": "bdfbfaca-dd41-4d1b-b008-af2d9294de75",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/oven.svg",
+                                "name": "Oven"
+                            },
+                            {
+                                "comment": null,
+                                "id": "b600b70a-000e-43d0-926d-c0420b63c22c",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fridge.svg",
+                                "name": "Fridge"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d6af6-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/glassware.svg",
+                                "name": "Glassware"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d6b32-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/ground-coffe.svg",
+                                "name": "Ground Coffee \u0026 Tea"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d6bb4-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/kitchen-cleaning-supplies.svg",
+                                "name": "Kitchen Cleaning Supplies"
+                            },
+                            {
+                                "comment": null,
+                                "id": "a5791b6a-0e99-4491-a206-ff67ddc3bad7",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/microwave.svg",
+                                "name": "Microwave"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d6c54-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/serveware.svg",
+                                "name": "Serveware"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d6c7c-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/silverware.svg",
+                                "name": "Silverware (Forks, Spoons, Knives)"
+                            },
+                            {
+                                "comment": null,
+                                "id": "575f738d-5423-45f9-b1ce-59016172ddb5",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/stove.svg",
+                                "name": "Stove"
+                            },
+                            {
+                                "comment": null,
+                                "id": "ddc2ea7c-a7aa-4eb7-8e54-c0e7b95613ce",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/toaster.svg",
+                                "name": "Toaster"
+                            },
+                            {
+                                "comment": null,
+                                "id": "215d6d1c-119e-11ec-9689-0242ac120003",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/water-filter.svg",
+                                "name": "Water Filter"
+                            },
+                            {
+                                "comment": null,
+                                "id": "44688cb3-d3e3-42c3-8f42-7a2ed9831ad3",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/wood-stove.svg",
+                                "name": "Wood Stove"
+                            },
+                            {
+                                "comment": null,
+                                "id": "3a67dfae-40a1-411c-8c42-f637167342cf",
+                                "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/kitchen.svg",
+                                "name": "Kitchen"
+                            }
+                        ],
+                        "name": "Kitchen \u0026 Dining",
+                        "id": "bf4a6e30-dc03-11ea-99e7-71de0e9bb5cd"
+                    },
+                    {
+                        "amenities": [{
+                            "comment": null,
+                            "id": "9e7016c2-0f07-44db-afab-92ce315ca731",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/patio.svg",
+                            "name": "Patio"
+                        },
+                        {
+                            "comment": null,
+                            "id": "242933f2-57d7-4c2e-a06c-7b1f35aa8487",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/balcony.svg",
+                            "name": "Balcony"
+                        },
+                        {
+                            "comment": null,
+                            "id": "d084c91b-f5f9-4518-b0b1-4fb4fea85a15",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/outdoor-dining-area.svg",
+                            "name": "Outdoor Dining Area"
+                        }
+                    ],
+                    "name": "Outdoor",
+                    "id": "798f3f35-6010-4e56-843d-8f056482ed11"
+                },
+                {
+                    "amenities": [
+                        {
+                            "comment": null,
+                            "id": "9d80786b-1f85-47a3-b710-1b8fb0d77df9",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/parking.svg",
+                            "name": "Free Parking"
+                        },
+                        {
+                            "comment": null,
+                            "id": "ff93faa2-d656-42b4-93b3-e35b4ceb1a4a",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/private-entrance.svg",
+                            "name": "Private Entrance"
+                        }
+                    ],
+                    "name": "Parking \u0026 Facilities",
+                    "id": "54fa1f4e-117b-11ec-a036-00155dd3f5e1"
+                },
+                {
+                    "amenities": [
+                        {
+                            "comment": null,
+                            "id": "1775d8ef-45a5-4012-bbfd-6f1f5e3f23c6",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hot-tub.svg",
+                            "name": "Hot Tub"
+                        },
+                        {
+                            "comment": null,
+                            "id": "d6339a30-dc03-11ea-99e7-ab9c7ee14df7",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/pool.svg",
+                            "name": "Communal Pool"
+                        },
+                        {
+                            "comment": null,
+                            "id": "df61cdf9-a72d-40e7-bbe3-ddfb034c6b20",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/hot-tub.svg",
+                            "name": "Communal Hot Tub"
+                        }
+                    ],
+                    "name": "Pool/Spa",
+                    "id": "872f56cc-ee46-4fb5-b6e1-b2947291798d"
+                },
+                {
+                    "amenities": [
+                        {
+                            "comment": null,
+                            "id": "9728ff8f-ed7d-4a2e-a19c-358ea4274a20",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/smartlock.svg",
+                            "name": "Smartlock"
+                        },
+                        {
+                            "comment": null,
+                            "id": "bf3fbfbf-dc03-11ea-99e7-4d6d6382c2ea",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/carbon-monoxide-detector.svg",
+                            "name": "Carbon Monoxide Detector"
+                        },
+                        {
+                            "comment": null,
+                            "id": "bf456517-dc03-11ea-99e7-f7b979215ad8",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/deadbolt-lock.svg",
+                            "name": "Deadbolt Lock"
+                        },
+                        {
+                            "comment": null,
+                            "id": "bf43de73-dc03-11ea-99e7-e984ac7fe27d",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/fire-extinguisher.svg",
+                            "name": "Fire Extinguisher"
+                        },
+                        {
+                            "comment": null,
+                            "id": "bf42f411-dc03-11ea-99e7-93a54addbb96",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/first-aid-kit.svg",
+                            "name": "First Aid Kit"
+                        },
+                        {
+                            "comment": null,
+                            "id": "bf44a1c5-dc03-11ea-99e7-ffe034acb44f",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/smoke-detector.svg",
+                            "name": "Smoke Detector"
+                        },
+                        {
+                            "comment": null,
+                            "id": "3f312813-d0c3-4750-9937-e83804f00ce5",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/secutiry-camera.svg",
+                            "name": "Security Camera"
+                        }
+                    ],
+                    "name": "Safety",
+                    "id": "bf3f98ae-dc03-11ea-99e7-7d402a19d825"
+                },
+                {
+                    "amenities": [
+                        {
+                            "comment": null,
+                            "id": "63030dd8-527e-4c73-8660-6b9650e2819b",
+                            "icon": "",
+                            "name": "Accessible parking spot"
+                        },
+                        {
+                            "comment": null,
+                            "id": "8cef5c2c-3085-431d-a56e-e2ad6f670df8",
+                            "icon": "https://as-ue2-prod-public-assets.s3.us-east-2.amazonaws.com/assets/Amenity/icons/single-level-home.svg",
+                            "name": "Home Step Free Access"
+                        },
+                        {
+                            "comment": null,
+                            "id": "c4df1b73-c651-42df-a609-ed665bba4492",
+                            "icon": "",
+                            "name": "Lit path to the guest entrance"
+                        }
+                    ],
+                    "name": "Accessibility",
+                    "id": "7db97cf3-30c0-4bab-bbab-760fe8440706"
+                }
+            ],
+            "destinations": [
+                {
+                    "id": "429e187f-c6fd-4b1f-a367-13c6add64b45",
+                    "keyword": "Cabin Rentals",
+                    "name": "Asheville"
+                },
+                {
+                    "id": "434a9294-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Austin"
+                },
+                {
+                    "id": "17fd3ca2-70d4-4c03-9972-4a299436ea5e",
+                    "keyword": "Vacation Rentals",
+                    "name": "Berkshires"
+                },
+                {
+                    "id": "434a7070-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Cabin Rentals",
+                    "name": "Big Bear"
+                },
+                {
+                    "id": "12be96b9-0ad6-485d-89ab-112fee061987",
+                    "keyword": "Cabin Rentals",
+                    "name": "Black Mountain"
+                },
+                {
+                    "id": "434a839e-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Breckenridge"
+                },
+                {
+                    "id": "434a85ce-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Central Oregon"
+                },
+                {
+                    "id": "434a73f4-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Coachella Valley"
+                },
+                {
+                    "id": "d2fa6148-7827-46df-8001-ca7d576468e1",
+                    "keyword": "Vacation Rentals",
+                    "name": "Coastal Charleston"
+                },
+                {
+                    "id": "368d3e60-0d3e-41d8-95a8-d0e4e31c2768",
+                    "keyword": "Vacation Rentals",
+                    "name": "Corpus Christi"
+                },
+                {
+                    "id": "434a827c-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Destin"
+                },
+                {
+                    "id": "2237cf73-a5e4-4f33-abe5-6c21fc199056",
+                    "keyword": "Vacation Rentals",
+                    "name": "Emerald Coast - 30A"
+                },
+                {
+                    "id": "a078954e-7315-453f-85d8-5ef5d25afbcf",
+                    "keyword": "Vacation Rentals",
+                    "name": "Fort Lauderdale"
+                },
+                {
+                    "id": "434a8d12-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Hilton Head"
+                },
+                {
+                    "id": "434a8916-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Hudson Valley"
+                },
+                {
+                    "id": "434a7b9c-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Joshua Tree"
+                },
+                {
+                    "id": "6d33553d-23ce-439a-9dac-438e8cd0ea9f",
+                    "keyword": "Vacation Rentals",
+                    "name": "Key West"
+                },
+                {
+                    "id": "434a9190-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Cabin Rentals",
+                    "name": "Lake Arrowhead"
+                },
+                {
+                    "id": "ea273b7a-789e-4cd7-a985-b7aa7d9d02c3",
+                    "keyword": "Rentals",
+                    "name": "Lake Norman"
+                },
+                {
+                    "id": "434a6620-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Cabin Rentals",
+                    "name": "Lake Tahoe"
+                },
+                {
+                    "id": "e0ca6e48-f505-4e0f-ad17-5823d7da49bb",
+                    "keyword": "Vacation Rentals",
+                    "name": "Los Angeles"
+                },
+                {
+                    "id": "434a86e6-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Malibu"
+                },
+                {
+                    "id": "4828a35a-bb4b-4d81-8ac2-7b4b880a3d12",
+                    "keyword": "Vacation Rentals",
+                    "name": "Marco Island"
+                },
+                {
+                    "id": "c625f37e-46c8-4956-acf6-1c68f904a99e",
+                    "keyword": "Vacation Rentals",
+                    "name": "Maui"
+                },
+                {
+                    "id": "434a68a0-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Nashville"
+                },
+                {
+                    "id": "434a8808-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Newport Beach"
+                },
+                {
+                    "id": "434a7714-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Oahu"
+                },
+                {
+                    "id": "434a7840-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Oregon Coast"
+                },
+                {
+                    "id": "1826700a-fc32-40e9-a23f-266185dafe12",
+                    "keyword": "Vacation Rentals",
+                    "name": "Orlando"
+                },
+                {
+                    "id": "f6c18772-47fe-4a35-b1e7-85a20d4c55af",
+                    "keyword": "Vacation Rentals",
+                    "name": "Palm Springs"
+                },
+                {
+                    "id": "434a6d14-e324-11ec-8fea-0242ac120002",
+                    "keyword": "",
+                    "name": "Palm Springs Hotels"
+                },
+                {
+                    "id": "434a6be8-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Park City"
+                },
+                {
+                    "id": "434a8e3e-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Paso Robles"
+                },
+                {
+                    "id": "4c4abd5e-17c2-4466-a831-208b847004d1",
+                    "keyword": "Cabin Rentals",
+                    "name": "Poconos"
+                },
+                {
+                    "id": "ca9fdc86-0d60-4dde-8ccd-aa1f0a0685d7",
+                    "keyword": "Vacation Rentals",
+                    "name": "Port Aransas"
+                },
+                {
+                    "id": "434a71ba-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "San Diego"
+                },
+                {
+                    "id": "434a72c8-e324-11ec-8fea-0242ac120002",
+                    "keyword": "Vacation Rentals",
+                    "name": "Scottsdale"
+                },
+                {
+                    "id": "41a9340e-aa5b-4a06-a7c5-1d8eae407a68",
+                    "keyword": "Vacation Rentals",
+                    "name": "Sedona"
+                },
+                {"id": "434a84c0-e324-11ec-8fea-0242ac120002",
+                "keyword": "Cabin Rentals",
+                "name": "Smoky Mountains"
+            },
+            {
+                "id": "434a7cbe-e324-11ec-8fea-0242ac120002",
+                "keyword": "Vacation Rentals",
+                "name": "Sonoma"
+            },
+            {
+                "id": "434a8f56-e324-11ec-8fea-0242ac120002",
+                "keyword": "Vacation Rentals",
+                "name": "Telluride"
+            },
+            {
+                "id": "434a7a66-e324-11ec-8fea-0242ac120002",
+                "keyword": "Vacation Rentals",
+                "name": "Temecula"
+            },
+            {
+                "id": "434a906e-e324-11ec-8fea-0242ac120002",
+                "keyword": "Vacation Rentals",
+                "name": "Vail"
+            }
+        ],
+        "vaykMarkdown": "## **VayK x AvantStay**\n\n- **How do I receive VayK credits?**\n\nAvantStay properties will receive a credit towards beach gear rentals during your stay! You'll receive an email from VayKGear providing you with the information needed for reserving your beach gear.\n\n- **What kind of gear can I order?**\n\nYou may use your credit for bicycles, chairs, umbrellas, beach carts, boogie boards, and more, depending on availability - the choice is yours!\n\n- **How do I order my gear?**\n\nLook for an email from VayKGear. The email will include a custom link for you to select gear for your stay.\n\n- **What if I want to order more beach gear than the credit amount provided?**\n\nFeel free to order additional beach gear beyond your credit limit. Simply choose the items you want and cover the remaining balance at checkout.\n\n- **Do you deliver the gear to my AvantStay Home?**\n\nTo keep your vacation stress-free, your gear will be delivered to your rental property on the day you arrive and will be picked up the day you depart."
+    },
+    "__N_SSP": true
+},
+"page": "/home/[hash]/[region]/[title]",
+"query": {
+    "adults": "1",
+    "hash": "503003",
+    "region": "park-city",
+    "title": "silverado"
+},
+"buildId": "IE7Z6Xxnm3udX0iLXDVi1",
+"isFallback": false,
+"isExperimentalCompile": false,
+"gssp": true,
+"scriptLoader": [
+]
