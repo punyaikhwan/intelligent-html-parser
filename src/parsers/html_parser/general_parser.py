@@ -31,6 +31,11 @@ class TagIdentifier:
     def __repr__(self):
         return f"TagIdentifier(TagName={self.TagName}, Attributes={self.Attributes})"
 
+    def _use_only_first_class(self):
+        """Simplify class attribute to only use the first class."""
+        if 'class' in self.Attributes and isinstance(self.Attributes['class'], list) and len(self.Attributes['class']) > 0:
+            self.Attributes['class'] = [self.Attributes['class'][0]]
+
 class AttributeData:
     """Data structure for attribute information."""
 
@@ -47,14 +52,15 @@ class GeneralHTMLParser:
     """Parser for extracting data from general HTML elements (non-table)."""
 
     # Attributes to check for matching
-    TARGET_ATTRIBUTES = {'class', 'id', 'name', 'data-*'}
+    TARGET_ATTRIBUTES = {'class', 'id', 'name', 'data-*', 'itemprop'}
     COMMON_ATTRIBUTES = {'name', 'names', 'title', 'description', 'info', 'information', 'detail', 'details', 'label'}
     CONTAINER_TAGS = {'body', 'div', 'span', 'article', 'section', 'ul', 'ol', 'li', 'figcaption', 'figure'}
     TEXT_TAGS = {'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'span'}
-    TEXT_PROPERTY_TAGS = {'b', 'strong', 'i', 'em', 'u', 'small', 'mark', 'abbr', 'cite'}
+    TEXT_PROPERTY_TAGS = {'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'i', 'em', 'u', 'small', 'mark', 'abbr', 'cite'}
     IMAGE_KEYWORDS = {'image', 'img', 'photo', 'picture', 'thumbnail', 'avatar', 'logo', 'icon', 'banner'}
     LINK_KEYWORDS = {'link', 'url', 'website', 'web', 'site', 'websites', 'sites'}
     NAVIGATION_KEYWORDS = {'next', 'previous', 'prev', 'back', 'forward', 'more', 'less', 'page', 'pages'}
+    ATTRIBUTES_MAY_CONTAINS_VALUES = {'src', 'alt', 'title', 'poster', 'type', 'kind', 'label', 'srclang', 'href', 'rel', 'content'}
     
     def __init__(self, similarity_model: str = "sentence-transformers/all-MiniLM-L6-v2", 
                  similarity_threshold: float = 0.7):
@@ -99,7 +105,8 @@ class GeneralHTMLParser:
         
         # Clean up html from text property tags, to make text extraction easier
         for tag in soup.find_all(self.TEXT_PROPERTY_TAGS):
-            tag.unwrap()
+            if len(tag.attrs) == 0:
+                tag.unwrap()
         
         # Two approaches:
         # 1. Find repeated structures that might represent entities. If found, extract attributes from each.
@@ -118,38 +125,24 @@ class GeneralHTMLParser:
                     # we need to ensure that the containers are holding the attributes we are looking for
                     # Since this is a repeated structure, we can assume that if one container has the attributes, others will have them too
                     # So we will check the first container only
-                    # is_containers_valid = False
-                    # while not is_containers_valid and len(containers) > 0:
-                        first_container = containers[0]
-                        extracted_attrs = self._extract_attributes_from_container(first_container, attributes)
-                        logging.info(f"Extracted attributes from first container: {extracted_attrs}")
-                        map_groups_to_first_container_extracted_attrs[group_idx] = extracted_attrs
-                        found_attrs = [attr for attr, value in extracted_attrs.items() if value is not None]    
-                        for attr in found_attrs:
-                            attr_result = extracted_attrs[attr]
-                            if attr_result is not None:
-                                logging.info(f"Attribute '{attr}' found with value: {attr_result.Value} and similarity score: {attr_result.Score}")
+                    first_container = containers[0]
+                    extracted_attrs = self._extract_attributes_from_container(first_container, attributes)
+                    logging.info(f"Extracted attributes from first container: {extracted_attrs}")
+                    map_groups_to_first_container_extracted_attrs[group_idx] = extracted_attrs
+                    found_attrs = [attr for attr, value in extracted_attrs.items() if value is not None]    
+                    for attr in found_attrs:
+                        attr_result = extracted_attrs[attr]
+                        if attr_result is not None:
+                            logging.info(f"Attribute '{attr}' found with value: {attr_result.Value} and similarity score: {attr_result.Score}")
 
-                        logging.info(f"Found {len(found_attrs)} out of {len(attributes)} attributes in first container.")
-                        if len(found_attrs) >= max(1, len(attributes) // 2):  # At least half of the attributes should be found
-                            # is_containers_valid = True
-                            map_groups_to_filled_attrs[group_idx] = len(found_attrs)
-                            overall_confidence = self._overall_attributes_confidence(extracted_attrs)
-                            map_groups_to_overall_confidence[group_idx] = overall_confidence
-                            # container_groups[group_idx] = containers
-                            if len(found_attrs) == len(attributes) and self._all_attributes_high_confidence(extracted_attrs):
-                                logging.info(f"All attributes found with high confidence in group {group_idx}. Stopping further search.")
-                                break  # Stop if we found a group with all attributes at high confidence
-                        # else:
-                        #     # If not valid, we need to repopulate the containers with their children that are also repeated structures
-                        #     logging.info(f"First container does not have enough attributes. Found {len(found_attrs)} out of {len(attributes)}. Searching children containers.")
-                        #     parent_containers = containers
-                        #     containers = []
-                        #     for container in parent_containers:
-                        #         child_containers = container.find_all(self.CONTAINER_TAGS, recursive=False)
-                        #         # we need length of children containers at least same as length of attributes
-                        #         if child_containers and len(child_containers) >= len(attributes):
-                        #             containers.extend(child_containers)
+                    logging.info(f"Found {len(found_attrs)} out of {len(attributes)} attributes in first container.")
+                    if len(found_attrs) >= max(1, len(attributes) // 2):  # At least half of the attributes should be found
+                        map_groups_to_filled_attrs[group_idx] = len(found_attrs)
+                        overall_confidence = self._overall_attributes_confidence(extracted_attrs)
+                        map_groups_to_overall_confidence[group_idx] = overall_confidence
+                        if len(found_attrs) == len(attributes) and self._all_attributes_high_confidence(extracted_attrs):
+                            logging.info(f"All attributes found with high confidence in group {group_idx}. Stopping further search.")
+                            break  # Stop if we found a group with all attributes at high confidence
             
             for group_idx, count in map_groups_to_filled_attrs.items():
                 logging.info(f"Group {group_idx} has {count} attributes found.")
@@ -192,13 +185,19 @@ class GeneralHTMLParser:
                         if i == 0: # use the already extracted attributes for the first container
                             extracted_attrs = first_container_attrs
                         else:
-                            logging.info(f"===============Extracting attributes from container {i}: {str(container)[:200]}...===================")
+                            logging.info(f"===============Extracting attributes from container {i}====================\n{str(container)}")
                             extracted_attrs = self._extract_attributes_from_container(container, attributes, map_attrs_to_pathchains)
                             logging.info(f"Extracted attributes from container {i}: {extracted_attrs}")
                         if extracted_attrs and any(value for value in extracted_attrs.values()):
                             # keep only attributes and values without similarity score
                             cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in extracted_attrs.items()}
                             results.append(cleaned_result)
+                        else:
+                            logging.info(f"No attributes found in container {i} using path chains. Fallbacking to normal extraction.")
+                            extracted_attrs = self._extract_attributes_from_container(container, attributes)
+                            if extracted_attrs and any(value for value in extracted_attrs.values()):
+                                cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in extracted_attrs.items()}
+                                results.append(cleaned_result)
 
                     return results
         
@@ -212,7 +211,7 @@ class GeneralHTMLParser:
             best_attributes_found = 0
             results = []
             for container in containers:
-                logging.info(f"===============Extracting attributes from container: {str(container)[:200]}...===================")
+                logging.info(f"===============Extracting attributes from container ==================\n{str(container)}")
                 extracted_attrs = self._extract_attributes_from_container(container, attributes)
                 logging.info(f"Extracted attributes from container: {extracted_attrs}")
                 results.append(extracted_attrs)
@@ -650,10 +649,10 @@ class GeneralHTMLParser:
         for tag_id in pathchain:
             if current is None:
                 return None
-            # ignore href and src attributes in the path chain
-            tag_id.Attributes.pop('href', None)
-            tag_id.Attributes.pop('src', None)
-            tag_id.Attributes.pop('srcset', None)
+            # ignore attributes that may contains value the path chain
+            for attr in self.ATTRIBUTES_MAY_CONTAINS_VALUES:
+                tag_id.Attributes.pop(attr, None)
+
             logging.info(f"Traversing to tag '{tag_id.TagName}' with attributes {tag_id.Attributes}.")
 
             # handling special for image
@@ -661,7 +660,7 @@ class GeneralHTMLParser:
             # if multiple match, get the most matched.
 
             if tag_id.TagName == 'img':
-                img_tags = current.find_all('img')
+                img_tags = current.findAll('img')
                 if img_tags and len(img_tags) > 0:
                     if len(img_tags) == 1:
                         current = img_tags[0]
@@ -685,9 +684,9 @@ class GeneralHTMLParser:
             else:
                 if len(tag_id.Attributes) == 0:
                     # If no attributes specified, just find the first occurrence of the tag
-                    current = current.find(tag_id.TagName)
+                    current = current.find(tag_id.TagName, recursive=False)
                 else:
-                    currents = current.findAll(tag_id.TagName, attrs=tag_id.Attributes)
+                    currents = current.findAll(tag_id.TagName, attrs=tag_id.Attributes, recursive=False)
                     if currents and len(currents) > 0:
                         # if multiple matches, take the most match based on attributes
                         # for example, if target tag class only a and b, and we have two matches elements with class a b and a b c, then return element with class a b.
@@ -746,7 +745,32 @@ class GeneralHTMLParser:
         Returns:
             Attribute value or None if not found
         """
-        # Strategy 1: Exact string matching in class, id, name attributes
+        
+        # Strategy 1: If attribute is likely an image or link, try to find <img> or <a> tags
+        is_image_or_link = False
+        attr_lower = attribute.lower()
+        if any(keyword in attr_lower for keyword in self.IMAGE_KEYWORDS):
+            is_image_or_link = True
+            logging.info(f"Finding value for attribute '{attribute}' as image URL.")
+            value = self._find_image_url(container, attribute)
+            logging.info(f"Found value for attribute '{attribute}': {value}")
+            if value:
+                return value
+            
+        if any(keyword in attr_lower for keyword in self.LINK_KEYWORDS) and not is_image_or_link:
+            is_image_or_link = True
+            logging.info(f"Finding value for attribute '{attribute}' as link URL.")
+            value = self._find_url(container, attribute)
+            if value:
+                logging.info(f"Found value for attribute '{attribute}': {value}")
+                return value
+
+        if is_image_or_link:
+            logging.info(f"Attribute '{attribute}' identified as image or link. Skipping next strategy.")
+            return None
+        
+        
+        # Strategy 2: Exact string matching in class, id, name attributes
         logging.info(f"Finding value for attribute '{attribute}' using exact match.")
         exact_match = self._find_by_exact_match(container, attribute)
         if exact_match:
@@ -754,33 +778,7 @@ class GeneralHTMLParser:
             return exact_match
         logging.info(f"No exact match found for attribute '{attribute}'.")  
         
-        # Strategy 1.5: If attribute is likely an image or link, try to find <img> or <a> tags
-        is_image_or_link = False
-        attr_lower = attribute.lower()
-        if any(keyword in attr_lower for keyword in self.IMAGE_KEYWORDS):
-            is_image_or_link = True
-            logging.info(f"Finding value for attribute '{attribute}' as image URL.")
-            img_tag = container.find('img')
-            if img_tag and img_tag.get('src'):
-                logging.info(f"Found image URL for attribute '{attribute}': {img_tag['src']}")
-                return AttributeData(AttributeName=attribute, Value=img_tag['src'], Score=1.0, PathChains=[
-                    TagIdentifier(TagName='img', Attributes=img_tag.attrs)
-                ])
-            
-        if any(keyword in attr_lower for keyword in self.LINK_KEYWORDS) and not is_image_or_link:
-            is_image_or_link = True
-            logging.info(f"Finding value for attribute '{attribute}' as link URL.")
-            a_tag = container.find('a')
-            if a_tag and a_tag.get('href'):
-                logging.info(f"Found link URL for attribute '{attribute}': {a_tag['href']}")
-                return AttributeData(AttributeName=attribute, Value=a_tag['href'], Score=1.0, PathChains=[
-                    TagIdentifier(TagName='a', Attributes=a_tag.attrs)
-                ])
-
-        # Strategy 2: Similarity matching if model is available, for non-image/link attributes
-        if is_image_or_link:
-            logging.info(f"Attribute '{attribute}' identified as image or link. Skipping similarity match.")
-            return None
+        # Strategy 3: Similarity matching using the loaded model
         logging.info(f"Finding value for attribute '{attribute}' using similarity match.")
         if self._model_loaded:
             match = self._find_by_similarity(container, attribute)
@@ -799,6 +797,52 @@ class GeneralHTMLParser:
         # logging.info(f"No match found for attribute '{attribute}'.")
         return None
 
+    def _find_image_url(self, container: Tag, attribute: str) -> Optional[AttributeData]:
+        img_tag = container.find('img')
+        if img_tag and img_tag.get('src'):
+            logging.info(f"Found image URL for attribute '{attribute}': {img_tag['src']}")
+
+            path_chains = [
+                TagIdentifier(TagName='img', Attributes=img_tag.attrs)
+            ]
+
+            parents = img_tag.parents
+            for i, parent in enumerate(parents):
+                logging.info(f"Parent element {i}: {parent}")
+                if parent.attrs == container.attrs:
+                    break
+
+                # sometime divs has one common class and some specific classes, to avoid overfit we will only use the first class
+                tagIdentifier = TagIdentifier(TagName=parent.name, Attributes=parent.attrs)
+                tagIdentifier._use_only_first_class()
+                path_chains.insert(0, tagIdentifier)
+
+            return AttributeData(AttributeName=attribute, Value=img_tag['src'], Score=1.0, PathChains=path_chains)
+        return None
+    
+    def _find_url(self, container: Tag, attribute: str) -> Optional[AttributeData]:
+        a_tag = container.find('a')
+        if a_tag and a_tag.get('href'):
+            logging.info(f"Found URL for attribute '{attribute}': {a_tag['href']}")
+
+            path_chains = [
+                TagIdentifier(TagName='a', Attributes=a_tag.attrs)
+            ]
+
+            parents = a_tag.parents
+            for i, parent in enumerate(parents):
+                logging.info(f"Parent element {i}: {parent}")
+                if parent.attrs == container.attrs:
+                    break
+                
+                 # sometime divs has one common class and some specific classes, to avoid overfit we will only use the first class
+                tagIdentifier = TagIdentifier(TagName=parent.name, Attributes=parent.attrs)
+                tagIdentifier._use_only_first_class()
+                path_chains.insert(0, tagIdentifier)
+
+            return AttributeData(AttributeName=attribute, Value=a_tag['href'], Score=1.0, PathChains=path_chains)
+        return None
+        
     def _find_by_exact_match(self, container: Tag, attribute: str) -> Optional[AttributeData]:
         """Find attribute value using exact string matching."""
         # Look for elements with matching class, id, or name
@@ -816,6 +860,7 @@ class GeneralHTMLParser:
                 if attribute.lower() in class_name.lower() or class_name.lower() in attribute.lower():
                     text = self._get_element_text(tag)
                     if text:
+                        logging.info(f"Exact match found in tag '{tag.name}' class '{class_name}' for attribute '{attribute}' with text '{text}'.")
                         return AttributeData(AttributeName=attribute, Value=text, Score=1.0, PathChains=[
                             TagIdentifier(TagName=tag.name, Attributes=tag.attrs)
                         ])
@@ -825,6 +870,7 @@ class GeneralHTMLParser:
             if tag_id and (attribute.lower() in tag_id.lower() or tag_id.lower() in attribute.lower()):
                 text = self._get_element_text(tag)
                 if text:
+                    logging.info(f"Exact match found in id '{tag_id}' for attribute '{attribute}' with text '{text}'.")
                     return AttributeData(AttributeName=attribute, Value=text, Score=1.0, PathChains=[
                         TagIdentifier(TagName=tag.name, Attributes=tag.attrs)
                     ])
@@ -834,6 +880,7 @@ class GeneralHTMLParser:
             if tag_name and (attribute.lower() in tag_name.lower() or tag_name.lower() in attribute.lower()):
                 text = self._get_element_text(tag)
                 if text:
+                    logging.info(f"Exact match found in name '{tag_name}' for attribute '{attribute}' with text '{text}'.")
                     return AttributeData(AttributeName=attribute, Value=text, Score=1.0, PathChains=[
                         TagIdentifier(TagName=tag.name, Attributes=tag.attrs)
                     ])
@@ -844,6 +891,7 @@ class GeneralHTMLParser:
                     if attribute.lower() in attr_value.lower() or attr_value.lower() in attribute.lower():
                         text = self._get_element_text(tag)
                         if text:
+                            logging.info(f"Exact match found in data attribute '{attr_key}' with value '{attr_value}' for attribute '{attribute}' with text '{text}'.")
                             return AttributeData(AttributeName=attribute, Value=text, Score=1.0, PathChains=[
                                 TagIdentifier(TagName=tag.name, Attributes=tag.attrs)
                             ])
@@ -896,6 +944,7 @@ class GeneralHTMLParser:
             elements = []
             fallback_text = str()
             fallback_tag = None
+
             for tag in container.find_all(recursive=False):
                 # if tag name is kind of text container set fallback text if not already set
                 if tag.name in self.TEXT_TAGS and not fallback_text:
@@ -907,8 +956,9 @@ class GeneralHTMLParser:
                 classes = ' '.join(tag.get('class', []))
                 tag_id = tag.get('id', '')
                 tag_name = tag.get('name', '')
+                itemprop = tag.get('itemprop', '')
 
-                for text in [classes, tag_id, tag_name]:
+                for text in [classes, tag_id, tag_name, itemprop]:
                     if text.strip():
                         candidates.append(text)
                         elements.append(tag)
@@ -920,6 +970,11 @@ class GeneralHTMLParser:
                         elements.append(tag)
             
             logging.info(f"Found {len(candidates)} candidates for similarity matching of attribute '{attribute}'.")
+            # if fallback_tag is None:
+            #     # use container text for fallback text
+            #     fallback_text = self._get_element_text(container)
+                # fallback_tag = container
+
             if not candidates:
                 logging.info(f"Common attributes similarity score for container is {common_attr_score:.2f}. Fallback text: {fallback_text} with score {common_attr_score:.2f}.")
                 if common_attr_score > 0.0 and fallback_tag is not None:

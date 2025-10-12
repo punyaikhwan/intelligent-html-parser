@@ -77,24 +77,22 @@ class IntelligentHTMLParser:
             parsing_approach = ""
             
             # Priority 1: Check for JSON scripts first (highest priority)
+            useHTMLParser = True
             if self.json_script_parser.has_json_scripts(soup):
                 logging.info("JSON scripts detected, using JSON script parser...")
                 results = self.json_script_parser.parse_json_scripts(html, entity, attributes)
                 parsing_approach = "json_script"
                 
-                # # If JSON script parsing didn't yield results, fall back to other methods
-                # if not results:
-                #     logging.info("JSON script parsing yielded no results, falling back to other parsers...")
-                #     html_is_table = self.table_parser.is_table(soup)
-                #     if html_is_table:
-                #         logging.info("Table structure detected, using table parser...")
-                #         results = self.table_parser.parse_tables(html, entity, attributes)
-                #         parsing_approach = "json_script_fallback_to_table"
-                #     else:
-                #         logging.info("Non-table structure detected, using general parser...")
-                #         results = self.general_parser.parse_html(html, entity, attributes)
-                #         parsing_approach = "json_script_fallback_to_general"
-            else:
+                # If JSON script parsing didn't yield promising results, fall back to other methods
+                # We define "promising" if all requested attributes are found in at least one entity
+                if results and any(all(attr in res for attr in attributes) for res in results):
+                    logging.info("Sufficient data extracted from JSON scripts.")
+                    useHTMLParser = False
+                
+                # if not, continue to check for table or general parsing
+                logging.info("JSON script parsing did not yield sufficient results, checking other parsing methods...")
+
+            if useHTMLParser:
                 # Priority 2: Check for table structure
                 html_is_table = self.table_parser.is_table(soup)
                 if html_is_table:
