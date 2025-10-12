@@ -36,7 +36,7 @@ class MLQueryParser:
         """Load the Flan-T5 model and tokenizer."""
         try:
             logging.info(f"Loading {self.model_name} model...")
-            self.tokenizer = T5Tokenizer.from_pretrained(self.model_name)
+            self.tokenizer = T5Tokenizer.from_pretrained(self.model_name, legacy=True)
             self.model = T5ForConditionalGeneration.from_pretrained(self.model_name)
             self._loaded = True
             logging.info("Model loaded successfully.")
