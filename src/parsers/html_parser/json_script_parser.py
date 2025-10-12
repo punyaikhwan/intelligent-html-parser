@@ -458,7 +458,6 @@ class JSONScriptParser:
                 
                 # Find keys above threshold
                 for j, similarity in enumerate(similarities):
-                    logging.info(f"Attribute '{attr}' vs Key '{keys[j]}': similarity {similarity:.4f}")
                     best_similarity = attr_similarities.get(attr, 0)
                     if similarity >= self.similarity_threshold and similarity >= best_similarity:
                         key = keys[j]

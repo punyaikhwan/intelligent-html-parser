@@ -765,7 +765,6 @@ class GeneralHTMLParser:
 
             parents = img_tag.parents
             for i, parent in enumerate(parents):
-                logging.info(f"Parent element {i}: {parent}")
                 if parent.attrs == container.attrs:
                     break
 
@@ -788,7 +787,6 @@ class GeneralHTMLParser:
 
             parents = a_tag.parents
             for i, parent in enumerate(parents):
-                logging.info(f"Parent element {i}: {parent}")
                 if parent.attrs == container.attrs:
                     break
                 
