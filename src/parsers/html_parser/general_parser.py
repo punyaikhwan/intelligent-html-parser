@@ -123,7 +123,7 @@ class GeneralHTMLParser:
                 logging.info(f"=============Evaluating group {group_idx} with {len(containers)} containers.==============")
                 if containers and len(containers) > 0:            
                     # we need to ensure that the containers are holding the attributes we are looking for
-                    # Since this is a repeated structure, we can assume that if one container has the attributes, others will have them too
+                    # And since this is a repeated structure, we can assume that if one container has the attributes, others will have them too
                     # So we will check the first container only
                     first_container = containers[0]
                     extracted_attrs = self._extract_attributes_from_container(first_container, attributes)
@@ -192,12 +192,6 @@ class GeneralHTMLParser:
                             # keep only attributes and values without similarity score
                             cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in extracted_attrs.items()}
                             results.append(cleaned_result)
-                        else:
-                            logging.info(f"No attributes found in container {i} using path chains. Fallbacking to normal extraction.")
-                            extracted_attrs = self._extract_attributes_from_container(container, attributes)
-                            if extracted_attrs and any(value for value in extracted_attrs.values()):
-                                cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in extracted_attrs.items()}
-                                results.append(cleaned_result)
 
                     return results
         
@@ -307,25 +301,8 @@ class GeneralHTMLParser:
                     containers.extend(elements)
         
         logging.info(f"Found {len(containers)} repeated structures based on class names.")
-        
-        # # Filter out nested repeated structures - keep only outermost ones
-        # containers = self._filter_outermost_containers(containers)
-        # logging.info(f"{len(containers)} outermost repeated structures identified as containers.")
-
-        # # Only keep groups of outermost containers
-        # outermost_container_classes = set()
-        # for container in containers:
-        #     class_name = map_element_to_class.get(container, None)
-        #     if class_name:
-        #         outermost_container_classes.add(class_name)
-
-        # logging.info(f"Outermost container classes: {outermost_container_classes}")
 
         containers_grouped_by_class = []
-        # for class_name in outermost_container_classes:
-        #     elements = elements_by_class.get(class_name, [])
-        #     if elements and len(elements) > 1:
-        #         containers_grouped_by_class.append(elements)
         for class_name, elements in elements_by_class.items():
             if elements and len(elements) > 1:
                 containers_grouped_by_class.append(elements)
@@ -339,30 +316,6 @@ class GeneralHTMLParser:
                 logging.info(f"Group with class '{class_name}' has {len(group)} containers.")
 
         return containers_grouped_by_class
-
-        # if outermost_container_classes and entity:
-        #     # if present, get the class name with highest similarity score with the entity name
-        #     # if not present, get the most common class name
-        #     most_similar_class, most_similar_class_score = self._get_most_similar_tag_attr_vals(most_similar_class, entity)
-        #     most_similar_dataid, most_similar_dataid_score = self._get_most_similar_tag_attr_vals(set(map_dataid_to_class.keys()), entity)
-        #     most_common_class = max(class_count, key=class_count.get)
-        #     most_common_class_score = self._get_similarity_score(most_common_class, entity) if class_count[most_common_class] >= 2 else 0.0
-
-        #     # get the best score
-        #     if most_similar_class_score >= most_similar_dataid_score and most_similar_class_score >= most_common_class_score:
-        #         most_common_class = most_similar_class
-        #     elif most_similar_dataid_score >= most_similar_class_score and most_similar_dataid_score >= most_common_class_score:
-        #         most_common_class = map_dataid_to_class.get(most_similar_dataid, most_common_class)
-
-        #     # If the most common class appears less than 2 times, return empty list
-        #     if class_count[most_common_class] < 2:
-        #         return []
-            
-        #     result = [container for container in containers if map_element_to_class.get(container) == most_common_class]
-        #     logging.info(f"Most common class: {most_common_class}, Count: {class_count[most_common_class]}")
-        #     return result
-
-        # return containers
     
     def _have_similar_child_structure(self, elements: List[Tag]) -> bool:
         """
@@ -626,6 +579,10 @@ class GeneralHTMLParser:
                 logging.info(f"Extracted value for attribute '{attr}': {value}")
                 if value is not None:
                     value.AttributeName = attr
+                    result[attr] = value
+                else: # fallback using normal extraction
+                    logging.info(f"value for attribute '{attr}' can't be retrivied using path chain. Falling back to normal extraction.")
+                    value = self._find_attribute_value(container, attr)
                     result[attr] = value
             return result
         
