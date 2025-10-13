@@ -5,6 +5,10 @@ import logging
 from typing import List, Dict, Any, Optional, Set, Tuple
 from bs4 import BeautifulSoup, Tag
 import re
+import json
+import os
+from datetime import datetime
+from utils import save_json
 
 from utils.html_utils import HTMLUtils
 
@@ -17,6 +21,7 @@ except ImportError:
 try:
     from sklearn.metrics.pairwise import cosine_similarity
     import numpy as np
+
     SKLEARN_AVAILABLE = True
 except ImportError:
     SKLEARN_AVAILABLE = False
@@ -96,6 +101,7 @@ class GeneralHTMLParser:
         for tag in soup.find_all(self.html_utils.TEXT_PROPERTY_TAGS):
                 tag.unwrap()
         
+        json_str = []
         # Two approaches:
         # 1. Find repeated structures that might represent entities. If found, extract attributes from each.
         # 2. If no repeated structures, search for likely containers that might hold the entity. If found, extract attributes but return only one set with highest confidence.
@@ -181,6 +187,15 @@ class GeneralHTMLParser:
                             cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in extracted_attrs.items()}
                             results.append(cleaned_result)
 
+                            # Export container and extracted attributes to json_str
+                            container_data = {
+                                "input": str(container),
+                                "output": json.dumps(cleaned_result, ensure_ascii=False)
+                            }
+                            json_str.append(container_data)
+                    
+                    # save json_str to a json_file
+                    save_json.save_json(json_str)
                     return results
         
         logging.info("No group of containers met the confidence threshold.")
@@ -191,6 +206,7 @@ class GeneralHTMLParser:
             best_result = None
             best_confidence = 0.0
             best_attributes_found = 0
+            best_container = None
             results = []
             for container in containers:
                 logging.info(f"===============Extracting attributes from container ==================\n{str(container)}")
@@ -233,11 +249,22 @@ class GeneralHTMLParser:
                     best_attributes_found = len(found_attrs)
                     best_confidence = overall_confidence
                     best_result = extracted_attrs
+                    best_container = container
             
             logging.info(f"Best result: {best_result} with {best_attributes_found} attributes found and confidence {best_confidence}.")
             if best_result and best_attributes_found > 0:
                 # keep only attributes and values without similarity score
                 cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in best_result.items()}
+
+                # Export container and extracted attributes to json_str
+                container_data = {
+                    "input": str(best_container),
+                    "output": json.dumps(cleaned_result, ensure_ascii=False)
+                }
+                json_str.append(container_data)
+                
+                # save json_str to a json_file
+                save_json.save_json(json_str)
                 return [cleaned_result]
             
         logging.info("No likely containers found with the entity and attributes.")
@@ -692,7 +719,7 @@ class GeneralHTMLParser:
                 
                 # If the best element is a container tag and similarity score more than threshold, search recursively for that container only
                 # But if similarity score is low, search it recursively for all other tags and get the highest similarity match
-                if best_element_tag.name in self.html_utilsCONTAINER_TAGS and best_element_tag.find_all(recursive=False):
+                if best_element_tag.name in self.html_utils.CONTAINER_TAGS and best_element_tag.find_all(recursive=False):
                     if similarity_score >= self.similarity_threshold:
                         logging.info(f"Best match is a container tag '{best_element_tag.name}', searching recursively.")
                         result = self._find_by_similarity(best_element_tag, attribute, depth=depth-1)
@@ -722,7 +749,7 @@ class GeneralHTMLParser:
                             if element in evaluated_elements:
                                 continue
                             evaluated_elements.add(element)
-                            if element.name in self.html_utilsCONTAINER_TAGS and element.find_all(recursive=False):
+                            if element.name in self.html_utils.CONTAINER_TAGS and element.find_all(recursive=False):
                                 logging.info(f"Searching in container {str(element)[:200]}...")
                                 res = self._find_by_similarity(element, attribute, depth=depth-1)
                                 if res:

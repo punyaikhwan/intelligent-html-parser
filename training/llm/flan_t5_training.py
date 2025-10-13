@@ -1,5 +1,6 @@
 import json
 import torch
+import numpy as np
 from datasets import Dataset
 from transformers import (
     T5Tokenizer, 
@@ -92,8 +93,24 @@ class HTMLParsingTrainer:
         """Compute evaluation metrics"""
         predictions, labels = eval_pred
         
+        # Handle case where predictions is a tuple (logits, past_key_values, etc.)
+        if isinstance(predictions, tuple):
+            predictions = predictions[0]  # Take the logits (first element)
+        
+        # Convert to numpy array if it's a tensor
+        if hasattr(predictions, 'cpu'):
+            predictions = predictions.cpu().numpy()
+        
+        # Convert logits to token IDs by taking argmax
+        if len(predictions.shape) == 3:  # logits shape: (batch_size, seq_len, vocab_size)
+            predictions = np.argmax(predictions, axis=-1)
+        
         # Decode predictions and labels
         decoded_preds = self.tokenizer.batch_decode(predictions, skip_special_tokens=True)
+        
+        # Convert labels to numpy array if it's a tensor
+        if hasattr(labels, 'cpu'):
+            labels = labels.cpu().numpy()
         
         # Replace -100 in labels (they are used to mask padded tokens)
         labels = np.where(labels != -100, labels, self.tokenizer.pad_token_id)

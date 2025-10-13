@@ -7,3 +7,5 @@ __pycache__/
 .idea/
 .vscode/
 app.log
+training/llm/venv_llm/
+training/llm/output/

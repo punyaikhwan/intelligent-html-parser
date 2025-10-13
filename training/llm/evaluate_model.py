@@ -185,6 +185,54 @@ def demo_inference(model_path: str):
         print(f"Result: {result}")
         print()
 
+def test_json_comparison():
+    """
+    Test the JSON comparison logic with various cases
+    """
+    print("=== Testing JSON Comparison Logic ===\n")
+    
+    test_cases = [
+        # Case 1: Missing brackets in prediction
+        {
+            "prediction": '"title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "price": "$12.99"',
+            "expected": '{\n  "title": "The Great Gatsby",\n  "author": "F. Scott Fitzgerald",\n  "price": "$12.99"\n}',
+            "should_match": True
+        },
+        # Case 2: Same content, different formatting
+        {
+            "prediction": '{"title":"The Great Gatsby","author":"F. Scott Fitzgerald","price":"$12.99"}',
+            "expected": '{\n  "title": "The Great Gatsby",\n  "author": "F. Scott Fitzgerald",\n  "price": "$12.99"\n}',
+            "should_match": True
+        },
+        # Case 3: Different content
+        {
+            "prediction": '"title": "1984", "author": "George Orwell"',
+            "expected": '{\n  "title": "The Great Gatsby",\n  "author": "F. Scott Fitzgerald"\n}',
+            "should_match": False
+        },
+        # Case 4: Same keys, different order
+        {
+            "prediction": '"author": "F. Scott Fitzgerald", "title": "The Great Gatsby", "price": "$12.99"',
+            "expected": '{\n  "title": "The Great Gatsby",\n  "price": "$12.99",\n  "author": "F. Scott Fitzgerald"\n}',
+            "should_match": True
+        }
+    ]
+    
+    for i, case in enumerate(test_cases, 1):
+        print(f"Test Case {i}:")
+        print(f"  Prediction: {case['prediction']}")
+        print(f"  Expected: {case['expected']}")
+        
+        result = compare_json_outputs(case['prediction'], case['expected'])
+        expected_result = case['should_match']
+        
+        if result == expected_result:
+            print(f"  ✓ PASS (Result: {result})")
+        else:
+            print(f"  ✗ FAIL (Expected: {expected_result}, Got: {result})")
+        
+        print()
+
 def main():
     """Main evaluation function"""
     import argparse
@@ -196,10 +244,14 @@ def main():
                        help="Path to test data JSON file")
     parser.add_argument("--demo", action="store_true",
                        help="Run demo inference")
+    parser.add_argument("--test_json", action="store_true",
+                       help="Test JSON comparison logic")
     
     args = parser.parse_args()
     
-    if args.demo:
+    if args.test_json:
+        test_json_comparison()
+    elif args.demo:
         demo_inference(args.model_path)
     else:
         evaluate_model(args.model_path, args.test_file)

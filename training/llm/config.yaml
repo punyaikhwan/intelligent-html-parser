@@ -10,7 +10,7 @@ batch_size: 4
 learning_rate: 3e-4
 warmup_steps: 100
 weight_decay: 0.01
-max_input_length: 512
+max_input_length: 2000
 max_output_length: 256
 
 # Evaluation Parameters

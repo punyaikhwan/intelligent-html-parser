@@ -96,7 +96,7 @@ class MLHTMLParser:
                         for attr in found_attrs:
                             attr_result = extracted_attrs[attr]
                             if attr_result is not None:
-                                logging.info(f"Attribute '{attr}' found with value: {attr_result.Value} and similarity score: {attr_result.Score}")
+                                logging.info(f"Attribute '{attr}' found with value: {attr_result}")
 
                         logging.info(f"Found {len(found_attrs)} in first container.")
                         map_groups_to_filled_attrs[group_idx] = len(found_attrs)

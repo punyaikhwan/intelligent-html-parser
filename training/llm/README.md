@@ -11,21 +11,14 @@ The system trains a language model to extract structured data from HTML content 
 - HTML: `<div class="product"><h2>iPhone 15</h2><span class="price">$999</span><p>Latest iPhone</p></div>`
 
 **Output:**
-```json
-{
-  "name": "iPhone 15",
-  "price": "$999", 
-  "description": "Latest iPhone"
-}
-```
+```"name": "iPhone 15", "price": "$999","description": "Latest iPhone"```
 
 ## Files Description
 
 - **`flan_t5_training.py`** - Main training script for fine-tuning FLAN-T5
 - **`evaluate_model.py`** - Evaluation and testing of trained model
 - **`inference.py`** - Production inference script with convenient methods
-- **`generate_training_data.py`** - Generate training data from existing HTML samples
-- **`training_samples.json`** - Sample training data (10 examples)
+- **`training_data.json`** - Data for training
 - **`requirements.txt`** - Python dependencies
 - **`setup_llm.sh`** - Environment setup script
 
@@ -48,24 +41,13 @@ The system trains a language model to extract structured data from HTML content 
 
 ### 1. Prepare Training Data
 
-You can use the provided sample data or generate more:
-
-```bash
-# Use existing sample data
-cp training_samples.json my_training_data.json
-
-# Or generate from HTML samples
-python generate_training_data.py
-# This creates enhanced_training_data.json from your HTML samples
-```
-
 **Training data format:**
 ```json
 [
   {
     "instruction": "Extract product name and price from the following HTML:",
     "input": "<div class=\"product\"><h2>MacBook</h2><span>$1299</span></div>",
-    "output": "{\"name\": \"MacBook\", \"price\": \"$1299\"}"
+    "output": "\"name\": \"MacBook\", \"price\": \"$1299\""
   }
 ]
 ```
@@ -112,8 +94,8 @@ python evaluate_model.py --demo
 ```
 --- Example 1 ---
 Instruction: Extract product name, image url, and description
-Expected: {"name": "iPhone 15 Pro", "image_url": "https://example.com/iphone15.jpg", "description": "Latest iPhone"}
-Predicted: {"name": "iPhone 15 Pro", "image_url": "https://example.com/iphone15.jpg", "description": "Latest iPhone"}
+Expected: "name": "iPhone 15 Pro", "image_url": "https://example.com/iphone15.jpg", "description": "Latest iPhone"
+Predicted: "name": "iPhone 15 Pro", "image_url": "https://example.com/iphone15.jpg", "description": "Latest iPhone"
 ✓ CORRECT
 
 Overall Accuracy: 85.50% (17/20)
@@ -139,7 +121,7 @@ html = '''
 '''
 
 result = parser.extract_products(html)
-print(result)  # {"name": "Samsung Galaxy S24", "price": "$799", "description": "Latest Samsung flagship"}
+print(result)  # "name": "Samsung Galaxy S24", "price": "$799", "description": "Latest Samsung flagship"
 ```
 
 ### Custom Extraction
@@ -158,19 +140,6 @@ result = parser.extract_data(
 )
 ```
 
-### Batch Processing
-
-```python
-from inference import batch_process_files
-
-# Process multiple HTML files
-batch_process_files(
-    model_path="./flan-t5-html-parser",
-    html_files=["file1.html", "file2.html"],
-    output_file="results.json"
-)
-```
-
 ## Training Data Guidelines
 
 ### Good Training Examples
@@ -183,7 +152,7 @@ batch_process_files(
 
 2. **Consistent output format:**
    ```json
-   ✓ {"name": "Product Name", "price": "$99.99"}
+   ✓ "name": "Product Name", "price": "$99.99"
    ✗ Product: Product Name, Price: $99.99
    ```
 

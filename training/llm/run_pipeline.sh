@@ -20,8 +20,8 @@ echo "Activating virtual environment..."
 source venv_llm/bin/activate
 
 # Check if training data exists
-if [ ! -f "training_samples.json" ]; then
-    echo "Error: training_samples.json not found!"
+if [ ! -f "training_data.json" ]; then
+    echo "Error: training_data.json not found!"
     echo "Please ensure training data is available."
     exit 1
 fi
@@ -36,15 +36,15 @@ if [ "$generate_data" = "y" ] || [ "$generate_data" = "Y" ]; then
     
     if [ -f "enhanced_training_data.json" ]; then
         echo "Combining training data..."
-        python data_utils.py combine training_samples.json enhanced_training_data.json -o combined_training_data.json
+        python data_utils.py combine training_data.json enhanced_training_data.json -o combined_training_data.json
         TRAINING_FILE="combined_training_data.json"
     else
         echo "No additional data generated, using original samples..."
-        TRAINING_FILE="training_samples.json"
+        TRAINING_FILE="training_data.json"
     fi
 else
     echo "Using original training samples..."
-    TRAINING_FILE="training_samples.json"
+    TRAINING_FILE="training_data.json"
 fi
 
 # Step 2: Analyze training data

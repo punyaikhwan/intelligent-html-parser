@@ -107,6 +107,7 @@ def parse_html():
         html = request.form.get('html')
         logging.debug(f"Received HTML content of length: {len(html) if html else 'None'}")
         query = request.form.get('query')
+        full_ml = request.form.get('full_ml', 'true').lower() == 'true'
         
         if not html:
             raise BadRequest("Missing 'html' field in form data")
@@ -128,7 +129,6 @@ def parse_html():
         
         # Get parser and process
         parser_instance = get_parser()
-        full_ml = request.query_string.decode('utf-8').lower().find('full_ml=false') == -1
         result = parser_instance.parse(html, query, full_ml=full_ml)
 
         logger.info(f"Parse completed - Processing time: {result.get('metadata', {}).get('processing_time_ms', 0)}ms")
@@ -167,6 +167,7 @@ def parse_html_from_file():
     Expected form data:
     - html: HTML file location to parse
     - query: Natural language query describing what to extract
+    - full_ml: (optional) Whether to use the full ML pipeline or not (default: True)
     
     Returns JSON with structure:
     {
@@ -193,7 +194,8 @@ def parse_html_from_file():
         html_path = request.form.get('html')
         html = read_html_from_file(html_path)
         query = request.form.get('query')
-        
+        full_ml = request.form.get('full_ml', 'true').lower() == 'true'
+
         if not html:
             raise BadRequest("Missing 'html' field in form data")
         
@@ -205,7 +207,7 @@ def parse_html_from_file():
         
         # Get parser and process
         parser_instance = get_parser()
-        result = parser_instance.parse(html, query)
+        result = parser_instance.parse(html, query, full_ml=full_ml)
         
         logger.info(f"Parse completed - Processing time: {result.get('metadata', {}).get('processing_time_ms', 0)}ms")
         
