@@ -1,0 +1,102 @@
+[
+  {
+    "anchor": "HTML table extraction",
+    "positive": "Extract data from HTML tables",
+    "negative": "JSON file parsing"
+  },
+  {
+    "anchor": "Web scraping techniques",
+    "positive": "HTML web scraping methods",
+    "negative": "Database query optimization"
+  },
+  {
+    "anchor": "Parse structured data",
+    "positive": "Extract structured information from documents",
+    "negative": "Image processing algorithms"
+  },
+  {
+    "anchor": "Machine learning model",
+    "positive": "ML algorithm implementation",
+    "negative": "Network security protocols"
+  },
+  {
+    "anchor": "Text similarity scoring",
+    "positive": "Calculate text semantic similarity",
+    "negative": "Video compression techniques"
+  },
+  {
+    "anchor": "Natural language processing",
+    "positive": "NLP text analysis",
+    "negative": "Computer graphics rendering"
+  },
+  {
+    "anchor": "Document classification",
+    "positive": "Classify text documents automatically",
+    "negative": "Audio signal processing"
+  },
+  {
+    "anchor": "Feature extraction methods",
+    "positive": "Extract features from data",
+    "negative": "Mobile app development"
+  },
+  {
+    "anchor": "Query understanding",
+    "positive": "Understand user search queries",
+    "negative": "Hardware troubleshooting"
+  },
+  {
+    "anchor": "Semantic search engine",
+    "positive": "Search based on meaning and context",
+    "negative": "Operating system installation"
+  },
+  {
+    "anchor": "Data preprocessing pipeline",
+    "positive": "Clean and prepare data for analysis",
+    "negative": "Game development frameworks"
+  },
+  {
+    "anchor": "Information retrieval system",
+    "positive": "Retrieve relevant information from databases",
+    "negative": "Cryptocurrency mining"
+  },
+  {
+    "anchor": "Content extraction algorithm",
+    "positive": "Extract meaningful content from web pages",
+    "negative": "Social media marketing"
+  },
+  {
+    "anchor": "Pattern recognition model",
+    "positive": "Recognize patterns in data automatically",
+    "negative": "Cloud infrastructure setup"
+  },
+  {
+    "anchor": "Text embedding generation",
+    "positive": "Generate vector representations of text",
+    "negative": "Mobile photography tips"
+  },
+  {
+    "anchor": "Intelligent content parsing",
+    "positive": "Smart parsing of document content",
+    "negative": "Stock market analysis"
+  },
+  {
+    "anchor": "Automated data extraction",
+    "positive": "Extract data automatically from sources",
+    "negative": "Recipe cooking instructions"
+  },
+  {
+    "anchor": "Contextual understanding",
+    "positive": "Understand text meaning in context",
+    "negative": "Fashion design trends"
+  },
+  {
+    "anchor": "Information classification",
+    "positive": "Classify information into categories",
+    "negative": "Travel booking systems"
+  },
+  {
+    "anchor": "Structured data mining",
+    "positive": "Mine structured information from datasets",
+    "negative": "Fitness workout routines"
+  }
+]

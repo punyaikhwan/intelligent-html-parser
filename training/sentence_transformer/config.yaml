@@ -1,0 +1,47 @@
+# Configuration file for Sentence Transformer Fine-tuning with Triplet Loss
+
+# Model Configuration
+model:
+  name: "sentence-transformers/all-MiniLM-L6-v2"  # Pre-trained model name
+  # Alternative models:
+  # - "sentence-transformers/all-mpnet-base-v2"
+  # - "sentence-transformers/all-distilroberta-v1"
+  # - "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+
+# Data Configuration
+data:
+  triplet_file: "triplet_samples.json"  # Path to triplet data file
+  train_split: 0.8                     # Training data split ratio (0.8 = 80% for training)
+
+# Training Configuration
+training:
+  epochs: 4                            # Number of training epochs
+  batch_size: 16                       # Training batch size
+  learning_rate: 2e-5                  # Learning rate for optimizer
+  warmup_steps: 100                    # Number of warmup steps
+  evaluation_steps: 500                # Steps between evaluations
+  margin: 0.5                          # Margin for triplet loss
+  
+# Output Configuration
+output:
+  model_path: "./models/fine_tuned_model"  # Base path for saving fine-tuned model
+  add_timestamp: true                      # Add timestamp to model path
+  save_best_model: true                    # Save best performing model during training
+  
+# Evaluation Configuration
+evaluation:
+  run_evaluation: true                 # Run evaluation after training
+  create_plots: true                   # Create visualization plots
+  save_csv: true                       # Save results to CSV
+  
+# Logging Configuration
+logging:
+  level: "INFO"                        # Logging level (DEBUG, INFO, WARNING, ERROR)
+  log_to_file: false                   # Save logs to file
+  log_file: "training.log"             # Log file name if log_to_file is true
+
+# Advanced Configuration
+advanced:
+  use_cuda_if_available: true          # Use CUDA if available
+  num_workers: 4                       # Number of workers for data loading
+  seed: 42                             # Random seed for reproducibility

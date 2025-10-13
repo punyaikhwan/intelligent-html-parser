@@ -43,10 +43,17 @@ cd intelligent-html-parser
 
 2. Make the startup script executable:
 ```bash
+chmod +x setup.sh
 chmod +x start.sh
 ```
 
-3. Run the startup script:
+3. Run these scripts:
+For the first time, run this script to setup virtual environment and install the requirements.
+```bash
+./setup.sh
+```
+
+Next, you only need to run this script (except if there are some requirements added).
 ```bash
 ./start.sh
 ```

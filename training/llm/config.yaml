@@ -1,0 +1,44 @@
+# FLAN-T5 HTML Parser Training Configuration
+
+# Model Configuration
+model_name: "google/flan-t5-small"  # Options: flan-t5-small, flan-t5-base, flan-t5-large
+output_dir: "./flan-t5-html-parser"
+
+# Training Parameters
+num_epochs: 5
+batch_size: 4
+learning_rate: 3e-4
+warmup_steps: 100
+weight_decay: 0.01
+max_input_length: 512
+max_output_length: 256
+
+# Evaluation Parameters
+validation_split: 0.2
+eval_steps: 100
+save_steps: 100
+save_total_limit: 3
+metric_for_best_model: "rougeL"
+
+# Data Parameters
+shuffle_data: true
+max_samples: null  # Set to number to limit training samples
+
+# Generation Parameters
+num_beams: 4
+temperature: 0.0  # 0 for deterministic, >0 for sampling
+top_p: 0.9
+early_stopping: true
+
+# Hardware Configuration
+use_fp16: true  # Use half precision if GPU available
+dataloader_pin_memory: false
+gradient_accumulation_steps: 1
+
+# Logging
+logging_steps: 100
+report_to: ["tensorboard"]  # Options: tensorboard, wandb, none
+
+# Advanced Options
+lr_scheduler_type: "linear"  # Options: linear, cosine, polynomial
+optimizer: "adamw"  # Options: adamw, sgd, adafactor

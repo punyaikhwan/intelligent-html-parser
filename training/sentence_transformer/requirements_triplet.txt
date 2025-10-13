@@ -1,0 +1,25 @@
+# Requirements for Sentence Transformer Fine-tuning
+
+# Core dependencies
+sentence-transformers>=2.2.2
+torch>=1.11.0
+transformers>=4.21.0
+
+# Configuration
+PyYAML>=6.0
+
+# Data handling
+pandas>=1.4.0
+numpy>=1.21.0
+
+# Evaluation and visualization
+scikit-learn>=1.1.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# Utilities
+tqdm>=4.64.0
+datasets>=2.0.0
+
+# Optional: for better performance
+accelerate>=0.12.0

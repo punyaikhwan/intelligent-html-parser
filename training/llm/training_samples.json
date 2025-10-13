@@ -1,0 +1,52 @@
+[
+    {
+        "instruction": "Extract product name, image url, and description from the following HTML:",
+        "input": "<div class=\"product\"><h2 class=\"product-title\">iPhone 15 Pro</h2><img src=\"https://example.com/iphone15.jpg\" alt=\"iPhone 15 Pro\"><p class=\"description\">Latest iPhone with advanced camera system and titanium design.</p><span class=\"price\">$999</span></div>",
+        "output": "{\n  \"name\": \"iPhone 15 Pro\",\n  \"image_url\": \"https://example.com/iphone15.jpg\",\n  \"description\": \"Latest iPhone with advanced camera system and titanium design.\"\n}"
+    },
+    {
+        "instruction": "Get the book title, author, and price from this HTML:",
+        "input": "<article class=\"book-item\"><h3>The Great Gatsby</h3><p class=\"author\">By F. Scott Fitzgerald</p><div class=\"price\">$12.99</div><img src=\"/books/gatsby.jpg\"></article>",
+        "output": "{\n  \"title\": \"The Great Gatsby\",\n  \"author\": \"F. Scott Fitzgerald\",\n  \"price\": \"$12.99\"\n}"
+    },
+    {
+        "instruction": "Extract job title, company, and location from the following HTML:",
+        "input": "<div class=\"job-listing\"><h2>Senior Software Engineer</h2><div class=\"company\">Tech Corp Inc.</div><span class=\"location\">San Francisco, CA</span><p class=\"requirements\">5+ years experience required</p></div>",
+        "output": "{\n  \"title\": \"Senior Software Engineer\",\n  \"company\": \"Tech Corp Inc.\",\n  \"location\": \"San Francisco, CA\"\n}"
+    },
+    {
+        "instruction": "Get the property name, price, and address from this real estate HTML:",
+        "input": "<div class=\"property\"><h1 class=\"property-name\">Modern Downtown Apartment</h1><div class=\"price\">$450,000</div><address>123 Main St, Downtown</address><div class=\"features\">2 bed, 2 bath</div></div>",
+        "output": "{\n  \"name\": \"Modern Downtown Apartment\",\n  \"price\": \"$450,000\",\n  \"address\": \"123 Main St, Downtown\"\n}"
+    },
+    {
+        "instruction": "Extract club name, location, and membership fee from this HTML:",
+        "input": "<section class=\"club-info\"><h2>Fitness Plus Gym</h2><p class=\"location\">Downtown Mall, 2nd Floor</p><div class=\"membership\">Monthly: $49.99</div><p class=\"amenities\">Pool, Sauna, Free Weights</p></section>",
+        "output": "{\n  \"name\": \"Fitness Plus Gym\",\n  \"location\": \"Downtown Mall, 2nd Floor\",\n  \"membership_fee\": \"Monthly: $49.99\"\n}"
+    },
+    {
+        "instruction": "Get the product name, price, and rating from this e-commerce HTML:",
+        "input": "<div class=\"product-card\"><h3 class=\"product-name\">Wireless Bluetooth Headphones</h3><span class=\"price\">$79.99</span><div class=\"rating\">4.5 stars</div><button class=\"add-to-cart\">Add to Cart</button></div>",
+        "output": "{\n  \"name\": \"Wireless Bluetooth Headphones\",\n  \"price\": \"$79.99\",\n  \"rating\": \"4.5 stars\"\n}"
+    },
+    {
+        "instruction": "Extract restaurant name, cuisine type, and rating from this HTML:",
+        "input": "<div class=\"restaurant\"><h2>Bella Italia</h2><p class=\"cuisine\">Italian</p><div class=\"rating\">★★★★☆ (4.2)</div><p class=\"address\">456 Food Street</p></div>",
+        "output": "{\n  \"name\": \"Bella Italia\",\n  \"cuisine\": \"Italian\",\n  \"rating\": \"★★★★☆ (4.2)\"\n}"
+    },
+    {
+        "instruction": "Get the event name, date, and venue from this HTML:",
+        "input": "<article class=\"event\"><h1>Summer Music Festival</h1><time datetime=\"2024-07-15\">July 15, 2024</time><div class=\"venue\">Central Park</div><p class=\"description\">Annual outdoor music festival</p></article>",
+        "output": "{\n  \"name\": \"Summer Music Festival\",\n  \"date\": \"July 15, 2024\",\n  \"venue\": \"Central Park\"\n}"
+    },
+    {
+        "instruction": "Extract course title, instructor, and duration from this educational HTML:",
+        "input": "<div class=\"course\"><h3>Machine Learning Fundamentals</h3><p class=\"instructor\">Dr. Sarah Johnson</p><span class=\"duration\">8 weeks</span><div class=\"price\">$299</div></div>",
+        "output": "{\n  \"title\": \"Machine Learning Fundamentals\",\n  \"instructor\": \"Dr. Sarah Johnson\",\n  \"duration\": \"8 weeks\"\n}"
+    },
+    {
+        "instruction": "Get the article title, author, and publication date from this news HTML:",
+        "input": "<article class=\"news-item\"><h1>Climate Change Summit Concludes</h1><p class=\"byline\">By Jane Smith</p><time class=\"publish-date\">October 10, 2024</time><p class=\"summary\">World leaders agree on new climate targets</p></article>",
+        "output": "{\n  \"title\": \"Climate Change Summit Concludes\",\n  \"author\": \"Jane Smith\",\n  \"publication_date\": \"October 10, 2024\"\n}"
+    }
+]
