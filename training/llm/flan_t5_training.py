@@ -1,3 +1,4 @@
+import gc
 import json
 import torch
 import numpy as np
@@ -16,21 +17,31 @@ from typing import Dict, List
 import os
 import logging
 
+from config_loader import load_config, get_training_args
+from sklearn.model_selection import KFold
+
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class HTMLParsingTrainer:
-    def __init__(self, model_name: str = "google/flan-t5-small"):
+    def __init__(self):
         """
         Initialize the HTML parsing trainer
         
         Args:
             model_name: Pre-trained model name to fine-tune
         """
-        self.model_name = model_name
-        self.tokenizer = T5Tokenizer.from_pretrained(model_name)
-        self.model = T5ForConditionalGeneration.from_pretrained(model_name)
+        if config is None:
+            config = get_training_args(load_config())
+        
+        self.config = config
+        self.model_name = config['model_name']
+        
+        # Memory optimization: Load with low CPU memory usage
+        logger.info(f"Loading model: {self.model_name}")
+        self.tokenizer = T5Tokenizer.from_pretrained(self.model_name)
+        self.model = T5ForConditionalGeneration.from_pretrained(self.model_name)
         
         # Add special tokens if needed
         special_tokens = ["<html>", "</html>", "<extract>", "</extract>"]
@@ -133,39 +144,205 @@ class HTMLParsingTrainer:
             "rougeLsum": result["rougeLsum"]
         }
     
-    def train(
-        self, 
-        train_file: str,
-        output_dir: str = "./flan-t5-html-parser",
-        num_epochs: int = 3,
-        batch_size: int = 8,
-        learning_rate: float = 5e-5,
-        save_steps: int = 500,
-        eval_steps: int = 500,
-        validation_split: float = 0.2
-    ):
+    def train_single_fold(self, train_data: List[Dict], val_data: List[Dict], fold: int = 0):
         """
-        Train the model
+        Train a single fold of the model
+        
+        Args:
+            train_data: Training data for this fold
+            val_data: Validation data for this fold
+            fold: Fold number (for output directory naming)
+        """
+        logger.info(f"Training fold {fold + 1}")
+        logger.info(f"Training samples: {len(train_data)}")
+        logger.info(f"Validation samples: {len(val_data)}")
+        
+        # Create datasets
+        train_dataset = self.preprocess_data(train_data)
+        val_dataset = self.preprocess_data(val_data)
+        
+        # Data collator
+        data_collator = DataCollatorForSeq2Seq(
+            self.tokenizer,
+            model=self.model,
+            label_pad_token_id=-100,
+            pad_to_multiple_of=8
+        )
+        
+        # Create fold-specific output directory
+        fold_output_dir = f"{self.config['output_dir']}/fold_{fold + 1}"
+        
+        # Training arguments using config
+        training_args = TrainingArguments(
+            output_dir=fold_output_dir,
+            num_train_epochs=self.config['num_epochs'],
+            per_device_train_batch_size=self.config['batch_size'],
+            per_device_eval_batch_size=self.config['batch_size'],
+            warmup_steps=self.config['warmup_steps'],
+            weight_decay=self.config['weight_decay'],
+            logging_dir=f"{fold_output_dir}/logs",
+            logging_steps=self.config['logging_steps'],
+            evaluation_strategy="steps",
+            eval_steps=self.config['eval_steps'],
+            save_steps=self.config['save_steps'],
+            save_total_limit=self.config['save_total_limit'],
+            load_best_model_at_end=True,
+            metric_for_best_model=self.config['metric_for_best_model'],
+            greater_is_better=True,
+            learning_rate=self.config['learning_rate'],
+            fp16=self.config['use_fp16'] and torch.cuda.is_available(),
+            gradient_accumulation_steps=self.config['gradient_accumulation_steps'],
+            remove_unused_columns=False,
+            report_to=["tensorboard"]
+        )
+        
+        # Initialize trainer
+        trainer = Trainer(
+            model=self.model,
+            args=training_args,
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
+            tokenizer=self.tokenizer,
+            data_collator=data_collator,
+            compute_metrics=self.compute_metrics
+        )
+        
+        # Memory monitoring before training
+        self._log_memory_usage(f"Before training fold {fold + 1}")
+        
+        # Start training
+        logger.info(f"Starting training for fold {fold + 1}...")
+        trainer.train()
+        
+        # Memory cleanup after training
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+        
+        # Save the fold model
+        logger.info(f"Saving fold {fold + 1} model...")
+        trainer.save_model()
+        self.tokenizer.save_pretrained(fold_output_dir)
+        
+        # Evaluate on validation set
+        logger.info(f"Evaluating fold {fold + 1}...")
+        eval_results = trainer.evaluate()
+        
+        # Memory monitoring after fold completion
+        self._log_memory_usage(f"After fold {fold + 1}")
+        
+        logger.info(f"Fold {fold + 1} completed!")
+        logger.info(f"Fold {fold + 1} evaluation results: {eval_results}")
+        
+        return trainer, eval_results
+    
+    def train_kfold(self,):
+        """
+        Train the model using k-fold cross validation
+        """
+        # Set seed for reproducibility
+        set_seed(42)
+        
+        # Load and preprocess data
+        logger.info("Loading training data for k-fold validation...")
+        raw_data = self.load_training_data(self.config['train_file'])
+        
+        # Shuffle data if specified in config
+        if self.config['shuffle_data']:
+            import random
+            random.shuffle(raw_data)
+        
+        # Limit samples if specified in config
+        if self.config['max_samples'] is not None:
+            raw_data = raw_data[:self.config['max_samples']]
+        
+        # Initialize k-fold
+        kf = KFold(n_splits=self.config['kfold_splits'], shuffle=True, random_state=42)
+        
+        all_results = []
+        best_model = None
+        best_score = -1
+        
+        # Convert to numpy array for k-fold splitting
+        data_indices = np.arange(len(raw_data))
+        
+        logger.info(f"Starting {self.config['kfold_splits']}-fold cross validation...")
+        
+        for fold, (train_idx, val_idx) in enumerate(kf.split(data_indices)):
+            # Reset model for each fold (optional - you might want to keep this or not)
+            # self.model = T5ForConditionalGeneration.from_pretrained(self.model_name)
+            
+            # Split data for this fold
+            train_data = [raw_data[i] for i in train_idx]
+            val_data = [raw_data[i] for i in val_idx]
+            
+            # Train this fold
+            trainer, eval_results = self.train_single_fold(train_data, val_data, fold)
+            all_results.append(eval_results)
+            
+            # Check if this is the best model so far
+            current_score = eval_results.get(f'eval_{self.config["metric_for_best_model"]}', 0)
+            if current_score > best_score:
+                best_score = current_score
+                best_model = trainer
+        
+        # Calculate average results across all folds
+        avg_results = {}
+        for key in all_results[0].keys():
+            if key.startswith('eval_'):
+                avg_results[key] = np.mean([result[key] for result in all_results])
+                avg_results[f"{key}_std"] = np.std([result[key] for result in all_results])
+        
+        logger.info("K-Fold Cross Validation completed!")
+        logger.info("Average results across all folds:")
+        for key, value in avg_results.items():
+            logger.info(f"{key}: {value:.4f}")
+        
+        # Save the best model to the main output directory
+        if best_model:
+            logger.info("Saving the best model from k-fold validation...")
+            best_model.save_model(self.config['output_dir'])
+            self.tokenizer.save_pretrained(self.config['output_dir'])
+        
+        return best_model, all_results, avg_results
+    
+    def train(self):
+        """
+        Train the FLAN-T5 model for HTML parsing using config parameters
+        """
+        # Check if k-fold validation is enabled
+        if self.config['use_kfold']:
+            logger.info("Using k-fold cross validation...")
+            return self.train_kfold()
+        else:
+            logger.info("Using simple train/validation split...")
+            return self.train_simple_split()
+    
+    def train_simple_split(self):
+        """
+        Train the model using simple train/validation split
         
         Args:
             train_file: Path to training data JSON file
-            output_dir: Directory to save the trained model
-            num_epochs: Number of training epochs
-            batch_size: Training batch size
-            learning_rate: Learning rate
-            save_steps: Save model every N steps
-            eval_steps: Evaluate model every N steps
-            validation_split: Fraction of data to use for validation
         """
         # Set seed for reproducibility
         set_seed(42)
         
         # Load and preprocess data
         logger.info("Loading training data...")
-        raw_data = self.load_training_data(train_file)
+        raw_data = self.load_training_data(self.config['train_file'])
+        
+        # Shuffle data if specified in config
+        if self.config['shuffle_data']:
+            import random
+            random.shuffle(raw_data)
+        
+        # Limit samples if specified in config
+        if self.config['max_samples'] is not None:
+            raw_data = raw_data[:self.config['max_samples']]
         
         # Split data into train and validation
-        split_idx = int(len(raw_data) * (1 - validation_split))
+        split_idx = int(len(raw_data) * (1 - self.config['validation_split']))
         train_data = raw_data[:split_idx]
         val_data = raw_data[split_idx:]
         
@@ -184,27 +361,27 @@ class HTMLParsingTrainer:
             pad_to_multiple_of=8
         )
         
-        # Training arguments
+        # Training arguments using config
         training_args = TrainingArguments(
-            output_dir=output_dir,
-            num_train_epochs=num_epochs,
-            per_device_train_batch_size=batch_size,
-            per_device_eval_batch_size=batch_size,
-            warmup_steps=100,
-            weight_decay=0.01,
-            logging_dir=f"{output_dir}/logs",
-            logging_steps=100,
+            output_dir=self.config['output_dir'],
+            num_train_epochs=self.config['num_epochs'],
+            per_device_train_batch_size=self.config['batch_size'],
+            per_device_eval_batch_size=self.config['batch_size'],
+            warmup_steps=self.config['warmup_steps'],
+            weight_decay=self.config['weight_decay'],
+            logging_dir=f"{self.config['output_dir']}/logs",
+            logging_steps=self.config['logging_steps'],
             evaluation_strategy="steps",
-            eval_steps=eval_steps,
-            save_steps=save_steps,
-            save_total_limit=3,
+            eval_steps=self.config['eval_steps'],
+            save_steps=self.config['save_steps'],
+            save_total_limit=self.config['save_total_limit'],
             load_best_model_at_end=True,
-            metric_for_best_model="rougeL",
+            metric_for_best_model=self.config['metric_for_best_model'],
             greater_is_better=True,
-            learning_rate=learning_rate,
-            lr_scheduler_type="linear",
-            fp16=torch.cuda.is_available(),
-            dataloader_pin_memory=False,
+            learning_rate=self.config['learning_rate'],
+            fp16=self.config['use_fp16'] and torch.cuda.is_available(),
+            dataloader_pin_memory=self.config['dataloader_pin_memory'],
+            gradient_accumulation_steps=self.config['gradient_accumulation_steps'],
             remove_unused_columns=False,
             report_to=["tensorboard"]
         )
@@ -227,7 +404,7 @@ class HTMLParsingTrainer:
         # Save the final model
         logger.info("Saving model...")
         trainer.save_model()
-        self.tokenizer.save_pretrained(output_dir)
+        self.tokenizer.save_pretrained(self.config['output_dir'])
         
         # Evaluate on validation set
         logger.info("Final evaluation...")
@@ -239,20 +416,15 @@ class HTMLParsingTrainer:
         return trainer
 
 def main():
-    """Main training function"""
-    # Initialize trainer
-    trainer = HTMLParsingTrainer()
+    """Main training function using config.yaml"""
+    # Load configuration
+    config = get_training_args(load_config())
+    
+    # Initialize trainer with config
+    trainer = HTMLParsingTrainer(config)
     
     # Train the model
-    model_trainer = trainer.train(
-        train_file="training_samples.json",
-        output_dir="./flan-t5-html-parser",
-        num_epochs=5,
-        batch_size=4,  # Smaller batch size for small model
-        learning_rate=3e-4,
-        save_steps=100,
-        eval_steps=100
-    )
+    model_trainer = trainer.train()
     
     print("Training completed successfully!")
 

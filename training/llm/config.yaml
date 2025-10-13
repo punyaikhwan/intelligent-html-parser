@@ -1,44 +1,33 @@
 # FLAN-T5 HTML Parser Training Configuration
 
 # Model Configuration
-model_name: "google/flan-t5-small"  # Options: flan-t5-small, flan-t5-base, flan-t5-large
+model_name: "google/flan-t5-small"
 output_dir: "./flan-t5-html-parser"
 
 # Training Parameters
-num_epochs: 5
-batch_size: 4
-learning_rate: 3e-4
-warmup_steps: 100
+num_epochs: 5  # Reduce epochs to save memory and time
+batch_size: 4  # Reduce batch size significantly for memory constraints
+learning_rate: 3e-4  # Slightly higher LR for smaller batch size
+warmup_steps: 100  # Reduce warmup steps
 weight_decay: 0.01
-max_input_length: 2000
-max_output_length: 256
+max_input_length: 1024  # Reduce input length to save memory
+max_output_length: 256  # Reduce output length to save memory
 
-# Evaluation Parameters
+# Evaluation Parameters - Parameter Evaluasi
+use_kfold: false  # Enable k-fold for better validation 
+kfold_splits: 5
 validation_split: 0.2
-eval_steps: 100
-save_steps: 100
-save_total_limit: 3
+eval_steps: 100  # Reduce evaluation frequency to save time
+save_steps: 200  # Save less frequently
+save_total_limit: 2  # Keep fewer checkpoints to save disk space
 metric_for_best_model: "rougeL"
 
-# Data Parameters
+# Data Parameters - Parameter Data  
 shuffle_data: true
-max_samples: null  # Set to number to limit training samples
+max_samples: 500  # Limit samples for testing, remove this for full training
 
-# Generation Parameters
-num_beams: 4
-temperature: 0.0  # 0 for deterministic, >0 for sampling
-top_p: 0.9
-early_stopping: true
-
-# Hardware Configuration
-use_fp16: true  # Use half precision if GPU available
-dataloader_pin_memory: false
-gradient_accumulation_steps: 1
-
-# Logging
-logging_steps: 100
-report_to: ["tensorboard"]  # Options: tensorboard, wandb, none
-
-# Advanced Options
-lr_scheduler_type: "linear"  # Options: linear, cosine, polynomial
-optimizer: "adamw"  # Options: adamw, sgd, adafactor
+# Hardware Configuration - Konfigurasi Hardware (Memory Optimized)
+use_fp16: true  # Enable fp16 to reduce memory usage by ~50%
+gradient_accumulation_steps: 8  # Increase to maintain effective batch size of 32
+logging_steps: 50  # Log moderately
+dataloader_pin_memory: false  # Disable pin memory to save RAM
