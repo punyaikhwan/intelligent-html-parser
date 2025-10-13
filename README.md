@@ -41,13 +41,22 @@ git clone <repository-url>
 cd intelligent-html-parser
 ```
 
-2. Make the startup script executable:
+2. Configure environment variables (optional):
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit the .env file with your preferred settings
+nano .env
+```
+
+3. Make the startup script executable:
 ```bash
 chmod +x setup.sh
 chmod +x start.sh
 ```
 
-3. Run these scripts:
+4. Run these scripts:
 For the first time, run this script to setup virtual environment and install the requirements.
 ```bash
 ./setup.sh
@@ -75,9 +84,64 @@ source venv/bin/activate
 # Install dependencies
 pip install -r requirements.txt
 
+# Configure environment (optional)
+cp .env.example .env
+# Edit .env file as needed
+
 # Start the application
 python app.py
 ```
+
+## Configuration
+
+The application uses environment variables for configuration. All settings are centralized in `settings.py` and loaded from environment variables or `.env` file.
+
+### Core Settings
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `HOST` | `0.0.0.0` | Server host address |
+| `PORT` | `5000` | Server port |
+| `DEBUG` | `False` | Enable debug mode |
+| `FLASK_ENV` | `production` | Flask environment |
+| `SECRET_KEY` | `None` | Flask secret key (required for production) |
+
+### ML Model Settings
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `ML_MODEL_NAME` | `google/flan-t5-small` | HuggingFace model for ML query parsing |
+| `SIMILARITY_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | Model for semantic similarity |
+| `SIMILARITY_THRESHOLD` | `0.6` | Minimum similarity score (0.0-1.0) |
+| `MIN_ATTRIBUTES` | `2` | Minimum attributes before ML fallback |
+
+### Parser Settings
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `ENABLE_JSON_SCRIPT_PARSER` | `True` | Enable JSON script parsing |
+| `ENABLE_TABLE_PARSER` | `True` | Enable table parsing |
+| `ENABLE_GENERAL_PARSER` | `True` | Enable general HTML parsing |
+| `ENABLE_ML_FALLBACK` | `True` | Enable ML fallback for queries |
+
+### Performance Settings
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `MAX_CONTENT_LENGTH` | `16777216` | Maximum request size (16MB) |
+| `REQUEST_TIMEOUT` | `30` | Request timeout in seconds |
+| `MAX_RESULTS_PER_QUERY` | `100` | Maximum results per query |
+| `TORCH_NUM_THREADS` | `None` | PyTorch thread count |
+| `OMP_NUM_THREADS` | `None` | OpenMP thread count |
+
+### Example .env file
+
+```bash
+# Copy .env.example to .env and modify as needed
+cp .env.example .env
+```
+
+See `.env.example` for a complete list of available configuration options.
 
 ## Usage
 

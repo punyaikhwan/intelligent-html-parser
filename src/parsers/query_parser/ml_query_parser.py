@@ -65,11 +65,15 @@ class MLQueryParser:
         try:
             # Create a prompt for entity extraction
             entity_prompt = self._create_entity_prompt(query)
+            logging.info(f"Entity Prompt: {entity_prompt}")
             entity = self._generate_response(entity_prompt)
+            logging.info(f"Extracted entity: {entity}")
             
             # Create a prompt for attribute extraction
             attributes_prompt = self._create_attributes_prompt(query, entity)
+            logging.info(f"Attributes Prompt: {attributes_prompt}")
             attributes_text = self._generate_response(attributes_prompt)
+            logging.info(f"Extracted attributes text: {attributes_text}")
             attributes = self._parse_attributes_response(attributes_text)
             
             return entity, attributes

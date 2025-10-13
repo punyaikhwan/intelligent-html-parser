@@ -8,21 +8,23 @@ import sys
 from flask import Flask, request, jsonify
 from werkzeug.exceptions import BadRequest
 
+# Import settings
+from settings import settings
+
 # Import the parser
 from html_parser import IntelligentHTMLParser
 
 # Initialize Flask app
 app = Flask(__name__)
 
-# Configure Flask app for larger HTML files
-# Set maximum request size to 16MB (adjust as needed)
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB
-app.config['JSON_SORT_KEYS'] = False
+# Configure Flask app using settings
+app.config.update(settings.get_flask_config())
 
-# Configure logging
+# Configure logging using settings
+logging_config = settings.get_logging_config()
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=getattr(logging, logging_config['level']),
+    format=logging_config['format']
 )
 logger = logging.getLogger(__name__)
 
@@ -34,7 +36,8 @@ def get_parser():
     global parser
     if parser is None:
         logger.info("Initializing Intelligent HTML Parser...")
-        parser = IntelligentHTMLParser()
+        parser_config = settings.get_parser_config()
+        parser = IntelligentHTMLParser(**parser_config)
         logger.info("Parser initialized successfully.")
     return parser
 
@@ -77,6 +80,7 @@ def parse_html():
     Expected form data:
     - html: HTML string to parse
     - query: Natural language query describing what to extract
+    - full_ml: (optional) Whether to use the full ML pipeline or not (default: True)
     
     Returns JSON with structure:
     {
@@ -124,8 +128,9 @@ def parse_html():
         
         # Get parser and process
         parser_instance = get_parser()
-        result = parser_instance.parse(html, query)
-        
+        full_ml = request.query_string.decode('utf-8').lower().find('full_ml=false') == -1
+        result = parser_instance.parse(html, query, full_ml=full_ml)
+
         logger.info(f"Parse completed - Processing time: {result.get('metadata', {}).get('processing_time_ms', 0)}ms")
         
         return jsonify(result)
@@ -281,13 +286,9 @@ def method_not_allowed(error):
 
 
 if __name__ == '__main__':
-    # Configuration
-    HOST = os.getenv('HOST', '0.0.0.0')
-    PORT = int(os.getenv('PORT', 5000))
-    DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-    
-    logger.info(f"Starting Intelligent HTML Parser API on {HOST}:{PORT}")
-    logger.info(f"Debug mode: {DEBUG}")
+    logger.info(f"Starting Intelligent HTML Parser API on {settings.HOST}:{settings.PORT}")
+    logger.info(f"Debug mode: {settings.DEBUG}")
+    logger.info(f"Environment: {settings.FLASK_ENV}")
     
     # Pre-initialize parser
     try:
@@ -298,4 +299,4 @@ if __name__ == '__main__':
         logger.warning("Parser will be initialized on first request")
     
     # Start the Flask app
-    app.run(host=HOST, port=PORT, debug=DEBUG)
+    app.run(host=settings.HOST, port=settings.PORT, debug=settings.DEBUG)

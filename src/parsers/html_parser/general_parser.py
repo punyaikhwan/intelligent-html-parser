@@ -6,7 +6,7 @@ from typing import List, Dict, Any, Optional, Set, Tuple
 from bs4 import BeautifulSoup, Tag
 import re
 
-from utils import noun
+from utils.html_utils import HTMLUtils
 
 try:
     from sentence_transformers import SentenceTransformer
@@ -50,18 +50,6 @@ class AttributeData:
 
 class GeneralHTMLParser:
     """Parser for extracting data from general HTML elements (non-table)."""
-
-    # Attributes to check for matching
-    TARGET_ATTRIBUTES = {'class', 'id', 'name', 'data-*', 'itemprop'}
-    COMMON_ATTRIBUTES = {'name', 'names', 'title', 'description', 'info', 'information', 'detail', 'details', 'label'}
-    CONTAINER_TAGS = {'body', 'div', 'span', 'article', 'section', 'ul', 'ol', 'li', 'figcaption', 'figure'}
-    TEXT_TAGS = {'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'span'}
-    TEXT_PROPERTY_TAGS = {'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'i', 'em', 'u', 'small', 'mark', 'abbr', 'cite'}
-    IMAGE_KEYWORDS = {'image', 'img', 'photo', 'picture', 'thumbnail', 'avatar', 'logo', 'icon', 'banner'}
-    LINK_KEYWORDS = {'link', 'url', 'website', 'web', 'site', 'websites', 'sites'}
-    NAVIGATION_KEYWORDS = {'next', 'previous', 'prev', 'back', 'forward', 'more', 'less', 'page', 'pages'}
-    ATTRIBUTES_MAY_CONTAINS_VALUES = {'src', 'alt', 'title', 'poster', 'type', 'kind', 'label', 'srclang', 'href', 'rel', 'content'}
-    
     def __init__(self, similarity_model: str = "sentence-transformers/all-MiniLM-L6-v2", 
                  similarity_threshold: float = 0.7):
         """
@@ -74,6 +62,7 @@ class GeneralHTMLParser:
         self.similarity_threshold = similarity_threshold
         self.similarity_model = None
         self._model_loaded = False
+        self.html_utils = HTMLUtils()
         
         if SENTENCE_TRANSFORMERS_AVAILABLE and SKLEARN_AVAILABLE:
             self._load_similarity_model(similarity_model)
@@ -104,15 +93,14 @@ class GeneralHTMLParser:
         soup = BeautifulSoup(html, 'html.parser')
         
         # Clean up html from text property tags, to make text extraction easier
-        for tag in soup.find_all(self.TEXT_PROPERTY_TAGS):
-            if len(tag.attrs) == 0:
+        for tag in soup.find_all(self.html_utils.TEXT_PROPERTY_TAGS):
                 tag.unwrap()
         
         # Two approaches:
         # 1. Find repeated structures that might represent entities. If found, extract attributes from each.
         # 2. If no repeated structures, search for likely containers that might hold the entity. If found, extract attributes but return only one set with highest confidence.
         # Find potential containers that might hold the entities
-        container_groups = self._find_repeated_structures(soup, entity)
+        container_groups = self.html_utils.find_repeated_structures(soup)
         if container_groups and len(container_groups) > 0:
             map_groups_to_filled_attrs = {}
             map_groups_to_first_container_extracted_attrs = {}
@@ -197,7 +185,7 @@ class GeneralHTMLParser:
         
         logging.info("No group of containers met the confidence threshold.")
         # If no repeated structures found, fall back to searching for likely containers
-        containers = self._find_likely_entity_container(soup, soup, entity, attributes)
+        containers = self.html_utils.find_likely_entity_container(soup, len(attributes))
         if containers and len(containers) > 0:
             # Extract attributes from each container and return the one with most attributes found
             best_result = None
@@ -229,10 +217,10 @@ class GeneralHTMLParser:
                         
                         # sometimes, common attributes value match with the navigation keywords, like 'next', 'previous', 'more', 'less', 'page'
                         # we need to ignore these results
-                        if attr in self.COMMON_ATTRIBUTES:
+                        if attr in self.html_utils.COMMON_ATTRIBUTES:
                             if isinstance(value, str):
                                 value_lower = value.strip().lower()
-                                if value_lower in self.NAVIGATION_KEYWORDS:
+                                if value_lower in self.html_utils.NAVIGATION_KEYWORDS:
                                     logging.info(f"Attribute '{attr}' has value '{value}' which matches navigation keywords. Ignoring this attribute.")
                                     extracted_attrs[attr] = AttributeData(AttributeName=attr, Value=None, Score=0.0, PathChains=attr_result.PathChains)
 
@@ -253,182 +241,6 @@ class GeneralHTMLParser:
                 return [cleaned_result]
             
         logging.info("No likely containers found with the entity and attributes.")
-
-    def _find_repeated_structures(self, soup: BeautifulSoup, entity: str) -> List[List[Tag]]:
-        """Find group of repeated HTML structures that might represent entities."""
-        # Look for patterns like multiple elements with same class
-        containers = []
-        
-        # Find elements and group by class for div, span, article, section, ul, and ol tags
-        elements_by_class = {}
-        map_element_to_class = {}
-        map_dataid_to_class = {}
-        for tag_name in ['div', 'span', 'article', 'section']:
-            for element in soup.find_all(tag_name, class_=True):
-                class_name = ' '.join(element['class'])
-                # get data-* attributes
-                data_attrs = [f"{k}={v}" for k, v in element.attrs.items() if k.startswith('data-')]
-                if data_attrs:
-                    data_id = ' '.join(data_attrs)
-                    if data_id not in map_dataid_to_class:
-                        map_dataid_to_class[data_id] = class_name
-
-                # Group elements by class name
-                if class_name not in elements_by_class:
-                    # Create a new list for this class
-                    elements_by_class[class_name] = []
-                
-                elements_by_class[class_name].append(element)
-                map_element_to_class[element] = class_name
-
-        
-        # Include <li> based on repeated <ul> or <ol> lists
-        list_elements = soup.find_all(['ul', 'ol'])
-        for list_element in list_elements:
-            list_items = list_element.find_all('li')
-            class_name = ' '.join(list_element.get('class', []))
-            if class_name not in elements_by_class:
-                elements_by_class[class_name] = []
-            elements_by_class[class_name].extend(list_items)
-            for li in list_items:
-                map_element_to_class[li] = class_name
-
-        # Add classes that appear multiple times as potential containers
-        for class_name, elements in elements_by_class.items():
-            if len(elements) > 1:  # Repeated structure
-                # Check if these elements have similar child patterns
-                if self._have_similar_child_structure(elements):
-                    containers.extend(elements)
-        
-        logging.info(f"Found {len(containers)} repeated structures based on class names.")
-
-        containers_grouped_by_class = []
-        for class_name, elements in elements_by_class.items():
-            if elements and len(elements) > 1:
-                containers_grouped_by_class.append(elements)
-
-        # sort container groups by length descending
-        containers_grouped_by_class = sorted(containers_grouped_by_class, key=lambda x: len(x), reverse=True)
-        logging.info("============= Final grouped containers =============")
-        for group in containers_grouped_by_class:
-            if group and len(group) > 0:
-                class_name = map_element_to_class.get(group[0], None)
-                logging.info(f"Group with class '{class_name}' has {len(group)} containers.")
-
-        return containers_grouped_by_class
-    
-    def _have_similar_child_structure(self, elements: List[Tag]) -> bool:
-        """
-        Check if elements have similar child structure patterns.
-        
-        Args:
-            elements: List of HTML elements to compare
-            
-        Returns:
-            True if elements have similar child structures
-        """
-        if len(elements) < 2:
-            return False
-        
-        # Get child structure signatures for each element
-        signatures = []
-        for element in elements:
-            signature = self._get_child_signature(element)
-            signatures.append(signature)
-        
-        # Check if at least 70% of signatures are similar
-        similar_count = 0
-        base_signature = signatures[0]
-        
-        for signature in signatures:
-            if self._signatures_similar(base_signature, signature):
-                similar_count += 1
-        
-        # Return True if at least 70% of elements have similar structure
-        return similar_count / len(signatures) >= 0.7
-
-    def _get_child_signature(self, element: Tag) -> Dict[str, int]:
-        """
-        Get a signature representing the child structure of an element.
-        
-        Args:
-            element: HTML element to analyze
-            
-        Returns:
-            Dictionary with tag names as keys and counts as values
-        """
-        signature = {}
-        
-        # Count direct children by tag name
-        for child in element.find_all(recursive=False):
-            if hasattr(child, 'name') and child.name:
-                tag_name = child.name
-                signature[tag_name] = signature.get(tag_name, 0) + 1
-        
-        # Also consider children with specific classes/attributes
-        for child in element.find_all():
-            if child.get('class'):
-                class_key = f"class:{' '.join(child['class'])}"
-                signature[class_key] = signature.get(class_key, 0) + 1
-            
-            if child.get('id'):
-                id_key = f"id:{child['id']}"
-                signature[id_key] = signature.get(id_key, 0) + 1
-        
-        return signature
-
-    def _signatures_similar(self, sig1: Dict[str, int], sig2: Dict[str, int], 
-                        similarity_threshold: float = 0.6) -> bool:
-        """
-        Check if two child signatures are similar.
-        
-        Args:
-            sig1: First signature
-            sig2: Second signature
-            similarity_threshold: Minimum similarity ratio
-            
-        Returns:
-            True if signatures are similar enough
-        """
-        if not sig1 and not sig2:
-            return True
-        
-        if not sig1 or not sig2:
-            return False
-        
-        # Get all unique keys
-        all_keys = set(sig1.keys()) | set(sig2.keys())
-        
-        if not all_keys:
-            return True
-        
-        # Calculate similarity based on common structure
-        common_keys = set(sig1.keys()) & set(sig2.keys())
-        
-        # At least some keys should be common
-        if len(common_keys) == 0:
-            return False
-        
-        # Calculate similarity ratio
-        key_similarity = len(common_keys) / len(all_keys)
-        
-        # Also check if the counts are reasonably similar for common keys
-        count_similarity = 0
-        for key in common_keys:
-            count1, count2 = sig1[key], sig2[key]
-            max_count = max(count1, count2)
-            min_count = min(count1, count2)
-            if max_count > 0:
-                count_similarity += min_count / max_count
-        
-        if common_keys:
-            count_similarity /= len(common_keys)
-        
-        # Combine both similarities
-        overall_similarity = (key_similarity + count_similarity) / 2
-        
-        return overall_similarity >= similarity_threshold
-
 
     def _get_most_similar_tag_attr_vals(self, tag_attr_vals: Set[str], entity: str) -> Tuple[Optional[str], float]:
         """Get the attribute values most similar to the entity name."""
@@ -475,7 +287,7 @@ class GeneralHTMLParser:
         
         try:
             target_embedding = self.similarity_model.encode([target])
-            common_attr_list = list(self.COMMON_ATTRIBUTES)
+            common_attr_list = list(self.html_utils.COMMON_ATTRIBUTES)
             common_attr_embeddings = self.similarity_model.encode(common_attr_list)
             
             similarities = cosine_similarity(target_embedding, common_attr_embeddings)[0]
@@ -485,75 +297,6 @@ class GeneralHTMLParser:
             logging.error(f"Error in calculating common attributes similarity score: {e}")
         
         return 0.0
-    
-    def _find_likely_entity_container(self, soup: BeautifulSoup, container: Tag, entity: str, attributes: List[str]) -> List[Tag]:
-        """Find containers that are likely to contain the specified entity."""
-        likely_containers = []
-        
-        for child in container.find_all(recursive=True):
-            # ignore head, script, style, meta, link tags
-            if child.name in ['head', 'script', 'style', 'meta', 'link']:
-                continue
-            if self._is_likely_entity_container(child, entity, attributes):
-                likely_containers.append(child)
-        
-        logging.info(f"Found {len(likely_containers)} likely containers for entity '{entity}' before filtering.")
-        return likely_containers
-
-    def _is_likely_entity_container(self, container: Tag, entity: str, attributes: List[str]) -> bool:
-        """Check if a container is likely to contain entity data."""
-        # Check if container has enough child elements
-        children = container.find_all()
-        if len(children) < len(attributes):  # Need children at least same as number of attributes
-            return False
-        
-        return True
-
-        # # Check if container text mentions the entity
-        # text = container.get_text().lower()
-        # if entity.lower() in text:
-        #     return True
-        
-        # # Check class and id attributes
-        # attrs_text = ' '.join([
-        #     ' '.join(container.get('class', [])),
-        #     container.get('id', ''),
-        # ]).lower()
-        
-        # if entity.lower() in attrs_text:
-        #     return True
-        
-        # return False
-
-    def _filter_outermost_containers(self, containers: List[Tag]) -> List[Tag]:
-        """Filter containers to keep only the outermost repeated structures."""
-        outermost_containers = []
-        
-        for container in containers:
-            is_nested = False
-            
-            # Check if this container is nested inside any other container
-            for other_container in containers:
-                if container != other_container:
-                    # Check if container is a descendant of other_container
-                    if self._is_descendant(container, other_container):
-                        is_nested = True
-                        break
-            
-            # Only add if it's not nested inside another container
-            if not is_nested:
-                outermost_containers.append(container)
-        
-        return outermost_containers
-    
-    def _is_descendant(self, element: Tag, potential_ancestor: Tag) -> bool:
-        """Check if element is a descendant of potential_ancestor."""
-        current = element.parent
-        while current:
-            if current == potential_ancestor:
-                return True
-            current = current.parent
-        return False
 
     # Extract attributes from a container, return a dict of attribute to (value, similarity score, and data identifier)
 
@@ -607,7 +350,7 @@ class GeneralHTMLParser:
             if current is None:
                 return None
             # ignore attributes that may contains value the path chain
-            for attr in self.ATTRIBUTES_MAY_CONTAINS_VALUES:
+            for attr in self.html_utils.ATTRIBUTES_MAY_CONTAINS_VALUES:
                 tag_id.Attributes.pop(attr, None)
 
             logging.info(f"Traversing to tag '{tag_id.TagName}' with attributes {tag_id.Attributes}.")
@@ -669,7 +412,7 @@ class GeneralHTMLParser:
         
         # if image, get src or srcset
         attribute = attribute.lower()
-        if any(keyword in attribute for keyword in self.IMAGE_KEYWORDS):
+        if any(keyword in attribute for keyword in self.html_utils.IMAGE_KEYWORDS):
             img_src = current.get('src', None)
             if img_src:
                 return AttributeData(Value=img_src, PathChains=pathchain)
@@ -679,7 +422,7 @@ class GeneralHTMLParser:
             return None
         
         # if link (a), get href
-        if any(keyword in attribute for keyword in self.LINK_KEYWORDS):
+        if any(keyword in attribute for keyword in self.html_utils.LINK_KEYWORDS):
             href = current.get('href', None)
             if href:
                 return AttributeData(Value=href, PathChains=pathchain)
@@ -706,7 +449,7 @@ class GeneralHTMLParser:
         # Strategy 1: If attribute is likely an image or link, try to find <img> or <a> tags
         is_image_or_link = False
         attr_lower = attribute.lower()
-        if any(keyword in attr_lower for keyword in self.IMAGE_KEYWORDS):
+        if any(keyword in attr_lower for keyword in self.html_utils.IMAGE_KEYWORDS):
             is_image_or_link = True
             logging.info(f"Finding value for attribute '{attribute}' as image URL.")
             value = self._find_image_url(container, attribute)
@@ -714,7 +457,7 @@ class GeneralHTMLParser:
             if value:
                 return value
             
-        if any(keyword in attr_lower for keyword in self.LINK_KEYWORDS) and not is_image_or_link:
+        if any(keyword in attr_lower for keyword in self.html_utils.LINK_KEYWORDS) and not is_image_or_link:
             is_image_or_link = True
             logging.info(f"Finding value for attribute '{attribute}' as link URL.")
             value = self._find_url(container, attribute)
@@ -743,15 +486,6 @@ class GeneralHTMLParser:
             if match is not None:
                 logging.info(f"Found similarity match for attribute '{attribute}': {match.Value} (Score: {match.Score})")
                 return match
-
-        # # Strategy 3: Text content matching
-        # logging.info(f"Finding value for attribute '{attribute}' using text content match.")
-        # text_match = self._find_by_text_content(container, attribute)
-        # if text_match:
-        #     logging.info(f"Found text content match for attribute '{attribute}': {text_match}")
-        #     return text_match
-
-        # logging.info(f"No match found for attribute '{attribute}'.")
         return None
 
     def _find_image_url(self, container: Tag, attribute: str) -> Optional[AttributeData]:
@@ -803,7 +537,7 @@ class GeneralHTMLParser:
         # Look for elements with matching class, id, or name
         for tag in container.find_all(recursive=False):
             # If it's a div, span, article, section, ul, or ol with child elements, search recursively
-            if tag.name in self.CONTAINER_TAGS and tag.find_all(recursive=False):
+            if tag.name in self.html_utils.CONTAINER_TAGS and tag.find_all(recursive=False):
                 result = self._find_by_exact_match(tag, attribute)
                 if result:
                     result.PathChains.insert(0, TagIdentifier(TagName=tag.name, Attributes=tag.attrs))
@@ -902,7 +636,7 @@ class GeneralHTMLParser:
 
             for tag in container.find_all(recursive=False):
                 # if tag name is kind of text container set fallback text if not already set
-                if tag.name in self.TEXT_TAGS and not fallback_text:
+                if tag.name in self.html_utils.TEXT_TAGS and not fallback_text:
                     text = self._get_element_text(tag)
                     fallback_text = text if text else ""
                     fallback_tag = tag
@@ -958,7 +692,7 @@ class GeneralHTMLParser:
                 
                 # If the best element is a container tag and similarity score more than threshold, search recursively for that container only
                 # But if similarity score is low, search it recursively for all other tags and get the highest similarity match
-                if best_element_tag.name in self.CONTAINER_TAGS and best_element_tag.find_all(recursive=False):
+                if best_element_tag.name in self.html_utilsCONTAINER_TAGS and best_element_tag.find_all(recursive=False):
                     if similarity_score >= self.similarity_threshold:
                         logging.info(f"Best match is a container tag '{best_element_tag.name}', searching recursively.")
                         result = self._find_by_similarity(best_element_tag, attribute, depth=depth-1)
@@ -988,7 +722,7 @@ class GeneralHTMLParser:
                             if element in evaluated_elements:
                                 continue
                             evaluated_elements.add(element)
-                            if element.name in self.CONTAINER_TAGS and element.find_all(recursive=False):
+                            if element.name in self.html_utilsCONTAINER_TAGS and element.find_all(recursive=False):
                                 logging.info(f"Searching in container {str(element)[:200]}...")
                                 res = self._find_by_similarity(element, attribute, depth=depth-1)
                                 if res:
@@ -1109,35 +843,3 @@ class GeneralHTMLParser:
             count += 1
 
         return total_score / count if count > 0 else 0.0
-
-def test_general_parser():
-    """Test function for the general HTML parser."""
-    # Sample HTML
-    html = """
-    <html>
-    <body>
-        <div class="product-item">
-            <h3 class="product-name">iPhone 13</h3>
-            <span class="price">$699</span>
-            <p class="description">Latest iPhone model</p>
-        </div>
-        <div class="product-item">
-            <h3 class="product-name">Samsung Galaxy</h3>
-            <span class="price">$599</span>
-            <p class="description">Android smartphone</p>
-        </div>
-    </body>
-    </html>
-    """
-    
-    parser = GeneralHTMLParser()
-    entity = "product"
-    attributes = ["name", "price", "description"]
-    
-    print("Testing general HTML parser...")
-    results = parser.parse_html(html, entity, attributes)
-    print(f"Results: {results}")
-
-
-if __name__ == "__main__":
-    test_general_parser()
