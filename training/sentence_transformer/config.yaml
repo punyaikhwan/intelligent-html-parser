@@ -17,14 +17,14 @@ data:
 training:
   epochs: 4                            # Number of training epochs
   batch_size: 16                       # Training batch size
-  learning_rate: 2e-5                  # Learning rate for optimizer
+  learning_rate: 0.00002               # Learning rate for optimizer
   warmup_steps: 100                    # Number of warmup steps
   evaluation_steps: 500                # Steps between evaluations
   margin: 0.5                          # Margin for triplet loss
   
 # Output Configuration
 output:
-  model_path: "./models/fine_tuned_model"  # Base path for saving fine-tuned model
+  model_path: "./output/fine_tuned_model"  # Base path for saving fine-tuned model
   add_timestamp: true                      # Add timestamp to model path
   save_best_model: true                    # Save best performing model during training
   

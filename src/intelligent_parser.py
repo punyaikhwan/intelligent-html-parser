@@ -68,73 +68,40 @@ class IntelligentHTMLParser:
         start_time = time.time()
         
         try:
+            # Priority 1: Check for JSON scripts first (highest priority)
             logging.info("Starting HTML parsing...")
-            if not full_ml:
-                logging.info("Using rule-based HTML extraction method.")
-                
-                # Step 1: Parse the query to extract entity and attributes
-                logging.info("Parsing query...")
+            soup = BeautifulSoup(html, 'html.parser')
+            if self.json_script_parser.has_json_scripts(soup):
+                logging.info("JSON scripts detected, using JSON script parser...")
                 entity, attributes, method, entity_extraction_approach, attribute_extraction_approach = self.hybrid_query_parser.parse_query(query)
-                
-                if not entity or not attributes:
-                    return self._create_error_response(
-                        "Could not extract entity and attributes from query",
-                        time.time() - start_time
-                    )
+                results = self.json_script_parser.parse_json_scripts(html, entity, attributes)
+            
+                # If JSON script parsing yielded promising results, skip other methods
                 logging.info(f"Extracted entity: {entity} using {entity_extraction_approach}, attributes: {attributes} using {attribute_extraction_approach}")
+                if results and any(sum(1 for attr in attributes if attr in res) >= len(attributes) * 2 / 3 for res in results):
+                    processing_time = time.time() - start_time
+                    approaches_used = {
+                        "query_parsing": {
+                            "method": method,
+                        },
+                        "html_parsing": "json_script"
+                    }
 
-                # Step 2: Parse HTML and determine structure
-                logging.info("Analyzing HTML structure...")
-                soup = BeautifulSoup(html, 'html.parser')
-                
-                # Step 3: Choose parsing strategy based on HTML structure
-                results = []
-                parsing_approach = ""
-                
-                # Priority 1: Check for JSON scripts first (highest priority)
-                useHTMLParser = True
-                if self.json_script_parser.has_json_scripts(soup):
-                    logging.info("JSON scripts detected, using JSON script parser...")
-                    results = self.json_script_parser.parse_json_scripts(html, entity, attributes)
-                    parsing_approach = "json_script"
+                    if method != "ml":
+                        approaches_used["query_parsing"]["entity_extraction_approach"] = entity_extraction_approach
+                        approaches_used["query_parsing"]["attribute_extraction_approach"] = attribute_extraction_approach
+
                     
-                    # If JSON script parsing didn't yield promising results, fall back to other methods
-                    # We define "promising" if all requested attributes are found in at least one entity
-                    if results and any(all(attr in res for attr in attributes) for res in results):
-                        logging.info("Sufficient data extracted from JSON scripts.")
-                        useHTMLParser = False
-                    
-                    # if not, continue to check for table or general parsing
-                    logging.info("JSON script parsing did not yield sufficient results, checking other parsing methods...")
+                    return self._create_success_response(
+                        entity,
+                        attributes,
+                        results,
+                        processing_time,
+                        approaches_used,
+                        ""                    
+                    )
 
-                if useHTMLParser:
-                    # Priority 2: Check for table structure
-                    html_is_table = self.table_parser.is_table(soup)
-                    if html_is_table:
-                        logging.info("Table structure detected, using table parser...")
-                        results = self.table_parser.parse_tables(html, entity, attributes)
-                        parsing_approach = "table"
-                    else:
-                        # Priority 3: Use general parser as fallback
-                        logging.info("Non-table structure detected, using general parser...")
-                        results = self.general_parser.parse_html(html, entity, attributes)
-                        parsing_approach = "general"
-                
-                # Step 4: Format and return results
-                processing_time = time.time() - start_time
-                approaches_used = {
-                    "query_parsing": {
-                        "method": method,
-                    },
-                    "html_parsing": parsing_approach
-                }
-
-                if method != "ml":
-                    approaches_used["query_parsing"]["entity_extraction_approach"] = entity_extraction_approach
-                    approaches_used["query_parsing"]["attribute_extraction_approach"] = attribute_extraction_approach
-
-                return self._create_success_response(entity, attributes, results, processing_time, approaches_used, "")
-            else:
+            if full_ml:
                 entity, attributes = self.ml_query_parser.parse_query(query)
                 if not entity and not attributes:
                     return self._create_error_response(
@@ -162,6 +129,54 @@ class IntelligentHTMLParser:
                     approaches_used,
                     model_used                    
                 )
+            else:
+                logging.info("Using rule-based HTML extraction method.")
+                
+                # Step 1: Parse the query to extract entity and attributes
+                logging.info("Parsing query...")
+                entity, attributes, method, entity_extraction_approach, attribute_extraction_approach = self.hybrid_query_parser.parse_query(query)
+                
+                if not entity or not attributes:
+                    return self._create_error_response(
+                        "Could not extract entity and attributes from query",
+                        time.time() - start_time
+                    )
+                logging.info(f"Extracted entity: {entity} using {entity_extraction_approach}, attributes: {attributes} using {attribute_extraction_approach}")
+
+                # Step 2: Parse HTML and determine structure
+                logging.info("Analyzing HTML structure...")
+                soup = BeautifulSoup(html, 'html.parser')
+                
+                # Step 3: Choose parsing strategy based on HTML structure
+                results = []
+                parsing_approach = ""
+                
+                # Priority 2: Check for table structure
+                html_is_table = self.table_parser.is_table(soup)
+                if html_is_table:
+                    logging.info("Table structure detected, using table parser...")
+                    results = self.table_parser.parse_tables(html, entity, attributes)
+                    parsing_approach = "table"
+                else:
+                    # Priority 3: Use general parser as fallback
+                    logging.info("Non-table structure detected, using general parser...")
+                    results = self.general_parser.parse_html(html, entity, attributes)
+                    parsing_approach = "general"
+                
+                # Step 4: Format and return results
+                processing_time = time.time() - start_time
+                approaches_used = {
+                    "query_parsing": {
+                        "method": method,
+                    },
+                    "html_parsing": parsing_approach
+                }
+
+                if method != "ml":
+                    approaches_used["query_parsing"]["entity_extraction_approach"] = entity_extraction_approach
+                    approaches_used["query_parsing"]["attribute_extraction_approach"] = attribute_extraction_approach
+
+                return self._create_success_response(entity, attributes, results, processing_time, approaches_used, "")
 
         except Exception as e:
             logging.error(f"Error in parsing: {e}")

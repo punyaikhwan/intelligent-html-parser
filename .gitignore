@@ -9,3 +9,6 @@ __pycache__/
 app.log
 training/llm/venv_llm/
 training/llm/output/
+model.safetensors
+training/sentence_transformer/venv_triplet/
+training/sentence_transformer/output/

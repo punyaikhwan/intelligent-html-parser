@@ -1,0 +1,5 @@
+epoch,steps,accuracy_cosinus,accuracy_manhattan,accuracy_euclidean
+0,-1,1.0,1.0,1.0
+1,-1,1.0,1.0,1.0
+2,-1,1.0,1.0,1.0
+3,-1,1.0,1.0,1.0

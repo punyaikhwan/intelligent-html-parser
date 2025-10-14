@@ -296,6 +296,7 @@ class JSONScriptParser:
                 found_attributes.update(result.keys())
             empty_attributes = [attr for attr in attributes if attr not in found_attributes]
             logging.info(f"Attributes not available in regex searching: {empty_attributes}. Process further using semantic matching...")
+        
         if len(empty_attributes) > 0:
             semantic_results = self._extract_using_semantic_matching(flattened_data, empty_attributes)
             if semantic_results:
@@ -455,6 +456,7 @@ class JSONScriptParser:
             # Find best matches for each attribute
             for i, attr in enumerate(attributes):
                 similarities = cosine_similarity([attribute_embeddings[i]], key_embeddings)[0]
+                logging.info(f"Similarities for attribute '{attr}': {similarities}")
                 
                 # Find keys above threshold
                 for j, similarity in enumerate(similarities):

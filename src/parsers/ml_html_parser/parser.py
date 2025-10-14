@@ -114,9 +114,9 @@ class MLHTMLParser:
         if container_groups and len(container_groups) > 0:
             map_groups_to_filled_attrs = {}
             map_groups_to_confidence = {}
+            highest_confidence_count = 0
             
-            # Process each first group container in parallel with minimum 4 workers
-            high_confidence_groups = 0
+            # Process each first group container in parallel
             with ThreadPoolExecutor(max_workers=min(4, len(container_groups))) as executor:
                 future_to_group = {
                     executor.submit(self._process_group, group_idx, containers, query): group_idx
@@ -130,14 +130,13 @@ class MLHTMLParser:
                         if filled_attrs_count > 0:
                             map_groups_to_filled_attrs[group_idx] = filled_attrs_count
                             map_groups_to_confidence[group_idx] = confidence
-                            if confidence > 0.95: # threshold for high confidence
-                                high_confidence_groups += 1
-                                if high_confidence_groups >= 3:
-                                    # Cancel remaining futures
-                                    for remaining_future in future_to_group:
-                                        if not remaining_future.done():
-                                            remaining_future.cancel()
-                                    break
+
+                            if confidence > 0.9:
+                                highest_confidence_count += 1
+                            
+                            if highest_confidence_count >= 3:
+                                logging.info("Early stopping: Found 3 groups with confidence > 0.9")
+                                break
                     except Exception as e:
                         logging.error(f"Error processing group {group_idx}: {e}")
                         continue
@@ -149,21 +148,24 @@ class MLHTMLParser:
             logging.info("No promising group of containers found based on attributes.")
             return results
         
-        # Find the top 3 most promising groups
-        top_3_groups = self._find_top_promising_groups(
-            map_groups_to_confidence,
-            top_k=3
+        # Find the most promising groups (this can be adjusted to return more than one group, but considering performance, we will take only the top one)
+        promising_group = self._find_top_promising_groups(
+            map_groups_to_filled_attrs, 
+            map_groups_to_confidence, 
+            container_groups,
+            top_k=1
         )
 
-        logging.info(f"Top 3 promising groups: {[idx for idx, _ in top_3_groups]}")
+        logging.info(f"Top promising group: {[idx for idx, _ in promising_group]}")
 
         # Process all top 3 groups and calculate average confidence for each
         group_results = {}
         group_avg_confidences = {}
-        
-        for group_idx, _ in top_3_groups:
+
+        for group_idx, _ in promising_group:
             logging.info(f"Extracting attributes from all containers in group {group_idx}.")
             containers = container_groups[group_idx]
+            logging.info(f"Group {group_idx} has {len(containers)} containers.")
             group_confidences = []
             group_extracted_results = []
             
@@ -253,27 +255,56 @@ class MLHTMLParser:
             return len(found_attrs), confidence
         return 0, 0.0
 
-    def _find_top_promising_groups(self, map_groups_to_confidence: Dict[int, float],top_k: int = 3) -> List[Tuple[int, float]]:
+    def _find_top_promising_groups(self, map_groups_to_filled_attrs: Dict[int, int], 
+                                   map_groups_to_confidence: Dict[int, float], 
+                                   container_groups: List, top_k: int = 3) -> List[Tuple[int, float]]:
         """
         Find the top K groups with the highest confidence and maximum attributes found.
         
         Args:
             map_groups_to_filled_attrs: Mapping of group index to number of filled attributes
             map_groups_to_confidence: Mapping of group index to confidence score
+            container_groups: List of container groups
             top_k: Number of top groups to return
             
         Returns:
-            List of tuples (group index, score) sorted by score descending
+            List of tuples (group_index, score) sorted by score descending
         """
         group_scores = []
-        for group_idx, confidence in map_groups_to_confidence.items():
-            # Use only confidence score
-            score = confidence
+        
+        for group_idx, count in map_groups_to_filled_attrs.items():
+            confidence = map_groups_to_confidence.get(group_idx, 0.0)
+            number_of_containers = len(container_groups[group_idx])
+            
+            # Calculate composite score: confidence * attributes_count * container_count
+            score = confidence * count * number_of_containers
             group_scores.append((group_idx, score))
         
         # Sort by score descending and return top K
         group_scores.sort(key=lambda x: x[1], reverse=True)
         return group_scores[:top_k]
+
+    def _find_most_promising_group(self, map_groups_to_filled_attrs: Dict[int, int], 
+                                   map_groups_to_confidence: Dict[int, float], 
+                                   container_groups: List) -> int:
+        """
+        Find the group with the highest confidence and maximum attributes found.
+        
+        Args:
+            map_groups_to_filled_attrs: Mapping of group index to number of filled attributes
+            map_groups_to_confidence: Mapping of group index to confidence score
+            container_groups: List of container groups
+            
+        Returns:
+            Index of the most promising group, or -1 if none found
+        """
+        top_groups = self._find_top_promising_groups(
+            map_groups_to_filled_attrs, 
+            map_groups_to_confidence, 
+            container_groups, 
+            top_k=1
+        )
+        return top_groups[0][0] if top_groups else -1
 
     def _extract_attributes_from_container(self, sub_html: str, query: str) -> Tuple[Dict[str, Any], float]:
         """

@@ -1,16 +1,17 @@
 # Requirements for Sentence Transformer Fine-tuning
+# Compatible with Python 3.9
 
-# Core dependencies
-sentence-transformers>=2.2.2
-torch>=1.11.0
-transformers>=4.21.0
+# Core dependencies - versions compatible with Python 3.9
+sentence-transformers>=2.2.2,<3.0.0
+torch>=1.11.0,<2.0.0
+transformers>=4.21.0,<4.40.0
 
 # Configuration
 PyYAML>=6.0
 
 # Data handling
 pandas>=1.4.0
-numpy>=1.21.0
+numpy>=1.21.0,<2.0.0
 
 # Evaluation and visualization
 scikit-learn>=1.1.0

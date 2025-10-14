@@ -6,8 +6,8 @@ output_dir: "./output/flan-t5-parser-enhanced-lr-3e4-5-epochs-wup30"
 
 # Data Files
 full_train_file: "training_data.json"  # Full dataset for k-fold. For non-kfold, will be split into train/val if train_file/validation_file are null
-train_file: "./output/flan-t5-parser-enhanced-kfold/fold_4/data/train.json"  # Overridden if use_kfold is true
-validation_file: "./output/flan-t5-parser-enhanced-kfold/fold_4/data/val.json"  # Overridden if use_kfold is true
+train_file: null  # Overridden if use_kfold is true
+validation_file: null  # Overridden if use_kfold is true
 
 # Training Parameters
 num_epochs: 5

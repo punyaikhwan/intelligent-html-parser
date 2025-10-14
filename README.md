@@ -98,8 +98,6 @@ The application uses environment variables for configuration. All settings are c
 | `HOST` | `0.0.0.0` | Server host address |
 | `PORT` | `5000` | Server port |
 | `DEBUG` | `False` | Enable debug mode |
-| `FLASK_ENV` | `production` | Flask environment |
-| `SECRET_KEY` | `None` | Flask secret key (required for production) |
 
 ### ML Model Settings
 

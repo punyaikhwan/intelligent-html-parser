@@ -243,7 +243,7 @@ class TripletTrainer:
     
     def evaluate_similarity(self, sentence1: str, sentence2: str) -> float:
         """
-        Evaluate similarity between two sentences using current model
+        Evaluate similarity between two sentences
         
         Args:
             sentence1: First sentence
@@ -253,8 +253,11 @@ class TripletTrainer:
             Similarity score (cosine similarity)
         """
         embeddings = self.model.encode([sentence1, sentence2])
-        similarity = self.model.similarity(embeddings[0], embeddings[1])
-        return float(similarity)
+        # Calculate cosine similarity using torch
+        embedding1 = torch.tensor(embeddings[0])
+        embedding2 = torch.tensor(embeddings[1])
+        similarity = torch.cosine_similarity(embedding1.unsqueeze(0), embedding2.unsqueeze(0))
+        return float(similarity.item())
     
     def test_model_improvements(self, test_cases: List[Tuple[str, str, str]]):
         """
