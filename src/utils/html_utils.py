@@ -71,10 +71,10 @@ class HTMLUtils:
         # sort container groups by length descending
         containers_grouped_by_class = sorted(containers_grouped_by_class, key=lambda x: len(x), reverse=True)
         logging.info("============= Final grouped containers =============")
-        for group in containers_grouped_by_class:
+        for idx, group in enumerate(containers_grouped_by_class):
             if group and len(group) > 0:
                 class_name = map_element_to_class.get(group[0], None)
-                logging.info(f"Group with class '{class_name}' has {len(group)} containers.")
+                logging.info(f"Group {idx} with class '{class_name}' has {len(group)} containers.")
 
         return containers_grouped_by_class
     
@@ -212,19 +212,11 @@ class HTMLUtils:
             return False
         
         return True
-
-        # # Check if container text mentions the entity
-        # text = container.get_text().lower()
-        # if entity.lower() in text:
-        #     return True
-        
-        # # Check class and id attributes
-        # attrs_text = ' '.join([
-        #     ' '.join(container.get('class', [])),
-        #     container.get('id', ''),
-        # ]).lower()
-        
-        # if entity.lower() in attrs_text:
-        #     return True
-        
-        # return False
+    
+    def _is_any_containers_child_of_containers(self, containers1: List[Tag], containers2: List[Tag]) -> bool:
+        """Check if any container in containers1 is a child of any container in containers2."""
+        for c1 in containers1:
+            for c2 in containers2:
+                if c1 in c2.descendants:
+                    return True
+        return False

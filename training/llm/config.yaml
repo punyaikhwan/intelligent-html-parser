@@ -2,7 +2,7 @@
 
 # Model Configuration
 model_name: "google/flan-t5-small"
-output_dir: "./flan-t5-html-parser"
+output_dir: "./output/flan-t5-parser-enhanced-1"
 
 # Training Parameters
 num_epochs: 5  # Reduce epochs to save memory and time

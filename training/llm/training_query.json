@@ -1,0 +1,1002 @@
+[
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the car's model, year, and color.",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the model, year, and color of the car.",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify what model, year, and color the car is.",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the car's model designation, production year, and exterior color.",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Can you tell me the model, year, and color specifications for this vehicle?",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the model, year, and color of the car?",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the car's model, year, and color.",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the model name, manufacturing year, and paint color of the car.",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the car's model, year, and color.",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the car's model, year, and color details.",
+    "output": "\"entity\":\"car\", \"attributes\": \"model, year, color\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract all ingredients, the total preparation time, and the serving size for the recipe.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the recipe's ingredients, prep time, and serving yield.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the ingredients, how long it takes to prepare, and the portion amount.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the ingredients, preparation time, and serving size of the dish?",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the full list of ingredients, the prep time, and how many people the recipe serves.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Gather the ingredients list, the estimated prep duration, and the serving size from the recipe.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the required ingredients, the preparation time, and the recipe's serving size.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the recipe's ingredients, time needed for preparation, and the number of servings.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Determine the ingredients, preparation time, and serving size for the recipe.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Find the ingredients, preparation time, and serving size of this culinary guide.",
+    "output": "\"entity\":\"recipe\", \"attributes\": \"ingredients, preparation time, serving size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the employee's full name, department, and salary.",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the full name, assigned department, and annual salary of the employee.",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the employee's full name, department, and pay.",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What is the employee's full name, which department do they work in, and what is their salary?",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the employee's complete name, their department affiliation, and their compensation amount.",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the full name, department, and salary information for the employee.",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Can you find the employee's full name, the department they belong to, and their current salary?",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the full name, department, and salary associated with this employee.",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the employee's full name, work department, and rate of pay.",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Pull out the employee's full name, department, and salary details.",
+    "output": "\"entity\":\"employee\", \"attributes\": \"full name, department, salary\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the building's address, number of floors, and primary use.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the address, floor count, and main function of the structure.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the building's street address, total number of levels, and its chief purpose.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the building's address, the quantity of floors, and its primary utility?",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the address, the number of floors, and the primary use of the building.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the address, number of floors, and main operational use of the building.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the building's location (address), floor number, and main usage type.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Gather the address, number of stories, and primary function of the building.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Determine the building's address, floor count, and intended use.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Fetch the address, number of floors, and primary use of this structure.",
+    "output": "\"entity\":\"building\", \"attributes\": \"address, number of floors, primary use\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the key features, battery life, and screen size of the smartphone?",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the main features, battery longevity, and display size of the smartphone.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the important features, how long the battery lasts, and the smartphone's screen size.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the smartphone's key specifications, expected battery life, and screen diagonal measurement.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the smartphone's core features, battery life duration, and screen size.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the key features, battery life, and screen size details from the smartphone specifications.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Show me the smartphone's standout features, battery life, and size of the screen.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the device's key features, battery capacity/life, and screen dimensions.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the smartphone's main features, battery run time, and screen size.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the key features, battery life estimate, and screen size of the phone.",
+    "output": "\"entity\":\"smartphone\", \"attributes\": \"key features, battery life, screen size\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the patient's ID, date of birth, and assigned physician.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the patient ID, DOB, and the name of the assigned doctor.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the patient's identifier, birth date, and physician in charge.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the patient's ID number, their date of birth, and who their assigned physician is.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the patient identification number, date of birth, and assigned physician's name.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the patient ID, the date they were born, and the name of the physician assigned to them.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the patient's ID, date of birth, and the details of the assigned doctor.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the patient's ID, date of birth, and who is the assigned doctor?",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Fetch the patient's ID, their date of birth, and the assigned physician.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Record the patient's ID, date of birth, and the attending physician.",
+    "output": "\"entity\":\"patient\", \"attributes\": \"patient ID, date of birth, assigned physician\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Gather the movie's title, release year, director, and run time.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the film's title, year it was released, director's name, and its duration.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the movie's title, release date year, director, and the length of the running time.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the title, year of release, director, and run time of the film.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the movie's title, the year it came out, the director, and its total run time.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the title, release year, director, and run time from the movie's details.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the movie's title, release year, director, and total run time?",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the film's title, release year, director, and duration.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the movie title, year of release, director, and run time.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Find the title, release year, director, and run time for the movie.",
+    "output": "\"entity\":\"movie\", \"attributes\": \"title, release year, director, run time\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Can you find the city's population, area in square miles, and major industries?",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the population, area in square miles, and primary industries of the city.",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the city's current population, its size (area in sq. miles), and key industries.",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the city's population count, its area in square miles, and its most important industries?",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the city's population, area in sq. miles, and major industrial sectors.",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the population, the area (in square miles), and the major industries from the city data.",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the city's population, its geographical area (sq. miles), and its major industries.",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the city's population figures, the area it covers in square miles, and its major industries.",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Gather the population, area in square miles, and major industries of the city.",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the city's population, the area in square miles, and its leading industries.",
+    "output": "\"entity\":\"city\", \"attributes\": \"population, area in square miles, major industries\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Pull out the song's artist, album title, and genre.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the song's performing artist, the album it's on, and its genre type.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the name of the artist, the album title, and the genre of the track.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the song's artist, the associated album title, and its musical genre.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the song's artist, the album title, and its genre.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the artist, album title, and genre from the song's metadata.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the song's artist, album title, and music genre?",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the song's artist, the title of the album, and its genre.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the song's artist, album title, and genre.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the song's artist, album title, and genre information.",
+    "output": "\"entity\":\"song\", \"attributes\": \"artist, album title, genre\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Determine the chemical compound's formula, molecular weight, and state of matter.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the compound's chemical formula, its molecular weight, and its physical state.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the chemical formula, molecular weight, and state of matter for the compound.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the formula, molecular weight, and state of matter of the chemical compound.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the compound's formula, the weight of its molecule, and its state of matter.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the chemical formula, molecular weight, and state of matter for the compound.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the compound's formula, molecular weight, and state of matter (solid, liquid, gas)?",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the chemical compound's formula, molecular weight, and state of matter.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the compound's formula, molecular weight, and state of matter details.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the chemical formula, molecular weight, and state of matter for the compound.",
+    "output": "\"entity\":\"chemical_compound\", \"attributes\": \"formula, molecular weight, state of matter\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Show me the restaurant's rating, average price range, and cuisine type.",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the restaurant's rating, price range, and the type of food (cuisine).",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the rating, the average cost bracket, and the cuisine type served at the restaurant.",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the restaurant's rating, average price range, and its type of cuisine.",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the restaurant's customer rating, the typical price range, and its cuisine type.",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the rating, average price range, and cuisine type from the restaurant information.",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the restaurant's rating, average price, and the kind of cuisine it offers?",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the restaurant's rating, price range, and cuisine type.",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Determine the restaurant's rating, average price range, and cuisine.",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the restaurant's rating, its average price range, and the cuisine type served.",
+    "output": "\"entity\":\"restaurant\", \"attributes\": \"rating, average price range, cuisine type\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the warranty period, product number, and manufacturer of the laptop.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the laptop's warranty duration, its product number, and the company that made it.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the warranty period, the specific product number, and the manufacturer's name.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the laptop's warranty period, its unique product number, and the manufacturer.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the laptop's warranty period, the product number, and who manufactured it.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the warranty period, product number, and manufacturer from the laptop's details.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the laptop's warranty period, product number, and manufacturer?",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the laptop's warranty length, product number, and manufacturer.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the laptop's warranty period, product number, and manufacturer.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Find the warranty period, the product number, and the manufacturer of the laptop.",
+    "output": "\"entity\":\"laptop\", \"attributes\": \"warranty period, product number, manufacturer\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Obtain the stock's ticker symbol, current price, and daily trading volume.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the stock's ticker, its current market price, and the daily volume of trade.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the stock ticker, the present price, and the trading volume for the day.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the stock's ticker symbol, its real-time price, and the daily trading volume.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the stock's ticker symbol, the current price, and the daily trading volume data.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the ticker symbol, current price, and daily trading volume from the stock quote.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the stock's ticker symbol, its current price, and its daily trading volume?",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the stock's ticker, the current price, and the daily volume.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the stock's ticker symbol, current price, and daily trading volume.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the stock's ticker symbol, current price, and the volume of daily trade.",
+    "output": "\"entity\":\"stock\", \"attributes\": \"ticker symbol, current price, daily trading volume\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the planet's diameter, orbital period, and number of moons.",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the planet's diameter, the time it takes to orbit (orbital period), and the count of its moons.",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the planet's diameter, its orbital period, and how many moons it has.",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the planet's diameter, the length of its orbit, and the number of satellites (moons).",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the planet's diameter measurement, its orbital period, and the quantity of moons.",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the planet's diameter, orbital period, and number of moons.",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the planet's diameter, orbital period, and number of moons?",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the planet's diameter, orbital period, and number of moons.",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Determine the planet's diameter, orbital period, and moon count.",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the planet's diameter, orbital period, and number of moons.",
+    "output": "\"entity\":\"planet\", \"attributes\": \"diameter, orbital period, number of moons\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Fetch the artwork's title, artist, and year of creation.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the title, the artist's name, and the creation year of the artwork.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the artwork's title, the artist who created it, and the year it was made.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the title, artist, and creation year for the piece of art.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the artwork's title, the artist, and the year it was completed.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the title, artist, and year of creation from the artwork's details.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the artwork's title, artist, and the year it was created?",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the artwork's title, artist, and year of creation.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the artwork's title, artist, and the year it was finished.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the title, artist, and year of creation of the artwork.",
+    "output": "\"entity\":\"artwork\", \"attributes\": \"title, artist, year of creation\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Could you tell me the course's name, course code, and credit hours?",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the name, code, and number of credit hours for the course.",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the course name, the corresponding course code, and the total credit hours.",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the course's full name, its official code, and the assigned credit hours.",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the name of the course, the course code, and the credit hours.",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the course name, course code, and credit hours from the course information.",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the course's name, code, and credit hours?",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the course name, course code, and the number of credit hours.",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the course's name, course code, and credit hour count.",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the course name, course code, and credit hours.",
+    "output": "\"entity\":\"course\", \"attributes\": \"course name, course code, credit hours\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Record the software's version number, license type, and installation date.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the software's version number, the type of license, and when it was installed.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the version number, license type, and the date of installation for the software.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the software's version number, its license category, and the date it was set up.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the software's version number, the license type, and the installation date.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the version number, license type, and installation date of the software.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the software's version number, license type, and installation date?",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the software's version number, license type, and installation date.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the software's version number, license type, and installation date.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the version number, license type, and installation date for the software.",
+    "output": "\"entity\":\"software\", \"attributes\": \"version number, license type, installation date\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Locate the animal's species, average lifespan, and native habitat.",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the animal's species, its typical lifespan, and where it naturally lives (native habitat).",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the animal species, the average number of years it lives, and its native habitat.",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the animal's species, its average lifespan, and its original habitat.",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the animal's species, average lifespan, and native habitat.",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the species, average lifespan, and native habitat from the animal's profile.",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the animal's species, its average lifespan, and its native habitat?",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the animal's species, average lifespan, and native habitat.",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Determine the animal's species, average lifespan, and natural habitat.",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the animal's species, average lifespan, and native habitat details.",
+    "output": "\"entity\":\"animal\", \"attributes\": \"species, average lifespan, native habitat\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Report on the project's start date, expected completion date, and current status.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the project's start date, its anticipated completion date, and the present status.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the start date, the expected date of completion, and the current status of the project.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the project's start date, the target completion date, and its current status.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the project's start date, expected completion date, and current status.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the project's start date, expected completion date, and current status.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the project's start date, expected completion date, and current status?",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the project's start date, expected completion date, and current status.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the project's start date, the expected end date, and its current status.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Find the project's start date, expected completion date, and current status.",
+    "output": "\"entity\":\"project\", \"attributes\": \"start date, expected completion date, current status\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Give me the website's URL, domain age, and primary language.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the website's URL, the age of its domain, and its main language.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Retrieve the URL, how old the domain is (domain age), and the primary language of the website.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the website's URL, the domain's age, and the main language used.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Please provide the website's URL, domain age, and its primary language.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract the website's URL, domain age, and primary language details.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "What are the website's URL, domain age, and primary language?",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the website's URL, domain age, and primary language.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Document the website's URL, domain age, and primary language.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Specify the URL, domain age, and primary language of the website.",
+    "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  }
+]

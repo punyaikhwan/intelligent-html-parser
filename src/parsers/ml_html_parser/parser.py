@@ -6,6 +6,7 @@ from typing import Any, Dict, List, Tuple, Optional
 import json
 
 from bs4 import BeautifulSoup
+import torch
 
 from utils.html_utils import HTMLUtils
 
@@ -27,6 +28,7 @@ class MLHTMLParser:
         Args:
             model_name: HuggingFace model name for Flan-T5
         """
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model_name = model_name
         self.model = None
         self._loaded = False
@@ -95,8 +97,11 @@ class MLHTMLParser:
                         found_attrs = [attr for attr, value in extracted_attrs.items() if value is not None]    
                         for attr in found_attrs:
                             attr_result = extracted_attrs[attr]
-                            if attr_result is not None:
+                            if attr_result is not None and attr_result != "":
                                 logging.info(f"Attribute '{attr}' found with value: {attr_result}")
+                            else:
+                                # if attribute is found but value is empty, take it out from found_attrs
+                                found_attrs.remove(attr)
 
                         logging.info(f"Found {len(found_attrs)} in first container.")
                         map_groups_to_filled_attrs[group_idx] = len(found_attrs)
@@ -109,13 +114,21 @@ class MLHTMLParser:
             
             most_promising_group_idx = 0
             highest_count = 0
+            # Choose the group with highest number of attributes found, if tie, choose the most inner containers
             for group_idx, count in map_groups_to_filled_attrs.items():
                 number_of_containers = len(container_groups[group_idx])
                 if count > highest_count:
                     highest_count = count
                     most_promising_group_idx = group_idx
-                elif count == highest_count and number_of_containers > len(container_groups[most_promising_group_idx]):
-                    most_promising_group_idx = group_idx
+                elif count == highest_count:
+                    if self.html_utils._is_any_containers_child_of_containers(container_groups[group_idx], container_groups[most_promising_group_idx]):
+                        most_promising_group_idx = group_idx
+                    # if tie, choose the group with length of first container is larger
+                    elif len(container_groups[group_idx][0]) > len(container_groups[most_promising_group_idx][0]):
+                        most_promising_group_idx = group_idx
+                    # if tie, choose the group with more containers
+                    elif number_of_containers > len(container_groups[most_promising_group_idx]):
+                        most_promising_group_idx = group_idx
 
             logging.info(f"Most promising group: {most_promising_group_idx} with {map_groups_to_filled_attrs.get(most_promising_group_idx, 0)} attributes found.")
 
@@ -151,7 +164,6 @@ class MLHTMLParser:
         try:
             # Create a prompt for attribute extraction
             prompt = self._create_html_parser_prompt(sub_html, query)
-            logging.info(f"HTML Parser Prompt: {prompt}")
             results = self._generate_response(prompt)
             logging.info(f"Extracted attributes: {results}")
             parsed_results = self._parse_response(results)
@@ -166,60 +178,51 @@ class MLHTMLParser:
     def _create_html_parser_prompt(self, html: str, query: str) -> str:
         """Create a prompt for HTML parsing."""
         prompt = f"""
-Task: Extract relevant information from the following HTML based on the user's query.
-
-Examples:
-HTML: <div class="book"><h2 class="title">The Great Gatsby</h2><p class="author">F. Scott Fitzgerald</p><span class="price">$10.99</span></div>
-Query: "Can you give me the book: name and price?"
-Result: name=The Great Gatsby; price=$10.99
-
-HTML: <div class="book"><h2 class="title">The Great Gatsby</h2><p class="author">F. Scott Fitzgerald</p></div>
-Query: "Can you give me the book: name and price?"
-Result: name=The Great Gatsby
-
-HTML: <div class="book"></div>
-Query: "Can you give me the book: name and price?"
-Result: 
-
-HTML: {html}
-Query: {query}
-Return the extracted information in a structured format.
+From the following HTML snippet:
+{html}
+{query}
 """
         return prompt
     
     
     def _generate_response(self, prompt: str) -> str:
         """Generate response using the Flan-T5 model."""
-        inputs = self.tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
+        inputs = self.tokenizer(
+            prompt,
+            max_length=512,
+            truncation=True,
+            padding=True,
+            return_tensors="pt"
+        ).to(self.device)
         
-        # Generate response
-        with self.tokenizer.as_target_tokenizer():
+        # Generate output
+        with torch.no_grad():
             outputs = self.model.generate(
-                inputs.input_ids,
-                max_length=1024,
-                num_beams=2,
-                temperature=0.7,
-                do_sample=True,
-                early_stopping=True
+                **inputs,
+                max_length=512,
+                num_beams=4,
+                early_stopping=True,
+                do_sample=False
             )
         
+        # Decode output
         response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         return response.strip()
 
     def _parse_response(self, response: str) -> Dict[str, Any]:
         """Parse the model response into structured data."""
         try:
-            # Expecting response in key=value; key=value format
+            # Expecting response "key":"value", "key2":"value2"
+            splits = response.split(',')
             result = {}
-            pairs = response.split(';')
-            for pair in pairs:
-                if '=' in pair:
-                    key, value = pair.split('=', 1)
-                    key = key.strip()
-                    value = value.strip()
-                    if key and value:
-                        result[key] = value
-            return result if result else {}
+            for item in splits:
+                if ':' in item:
+                    key, value = item.split(':', 1)
+                    key = key.strip().strip('"').strip("'")
+                    value = value.strip().strip('"').strip("'")
+                    result[key] = value
+            return result
+            
         except Exception as e:
             logging.error(f"Error parsing response: {e}")
             return {}

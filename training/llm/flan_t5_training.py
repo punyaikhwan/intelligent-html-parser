@@ -25,7 +25,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class HTMLParsingTrainer:
-    def __init__(self):
+    def __init__(self, config: Dict = None):
         """
         Initialize the HTML parsing trainer
         
@@ -207,9 +207,6 @@ class HTMLParsingTrainer:
             compute_metrics=self.compute_metrics
         )
         
-        # Memory monitoring before training
-        self._log_memory_usage(f"Before training fold {fold + 1}")
-        
         # Start training
         logger.info(f"Starting training for fold {fold + 1}...")
         trainer.train()
@@ -228,15 +225,12 @@ class HTMLParsingTrainer:
         logger.info(f"Evaluating fold {fold + 1}...")
         eval_results = trainer.evaluate()
         
-        # Memory monitoring after fold completion
-        self._log_memory_usage(f"After fold {fold + 1}")
-        
         logger.info(f"Fold {fold + 1} completed!")
         logger.info(f"Fold {fold + 1} evaluation results: {eval_results}")
         
         return trainer, eval_results
     
-    def train_kfold(self,):
+    def train_kfold(self):
         """
         Train the model using k-fold cross validation
         """
@@ -275,6 +269,14 @@ class HTMLParsingTrainer:
             # Split data for this fold
             train_data = [raw_data[i] for i in train_idx]
             val_data = [raw_data[i] for i in val_idx]
+
+            # save train and val data to files for this fold
+            fold_data_dir = f"{self.config['output_dir']}/fold_{fold + 1}/data"
+            os.makedirs(fold_data_dir, exist_ok=True)
+            with open(f"{fold_data_dir}/train.json", 'w', encoding='utf-8') as f:
+                json.dump(train_data, f, indent=2, ensure_ascii=False)
+            with open(f"{fold_data_dir}/val.json", 'w', encoding='utf-8') as f:
+                json.dump(val_data, f, indent=2, ensure_ascii=False)
             
             # Train this fold
             trainer, eval_results = self.train_single_fold(train_data, val_data, fold)
@@ -345,6 +347,14 @@ class HTMLParsingTrainer:
         split_idx = int(len(raw_data) * (1 - self.config['validation_split']))
         train_data = raw_data[:split_idx]
         val_data = raw_data[split_idx:]
+
+        # save train and val data to files
+        data_dir = f"{self.config['output_dir']}/data"
+        os.makedirs(data_dir, exist_ok=True)
+        with open(f"{data_dir}/train.json", 'w', encoding='utf-8') as f:
+            json.dump(train_data, f, indent=2, ensure_ascii=False)
+        with open(f"{data_dir}/val.json", 'w', encoding='utf-8') as f:
+            json.dump(val_data, f, indent=2, ensure_ascii=False)
         
         logger.info(f"Training samples: {len(train_data)}")
         logger.info(f"Validation samples: {len(val_data)}")

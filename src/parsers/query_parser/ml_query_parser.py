@@ -64,17 +64,11 @@ class MLQueryParser:
         
         try:
             # Create a prompt for entity extraction
-            entity_prompt = self._create_entity_prompt(query)
-            logging.info(f"Entity Prompt: {entity_prompt}")
-            entity = self._generate_response(entity_prompt)
-            logging.info(f"Extracted entity: {entity}")
-            
-            # Create a prompt for attribute extraction
-            attributes_prompt = self._create_attributes_prompt(query, entity)
-            logging.info(f"Attributes Prompt: {attributes_prompt}")
-            attributes_text = self._generate_response(attributes_prompt)
-            logging.info(f"Extracted attributes text: {attributes_text}")
-            attributes = self._parse_attributes_response(attributes_text)
+            entity_prompt = self._create_prompt(query)
+            logging.info(f"Entity Attributes Prompt: {entity_prompt}")
+            response = self._generate_response(entity_prompt)
+            logging.info(f"ML Parser Response: {response}")
+            entity, attributes = self._parse_response(response)
             
             return entity, attributes
             
@@ -82,48 +76,12 @@ class MLQueryParser:
             logging.error(f"Error in ML query parsing: {e}")
             return None, []
     
-    def _create_entity_prompt(self, query: str) -> str:
-        """Create a prompt for entity extraction."""
+    def _create_prompt(self, query: str) -> str:
+        """Create a prompt for entity and attribute extraction."""
         prompt = f"""
-Task: Extract the main entity (noun) that the user wants to find from the following query.
-Return only the entity name in singular form, nothing else.
-
-Examples:
-Query: "Can you give me the book: name and price?"
-Entity: book
-
-Query: "Extract job title, location, salary from the listings"
-Entity: job
-
-Query: "Get product name and description"
-Entity: product
-
-Query: "{query}"
-Entity:"""
-        return prompt
-    
-    def _create_attributes_prompt(self, query: str, entity: Optional[str]) -> str:
-        """Create a prompt for attribute extraction."""
-        entity_context = f" about {entity}" if entity else ""
-        prompt = f"""
-Task: Extract the specific attributes/properties{entity_context} that the user wants to find from the following query.
-Return the attributes as a comma-separated list.
-
-Examples:
-Query: "Can you give me the book: name and price?"
-Attributes: name, price
-
-Query: "Extract job title, location, salary, and company name from the listings"
-Attributes: title, location, salary, company name
-
-Query: "Get product name, description and price"
-Attributes: name, description, price
-
-Query: "Get product names"
-Attributes: name
-
-Query: "{query}"
-Attributes:"""
+Extract the main entity (noun) and attributes/properties from the following query.
+{query}
+"""
         return prompt
     
     def _generate_response(self, prompt: str) -> str:
@@ -143,22 +101,29 @@ Attributes:"""
         
         response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         return response.strip()
-    
-    def _parse_attributes_response(self, attributes_text: str) -> List[str]:
-        """Parse the attributes response into a list."""
-        if not attributes_text:
-            return []
-        
-        # Split by commas and clean each attribute
+
+    def _parse_response(self, attributes_text: str) -> Tuple[str, List[str]]:
+        """Parse the model response to extract entity and attributes."""
+        entity = ""
         attributes = []
-        for attr in attributes_text.split(','):
-            attr = attr.strip()
-            if attr and len(attr) > 1:
-                # Remove any quotes or extra formatting
-                attr = re.sub(r'^["\']|["\']$', '', attr)
-                attributes.append(attr)
+
+        # sample response:  "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+        try:
+            # Use regex to extract entity and attributes
+            entity_match = re.search(r'"entity"\s*:\s*"([^"]+)"', attributes_text, re.IGNORECASE)
+            attributes_match = re.search(r'"attributes"\s*:\s*"([^"]+)"', attributes_text, re.IGNORECASE)
+
+            if entity_match:
+                entity = entity_match.group(1).strip().lower()
+
+            if attributes_match:
+                attributes_str = attributes_match.group(1)
+                # Split by comma and strip whitespace
+                attributes = [attr.strip().lower() for attr in attributes_str.split(',') if attr.strip()]
+        except Exception as e:
+            logging.error(f"Error parsing attributes response: {e}")
         
-        return attributes
+        return entity, attributes
 
 
 class HybridQueryParser:
