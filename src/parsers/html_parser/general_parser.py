@@ -5,8 +5,6 @@ import logging
 from typing import List, Dict, Any, Optional, Set, Tuple
 from bs4 import BeautifulSoup, Tag
 import re
-import json
-import os
 from datetime import datetime
 from utils import save_json
 
@@ -101,11 +99,30 @@ class GeneralHTMLParser:
         for tag in soup.find_all(self.html_utils.TEXT_PROPERTY_TAGS):
                 tag.unwrap()
         
-        json_str = []
         # Two approaches:
         # 1. Find repeated structures that might represent entities. If found, extract attributes from each.
         # 2. If no repeated structures, search for likely containers that might hold the entity. If found, extract attributes but return only one set with highest confidence.
-        # Find potential containers that might hold the entities
+       
+        try:
+            results = self._parse_html_from_repeated_structures(soup, attributes)
+            if results and len(results) > 0:
+                return results
+            results = self._parse_html_from_likely_containers(soup, attributes)
+            if results and len(results) > 0:
+                return results
+            return []
+        except Exception as e:
+            logging.error(f"Error in ML html parsing: {e}")
+            return []
+        logging.info("No group of containers met the confidence threshold.")
+        # If no repeated structures found, fall back to searching for likely containers
+        
+            
+        logging.info("No likely containers found with the entity and attributes.")
+
+    def _parse_html_from_repeated_structures(self, soup: BeautifulSoup, attributes: List[str]) -> List[Dict[str, Any]]:
+        results = []
+         # Find potential containers that might hold the entities
         container_groups = self.html_utils.find_repeated_structures(soup)
         if container_groups and len(container_groups) > 0:
             map_groups_to_filled_attrs = {}
@@ -186,20 +203,10 @@ class GeneralHTMLParser:
                             # keep only attributes and values without similarity score
                             cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in extracted_attrs.items()}
                             results.append(cleaned_result)
-
-                            # Export container and extracted attributes to json_str
-                            container_data = {
-                                "input": str(container),
-                                "output": json.dumps(cleaned_result, ensure_ascii=False)
-                            }
-                            json_str.append(container_data)
-                    
-                    # save json_str to a json_file
-                    save_json.save_json(json_str)
                     return results
-        
-        logging.info("No group of containers met the confidence threshold.")
-        # If no repeated structures found, fall back to searching for likely containers
+        return []
+    
+    def _parse_html_from_likely_containers(self, soup: BeautifulSoup, attributes: List[str]) -> List[Dict[str, Any]]:
         containers = self.html_utils.find_likely_entity_container(soup, len(attributes))
         if containers and len(containers) > 0:
             # Extract attributes from each container and return the one with most attributes found
@@ -255,20 +262,9 @@ class GeneralHTMLParser:
             if best_result and best_attributes_found > 0:
                 # keep only attributes and values without similarity score
                 cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in best_result.items()}
-
-                # Export container and extracted attributes to json_str
-                container_data = {
-                    "input": str(best_container),
-                    "output": json.dumps(cleaned_result, ensure_ascii=False)
-                }
-                json_str.append(container_data)
-                
-                # save json_str to a json_file
-                save_json.save_json(json_str)
                 return [cleaned_result]
-            
-        logging.info("No likely containers found with the entity and attributes.")
-
+        return []
+    
     def _get_most_similar_tag_attr_vals(self, tag_attr_vals: Set[str], entity: str) -> Tuple[Optional[str], float]:
         """Get the attribute values most similar to the entity name."""
         if not tag_attr_vals or not entity or not self._model_loaded:

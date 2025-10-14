@@ -42,36 +42,6 @@ def get_parser():
     return parser
 
 
-@app.route('/', methods=['GET'])
-def health_check():
-    """Health check endpoint."""
-    return jsonify({
-        "status": "healthy",
-        "service": "Intelligent HTML Parser API",
-        "version": "1.0.0"
-    })
-
-
-@app.route('/status', methods=['GET'])
-def parser_status():
-    """Get parser component status."""
-    try:
-        parser_instance = get_parser()
-        status = parser_instance.get_parser_status()
-        
-        return jsonify({
-            "status": "ok",
-            "parser_components": status,
-            "service": "Intelligent HTML Parser API"
-        })
-    except Exception as e:
-        logger.error(f"Error getting parser status: {e}")
-        return jsonify({
-            "status": "error",
-            "error": str(e)
-        }), 500
-
-
 @app.route('/parse', methods=['POST'])
 def parse_html():
     """

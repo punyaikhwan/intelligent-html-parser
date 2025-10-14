@@ -1,0 +1,33 @@
+Baseline (flan-t5-small) evaluation result (based on the same validation set as used in best kfold fold):
+{'eval_loss': 2.30395245552063, 'eval_rouge1': 37.50902808119775, 'eval_rouge2': 24.140411157954777, 'eval_rougeL': 36.381872471163746, 'eval_rougeLsum': 36.55871255010567, 'eval_runtime': 12.2113, 'eval_samples_per_second': 6.224, 'eval_steps_per_second': 1.556}
+
+Tuning Config using kfold with k=5.
+num_epochs: 5
+batch_size: 4
+learning_rate: 3e-4
+warmup_steps: 100 
+weight_decay: 0.01
+max_input_length: 1024
+max_output_length: 256
+
+First fine-tuning (flan-t5-small-tuned-v1) evaluation result (best score from kfold, fold 4)
+{'eval_loss': 0.09040385484695435, 'eval_rouge1': 93.11430311944542, 'eval_rouge2': 88.68541416365092, 'eval_rougeL': 93.07590236236969, 'eval_rougeLsum': 93.01471295412385, 'eval_runtime': 87.7054, 'eval_samples_per_second': 0.867, 'eval_steps_per_second': 0.217}
+
+Then, I tried to reduce the learning rate to 1e-5 and run evaluation again (without kfold, just using the training and validation set generated from previous best kfold fold):
+{'eval_loss': 1.9758882522583008, 'eval_rouge1': 38.2376963707773, 'eval_rouge2': 24.280509724888834, 'eval_rougeL': 36.99958265064173, 'eval_rougeLsum': 36.88516343243158, 'eval_runtime': 13.3322, 'eval_samples_per_second': 5.7, 'eval_steps_per_second': 1.425, 'epoch': 4.68}
+
+Evaluation loss is increased, and rouge score is decreased. It seems that reducing learning rate to 1e-5 is too small for this case.
+So, I tried with learning rate 5e-5. The result is:
+{'eval_loss': 1.225189208984375, 'eval_rouge1': 47.34302808025181, 'eval_rouge2': 35.64547317528167, 'eval_rougeL': 46.539136274097, 'eval_rougeLsum': 46.82583123510018, 'eval_runtime': 11.8294, 'eval_samples_per_second': 6.425, 'eval_steps_per_second': 1.606, 'epoch': 4.68}
+
+
+Then, I back to learning rate 3e-4, but I increase the number of epochs to 10.
+{'eval_loss': 0.13849757611751556, 'eval_rouge1': 90.6801508270737, 'eval_rouge2': 84.43281845771435, 'eval_rougeL': 90.69512051261007, 'eval_rougeLsum': 90.76488730390435, 'eval_runtime': 10.0301, 'eval_samples_per_second': 7.577, 'eval_steps_per_second': 1.894, 'epoch': 9.35}
+
+So, it seems that the best result is still using learning rate 3e-4 with 5 epochs.
+Let adjust other parameters to see if we can get better result.
+Decrese number of warmup_steps to 30.
+{'eval_loss': 0.2268509417772293, 'eval_rouge1': 87.04589568034838, 'eval_rouge2': 77.68434540489989, 'eval_rougeL': 87.01704511197106, 'eval_rougeLsum': 87.14486169407706, 'eval_runtime': 23.454, 'eval_samples_per_second': 3.24, 'eval_steps_per_second': 0.81, 'epoch': 4.68}
+
+The result is worse.
+Here I stop the tuning for now and use the best model from first fine-tuning (flan-t5-small-tuned-v1) for further evaluation and testing.

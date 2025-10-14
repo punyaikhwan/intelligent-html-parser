@@ -222,7 +222,7 @@ def main():
     
     # Evaluate triplets with original model
     print("Evaluating triplets with original model...")
-    results = evaluator.evaluate_triplets('triplet_samples.json')
+    results = evaluator.evaluate_triplets('triplet_data.json')
     
     # If fine-tuned model exists, load and evaluate
     fine_tuned_path = input("Enter path to fine-tuned model (or press Enter to skip): ").strip()
@@ -230,7 +230,7 @@ def main():
         try:
             evaluator.load_fine_tuned_model(fine_tuned_path)
             print("Evaluating triplets with fine-tuned model...")
-            results = evaluator.evaluate_triplets('triplet_samples.json')
+            results = evaluator.evaluate_triplets('triplet_data.json')
             
             # Generate comparison report
             evaluator.generate_comparison_report(results)

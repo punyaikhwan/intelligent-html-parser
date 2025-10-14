@@ -6,7 +6,7 @@ A smart HTML parser that extracts structured data from HTML based on natural lan
 
 - **Natural Language Query Processing**: Extract entities and attributes from queries like "Can you give me the book: name and price?"
 - **Dual Parsing Strategy**: Handles both table and general HTML structures
-- **Machine Learning Fallback**: Uses Flan-T5 when rule-based parsing is insufficient
+- **Dual Parsing Methods**: Default will use ML (the best fine-tuned flan-t5-small), and optionally choose rule-based
 - **Semantic Similarity Matching**: Employs sentence transformers for intelligent attribute matching
 - **REST API**: Easy-to-use HTTP endpoint for integration
 
@@ -14,23 +14,18 @@ A smart HTML parser that extracts structured data from HTML based on natural lan
 
 ### 1. Query Parser
 - **Rule-based extraction**: Removes stopwords, detects entities after determiners
-- **ML fallback**: Uses Flan-T5-small for complex queries
-- **Hybrid approach**: Combines both methods for optimal results
+- **ML-based extraction**: Detect entities and attributes without query preprocessing
 
 ### 2. HTML Parsers
-- **Table Parser**: Specialized for HTML tables with header matching
+- **Table Parser**: Specialized for HTML tables with header matching (using semantic matching)
 - **General Parser**: Handles divs, spans, and other general HTML elements
 - **Semantic Matching**: Uses sentence transformers for intelligent attribute matching
-
-### 3. Main Orchestrator
-- Coordinates query parsing and HTML analysis
-- Automatically selects appropriate parsing strategy
-- Returns structured JSON results
+- **Full ML HTML Parser**: Uses ML to detect entity and attributes with their values from HTML
 
 ## Installation
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.9+
 - pip
 
 ### Setup
@@ -110,19 +105,10 @@ The application uses environment variables for configuration. All settings are c
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ML_MODEL_NAME` | `google/flan-t5-small` | HuggingFace model for ML query parsing |
-| `SIMILARITY_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | Model for semantic similarity |
+| `ML_MODEL_NAME` | `models/llm/flan-t5-small-tunest-best` | HuggingFace model for ML query parsing |
+| `SIMILARITY_MODEL` | `models/sentence-transformers/all-MiniLM-L6-v2-tuned` | Model for semantic similarity |
 | `SIMILARITY_THRESHOLD` | `0.6` | Minimum similarity score (0.0-1.0) |
 | `MIN_ATTRIBUTES` | `2` | Minimum attributes before ML fallback |
-
-### Parser Settings
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `ENABLE_JSON_SCRIPT_PARSER` | `True` | Enable JSON script parsing |
-| `ENABLE_TABLE_PARSER` | `True` | Enable table parsing |
-| `ENABLE_GENERAL_PARSER` | `True` | Enable general HTML parsing |
-| `ENABLE_ML_FALLBACK` | `True` | Enable ML fallback for queries |
 
 ### Performance Settings
 
@@ -147,16 +133,6 @@ See `.env.example` for a complete list of available configuration options.
 
 ### API Endpoints
 
-#### Health Check
-```
-GET /
-```
-
-#### Parser Status
-```
-GET /status
-```
-
 #### Parse HTML
 ```
 POST /parse
@@ -164,6 +140,26 @@ Content-Type: application/x-www-form-urlencoded
 
 html=<html_content>
 query=<natural_language_query>
+full-ml=true/false (default: true)
+```
+
+If full-ml set to true, all HTML extraction process will use ML.
+For now, I use this approaches:
+1. The HTML string will be preprocessed before being given to ML model, as giving a raw HTML file is not good, causing bad performance and result.
+2. The parser will detect if there any script tag contains json data. If yes, parser will target that json data first.
+3. If json data is not sufficient, parser will continue to parse HTML.
+4. Intelligently the parser will find repeated structures that might represent entities, grouped by structure. If found, choose the most promising group and extract attributes from each.
+   If no repeated structures, search for likely containers that might hold the entity. If found, extract attributes but return only one set with highest confidence.
+5. For details, you can read the code. Hopefully the code quite well-structured and easy to read.
+### Parse sample HTML file
+If you face error 413 Entity Too Large, you can use sample of HTML files in folder samples.
+```
+POST /parse-from-file
+Content-Type: application/x-www-form-urlencoded
+
+html=path/to/file.html
+query=<natural_language_query>
+full-ml=true/false (default: true)
 ```
 
 ### Example Requests
@@ -197,42 +193,11 @@ curl -X POST http://localhost:5000/parse \
   "message": "Found 1 books on this page",
   "metadata": {
     "processing_time_ms": 245,
-    "model_used": "custom-html-parser-v1",
+    "model_used": "flan-t5-small-tuned-v1",
     "entity": "book",
-    "attributes_requested": 2,
-    "parsing_strategy": "table"
+    "attributes_requested": 2
   }
 }
-```
-
-## Dependencies
-
-- **Flask**: Web framework for API
-- **BeautifulSoup4**: HTML parsing
-- **Transformers**: Flan-T5 model for ML fallback
-- **Sentence Transformers**: Semantic similarity matching
-- **Scikit-learn**: Cosine similarity calculations
-- **NumPy**: Numerical operations
-
-## Project Structure
-
-```
-intelligent-html-parser/
-├── src/
-│   ├── parsers/
-│   │   ├── __init__.py
-│   │   ├── query_parser.py      # Rule-based query parsing
-│   │   ├── ml_query_parser.py   # ML-based query parsing
-│   │   ├── table_parser.py      # HTML table parser
-│   │   └── general_parser.py    # General HTML parser
-│   ├── __init__.py
-│   └── intelligent_parser.py    # Main orchestrator
-├── tests/                       # Test files
-├── app.py                      # Flask API application
-├── requirements.txt            # Python dependencies
-├── start.sh                   # Startup script
-├── specs.md                   # Project specifications
-└── README.md                  # This file
 ```
 
 ## Configuration
@@ -247,11 +212,46 @@ Environment variables:
 - First request may be slower due to model loading
 - Table parsing is generally faster than general HTML parsing
 - Similarity matching adds processing time but improves accuracy
-- ML fallback is used only when rule-based parsing finds insufficient attributes
 
-## Limitations
+## Model Selection and Fine-Tuning
 
-- Maximum HTML size: 10MB
-- Maximum query length: 1000 characters
-- Similarity matching requires additional memory for models
-- ML models may not be available in all environments
+### Baseline Model: FLAN-T5-Small
+
+I chose **FLAN-T5-Small** as baseline model for the following reasons:
+
+1. **Instruction Following**: FLAN-T5 is specifically fine-tuned for instruction following, making it ideal for natural language query parsing tasks
+2. **Balanced Performance**: The small variant provides a good balance between model capability and computational efficiency
+3. **Text-to-Text Framework**: T5's text-to-text approach naturally fits our task of converting natural language queries into structured entity-attribute pairs
+4. **Pre-trained Knowledge**: FLAN-T5 comes with extensive pre-training on diverse tasks, providing a strong foundation for our domain-specific fine-tuning
+5. **Resource Efficiency**: Small enough to run efficiently in personal PC just for learning.
+
+### Fine-Tuning Process
+
+The fine-tuning methodology follows a rigorous approach:
+
+#### Dataset and Validation Strategy
+- **Training Data**: 380 carefully curated examples covering various query patterns and HTML structures. The training data can be found in [training/llm/training_data.json](/training/llm/training_data.json)
+- **Cross-Validation**: K-Fold validation with k=5 to ensure robust model evaluation
+- **Best Fold Selection**: After evaluating all 5 folds, we selected the fold with the highest performance metrics
+
+#### Hyperparameter Optimization
+Once the best fold was identified, we used its train-test split as the foundation for systematic hyperparameter tuning:
+
+- **Learning Rate**: Experimented with different learning rates to find optimal convergence
+- **Batch Size**: Tuned for the best balance between training stability and computational efficiency
+- **Training Epochs**: Optimized to prevent overfitting while maximizing performance
+- **Warmup Steps**: Adjusted for smooth learning rate scheduling
+- **Weight Decay**: Fine-tuned for proper regularization
+
+This methodical approach ensures our model generalizes well to unseen queries while maintaining high accuracy on entity and attribute extraction tasks.
+
+#### Fine Tuning Result
+##### Baseline model (google/flan-t5-small):
+```
+{'eval_loss': 2.30395245552063, 'eval_rouge1': 37.50902808119775, 'eval_rouge2': 24.140411157954777, 'eval_rougeL': 36.381872471163746, 'eval_rougeLsum': 36.55871255010567, 'eval_runtime': 12.2113, 'eval_samples_per_second': 6.224, 'eval_steps_per_second': 1.556}
+```
+##### Current best result
+After fine tuning, the best score now is:
+...
+
+Details about training can be found in [models/training-note.txt](/models/training-note.txt).

@@ -2,13 +2,18 @@
 
 # Model Configuration
 model_name: "google/flan-t5-small"
-output_dir: "./output/flan-t5-parser-enhanced-1"
+output_dir: "./output/flan-t5-parser-enhanced-lr-3e4-5-epochs-wup30"
+
+# Data Files
+full_train_file: "training_data.json"  # Full dataset for k-fold. For non-kfold, will be split into train/val if train_file/validation_file are null
+train_file: "./output/flan-t5-parser-enhanced-kfold/fold_4/data/train.json"  # Overridden if use_kfold is true
+validation_file: "./output/flan-t5-parser-enhanced-kfold/fold_4/data/val.json"  # Overridden if use_kfold is true
 
 # Training Parameters
-num_epochs: 5  # Reduce epochs to save memory and time
+num_epochs: 5
 batch_size: 4  # Reduce batch size significantly for memory constraints
-learning_rate: 3e-4  # Slightly higher LR for smaller batch size
-warmup_steps: 100  # Reduce warmup steps
+learning_rate: 3e-4
+warmup_steps: 30  # Reduce warmup steps
 weight_decay: 0.01
 max_input_length: 1024  # Reduce input length to save memory
 max_output_length: 256  # Reduce output length to save memory
@@ -24,7 +29,6 @@ metric_for_best_model: "rougeL"
 
 # Data Parameters - Parameter Data  
 shuffle_data: true
-max_samples: 500  # Limit samples for testing, remove this for full training
 
 # Hardware Configuration - Konfigurasi Hardware (Memory Optimized)
 use_fp16: true  # Enable fp16 to reduce memory usage by ~50%

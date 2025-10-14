@@ -1,0 +1,42 @@
+[
+  {
+    "anchor": "address",
+    "positive": "city",
+    "negative": "salary"
+  },
+  {
+    "anchor": "name",
+    "positive": "title",
+    "negative": "image"
+  },
+  {
+    "anchor": "name",
+    "positive": "caption",
+    "negative": "photo"
+  },
+  {
+    "anchor": "address",
+    "positive": "location",
+    "negative": "rating"
+  },
+  {
+    "anchor": "price",
+    "positive": "cost",
+    "negative": "description"
+  },
+  {
+    "anchor": "title",
+    "positive": "position",
+    "negative": "company"
+  },
+  {
+    "anchor": "logo",
+    "positive": "image",
+    "negative": "text"
+  },
+  {
+    "anchor": "website",
+    "positive": "official site",
+    "negative": "phone number"
+  }
+]

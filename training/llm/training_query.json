@@ -998,5 +998,35 @@
     "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
     "input": "Specify the URL, domain age, and primary language of the website.",
     "output": "\"entity\":\"website\", \"attributes\": \"url, domain age, primary language\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Identify the book's title, author, and publication year.",
+    "output": "\"entity\":\"book\", \"attributes\": \"title, author, publication year\""
+  },
+  {
+   "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "List the book's title, the author's name, and the year it was published.",
+    "output": "\"entity\":\"book\", \"attributes\": \"title, author, publication year\"" 
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Can you return me the books: name and price?",
+    "output": "\"entity\":\"book\", \"attributes\": \"name, price\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Extract job title, location, salary, and company name from the listings",
+    "output": "\"entity\":\"job\", \"attributes\": \"title, location, salary, company name\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Get the club names, logo image links and their official websites",
+    "output": "\"entity\":\"club\", \"attributes\": \"name, logo image link, official website\""
+  },
+  {
+    "instruction": "Extract the main entity (noun) and attributes/properties from the following query.",
+    "input": "Return the property name, address, latitude and longitude",
+    "output": "\"entity\":\"property\", \"attributes\": \"name, address, latitude, longitude\""
   }
 ]

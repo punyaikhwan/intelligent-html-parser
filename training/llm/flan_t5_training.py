@@ -239,7 +239,7 @@ class HTMLParsingTrainer:
         
         # Load and preprocess data
         logger.info("Loading training data for k-fold validation...")
-        raw_data = self.load_training_data(self.config['train_file'])
+        raw_data = self.load_training_data(self.config['full_train_file'])
         
         # Shuffle data if specified in config
         if self.config['shuffle_data']:
@@ -323,38 +323,39 @@ class HTMLParsingTrainer:
     def train_simple_split(self):
         """
         Train the model using simple train/validation split
-        
-        Args:
-            train_file: Path to training data JSON file
         """
         # Set seed for reproducibility
         set_seed(42)
         
         # Load and preprocess data
         logger.info("Loading training data...")
-        raw_data = self.load_training_data(self.config['train_file'])
-        
-        # Shuffle data if specified in config
-        if self.config['shuffle_data']:
-            import random
-            random.shuffle(raw_data)
-        
-        # Limit samples if specified in config
-        if self.config['max_samples'] is not None:
-            raw_data = raw_data[:self.config['max_samples']]
-        
-        # Split data into train and validation
-        split_idx = int(len(raw_data) * (1 - self.config['validation_split']))
-        train_data = raw_data[:split_idx]
-        val_data = raw_data[split_idx:]
+        if self.config['train_file'] is not None and self.config['validation_file'] is not None:
+            train_data = self.load_training_data(self.config['train_file'])
+            val_data = self.load_training_data(self.config['validation_file'])
+        else:
+            raw_data = self.load_training_data(self.config['full_train_file'])
+            
+            # Shuffle data if specified in config
+            if self.config['shuffle_data']:
+                import random
+                random.shuffle(raw_data)
+            
+            # Limit samples if specified in config
+            if self.config['max_samples'] is not None:
+                raw_data = raw_data[:self.config['max_samples']]
+            
+            # Split data into train and validation
+            split_idx = int(len(raw_data) * (1 - self.config['validation_split']))
+            train_data = raw_data[:split_idx]
+            val_data = raw_data[split_idx:]
 
-        # save train and val data to files
-        data_dir = f"{self.config['output_dir']}/data"
-        os.makedirs(data_dir, exist_ok=True)
-        with open(f"{data_dir}/train.json", 'w', encoding='utf-8') as f:
-            json.dump(train_data, f, indent=2, ensure_ascii=False)
-        with open(f"{data_dir}/val.json", 'w', encoding='utf-8') as f:
-            json.dump(val_data, f, indent=2, ensure_ascii=False)
+            # save train and val data to files
+            data_dir = f"{self.config['output_dir']}/data"
+            os.makedirs(data_dir, exist_ok=True)
+            with open(f"{data_dir}/train.json", 'w', encoding='utf-8') as f:
+                json.dump(train_data, f, indent=2, ensure_ascii=False)
+            with open(f"{data_dir}/val.json", 'w', encoding='utf-8') as f:
+                json.dump(val_data, f, indent=2, ensure_ascii=False)
         
         logger.info(f"Training samples: {len(train_data)}")
         logger.info(f"Validation samples: {len(val_data)}")
@@ -429,6 +430,12 @@ def main():
     """Main training function using config.yaml"""
     # Load configuration
     config = get_training_args(load_config())
+
+    # Save config.yaml to output directory
+    os.makedirs(config['output_dir'], exist_ok=True)
+    with open(f"{config['output_dir']}/config.yaml", 'w', encoding='utf-8') as f:
+        import yaml
+        yaml.dump(config, f, default_flow_style=False, allow_unicode=True)
     
     # Initialize trainer with config
     trainer = HTMLParsingTrainer(config)

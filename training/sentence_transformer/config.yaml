@@ -10,7 +10,7 @@ model:
 
 # Data Configuration
 data:
-  triplet_file: "triplet_samples.json"  # Path to triplet data file
+  triplet_file: "triplet_data.json"  # Path to triplet data file
   train_split: 0.8                     # Training data split ratio (0.8 = 80% for training)
 
 # Training Configuration

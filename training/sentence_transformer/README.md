@@ -7,7 +7,7 @@ This folder contains implementation for fine-tuning Sentence Transformer models 
 - `config.yaml` - Training parameters configuration file
 - `triplet_training.py` - Main script for model training
 - `evaluate_model.py` - Script for model evaluation and comparison
-- `triplet_samples.json` - Sample triplet data file (anchor, positive, negative)
+- `triplet_data.json` - Triplet data file (anchor, positive, negative)
 - `requirements_triplet.txt` - Required dependencies
 - `setup_triplet.sh` - Environment setup script
 
@@ -39,7 +39,7 @@ training:
 ```
 
 ### 4. Edit Triplet Data
-Edit the `triplet_samples.json` file with your data. Format:
+Edit the `triplet_data.json` file with your data. Format:
 ```json
 [
   {

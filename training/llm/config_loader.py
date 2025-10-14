@@ -41,7 +41,10 @@ def get_training_args(config: Dict[str, Any]) -> Dict[str, Any]:
         return value if value is not None else default
     
     return {
-        'train_file': config.get('train_file', 'training_data.json'),
+        'full_train_file': config.get('full_train_file', 'training_data.json'),
+        # train_file and validation_file is overridden if use_kfold is True
+        'train_file': config.get('train_file', None),
+        'validation_file': config.get('validation_file', None),
         'model_name': config.get('model_name', 'google/flan-t5-small'),
         'output_dir': config.get('output_dir', './flan-t5-html-parser'),
         'num_epochs': int(convert_numeric(config.get('num_epochs'), 5)),
