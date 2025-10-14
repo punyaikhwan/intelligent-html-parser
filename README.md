@@ -103,10 +103,10 @@ The application uses environment variables for configuration. All settings are c
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ML_MODEL_NAME` | `models/llm/flan-t5-small-tunest-best` | HuggingFace model for ML query parsing |
-| `SIMILARITY_MODEL` | `models/sentence-transformers/all-MiniLM-L6-v2-tuned` | Model for semantic similarity |
+| `ML_MODEL_NAME` | `models/llm/flan-t5-small-tuned-v1` | HuggingFace model for ML query parsing |
+| `SIMILARITY_MODEL` | `models/sentence-transformers/all-MiniLM-L6-v2-tuned-v1` | Model for semantic similarity |
 | `SIMILARITY_THRESHOLD` | `0.6` | Minimum similarity score (0.0-1.0) |
-| `MIN_ATTRIBUTES` | `2` | Minimum attributes before ML fallback |
+| `MIN_ATTRIBUTES` | `2` | Minimum attributes before ML fallback (if choose option not using full ml)|
 
 ### Performance Settings
 
@@ -250,6 +250,12 @@ This methodical approach ensures our model generalizes well to unseen queries wh
 ```
 ##### Current best result
 After fine tuning, the best score now is:
-...
+```
+{'eval_loss': 0.09040385484695435, 'eval_rouge1': 93.11430311944542, 'eval_rouge2': 88.68541416365092, 'eval_rougeL': 93.07590236236969, 'eval_rougeLsum': 93.01471295412385, 'eval_runtime': 87.7054, 'eval_samples_per_second': 0.867, 'eval_steps_per_second': 0.217}
+```
 
 Details about training can be found in [models/training-note.txt](/models/training-note.txt).
+
+## Demo
+Access demo video here: [demo (in bahasa).mp4](https://drive.google.com/file/d/1agVGq-e9m5moE1NnFfextp3R0q5CQCSE/view?usp=sharing)
+And screenshots here: [screenshots](/demo/screenshots/)

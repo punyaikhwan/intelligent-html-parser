@@ -21,8 +21,8 @@ class Settings:
     JSON_SORT_KEYS: bool = os.getenv('JSON_SORT_KEYS', 'False').lower() in ('true', '1', 'yes', 'on')
     
     # ML Model Settings
-    ML_MODEL_NAME: str = os.getenv('ML_MODEL_NAME', 'google/flan-t5-small')
-    SIMILARITY_MODEL: str = os.getenv('SIMILARITY_MODEL', 'sentence-transformers/all-MiniLM-L6-v2')
+    ML_MODEL_NAME: str = os.getenv('ML_MODEL_NAME', 'models/llm/flan-t5-small-tuned-v1')
+    SIMILARITY_MODEL: str = os.getenv('SIMILARITY_MODEL', 'models/sentence-transformers/all-MiniLM-L6-v2-tuned-v1')
     SIMILARITY_THRESHOLD: float = float(os.getenv('SIMILARITY_THRESHOLD', '0.6'))
     MIN_ATTRIBUTES: int = int(os.getenv('MIN_ATTRIBUTES', '2'))
     
