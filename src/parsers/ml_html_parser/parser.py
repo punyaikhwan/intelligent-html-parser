@@ -53,8 +53,8 @@ class MLHTMLParser:
     def is_available(self) -> bool:
         """Check if the ML parser is available and loaded."""
         return TRANSFORMERS_AVAILABLE and self._loaded
-    
-    def parse_html(self, html: str, query: str) -> List[Dict[str, Any]]:
+
+    def parse_html(self, html: str, query: str, attributes: List[str]) -> List[Dict[str, Any]]:
         """
         Parse html string based on query.
         
@@ -67,7 +67,7 @@ class MLHTMLParser:
         """
         if not self.is_available():
             logging.warning("ML parser not available, returning empty results.")
-            return None, []
+            return []
         
         try:
             soup = BeautifulSoup(html, 'html.parser')
@@ -82,19 +82,19 @@ class MLHTMLParser:
             # 1. Find repeated structures that might represent entities. If found, extract attributes from each.
             # 2. If no repeated structures, search for likely containers that might hold the entity. If found, extract attributes but return only one set with highest confidence.
             
-            results = self._parse_html_from_repeated_structures(soup, query)
+            results = self._parse_html_from_repeated_structures(soup, query, attributes)
             if results and len(results) > 0:
-                return None, results
+                return results
             results = self._parse_html_from_likely_containers(soup, query)
             if results and len(results) > 0:
-                return None, results
-            return None, []
+                return results
+            return []
             
         except Exception as e:
             logging.error(f"Error in ML html parsing: {e}")
-            return None, []
+            return []
 
-    def _parse_html_from_repeated_structures(self, soup: BeautifulSoup, query: str) -> List[Dict[str, Any]]:
+    def _parse_html_from_repeated_structures(self, soup: BeautifulSoup, query: str, attributes: List[str]) -> List[Dict[str, Any]]:
         """
         Parse html by identifying repeated structures and extracting attributes.
         
@@ -116,10 +116,10 @@ class MLHTMLParser:
             map_groups_to_confidence = {}
             highest_confidence_count = 0
             
-            # Process each first group container in parallel
+            # Process each two first group container in parallel
             with ThreadPoolExecutor(max_workers=min(4, len(container_groups))) as executor:
                 future_to_group = {
-                    executor.submit(self._process_group, group_idx, containers, query): group_idx
+                    executor.submit(self._process_group, group_idx, containers, query, attributes): group_idx
                     for group_idx, containers in enumerate(container_groups)
                 }
                 
@@ -231,28 +231,35 @@ class MLHTMLParser:
                 # keep only attributes and values without similarity score
                 cleaned_result = {attr: (value.Value if value is not None else None) for attr, value in best_result.items()}
                 return [cleaned_result]
-            
-    def _process_group(self, group_idx: int, containers: List, query: str) -> Tuple[int, float]:
+
+    def _process_group(self, group_idx: int, containers: List, query: str, attributes: List[str]) -> Tuple[int, float]:
         """Process a group of containers to evaluate their attributes in parallel."""
         logging.info(f"=============Evaluating group {group_idx} with {len(containers)} containers.==============")
         if containers and len(containers) > 0:            
             # we need to ensure that the containers are holding the attributes we are looking for
             # And since this is a repeated structure, we can assume that if one container has the attributes, others will have them too
-            # So we will check the first container only
-            first_container = containers[0]
-            extracted_attrs, confidence = self._extract_attributes_from_container(first_container, query)
-            logging.info(f"Extracted attributes from first container: {extracted_attrs} with confidence: {confidence}")
-            found_attrs = [attr for attr, value in extracted_attrs.items() if value is not None]    
-            for attr in found_attrs:
-                attr_result = extracted_attrs[attr]
-                if attr_result is not None and attr_result != "":
-                    logging.info(f"Attribute '{attr}' found with value: {attr_result}")
-                else:
-                    # if attribute is found but value is empty, take it out from found_attrs
-                    found_attrs.remove(attr)
+            # So we will check the two first containers only, to save processing time and get good enough score
 
-            logging.info(f"Found {len(found_attrs)} in first container.")
-            return len(found_attrs), confidence
+            total_score = 0.0
+            total_attributes_found = 0
+            for i in range(min(2, len(containers))):
+                container = containers[i]
+                extracted_attrs, confidence = self._extract_attributes_from_container(container, query)
+                logging.info(f"Extracted attributes from container {i}: {extracted_attrs} with confidence: {confidence}")
+                found_attrs = [attr for attr, value in extracted_attrs.items() if value is not None]    
+                # Only consider attributes that are in the requested attributes list
+                found_attrs = [attr for attr in found_attrs if attr in attributes]
+
+                logging.info(f"Found {len(found_attrs)} in container {i}.")
+                 # only consider if all attributes are found
+                if len(found_attrs) > 0:
+                    total_attributes_found += len(found_attrs)
+                    total_score += confidence
+
+            avg_score = total_score / min(2, len(containers))
+            avg_found_attributes = total_attributes_found / min(2, len(containers))
+            logging.info(f"Group {group_idx} has average {avg_found_attributes} attributes found with average confidence {avg_score}.")
+            return total_attributes_found, avg_score
         return 0, 0.0
 
     def _find_top_promising_groups(self, map_groups_to_filled_attrs: Dict[int, int], 
@@ -270,16 +277,27 @@ class MLHTMLParser:
         Returns:
             List of tuples (group_index, score) sorted by score descending
         """
-        group_scores = []
+        # group_scores = []
         
+        # for group_idx, count in map_groups_to_filled_attrs.items():
+        #     confidence = map_groups_to_confidence.get(group_idx, 0.0)
+        #     number_of_containers = len(container_groups[group_idx])
+            
+        #     # Calculate composite score: confidence * attributes_count * container_count
+        #     score = confidence * count * number_of_containers
+        #     group_scores.append((group_idx, score))
+        
+        # # Sort by score descending and return top K
+        # group_scores.sort(key=lambda x: x[1], reverse=True)
+
+        # use only confidence and attributes count for scoring
+        group_scores = []
         for group_idx, count in map_groups_to_filled_attrs.items():
             confidence = map_groups_to_confidence.get(group_idx, 0.0)
-            number_of_containers = len(container_groups[group_idx])
             
-            # Calculate composite score: confidence * attributes_count * container_count
-            score = confidence * count * number_of_containers
+            # Calculate composite score: confidence * attributes_count
+            score = confidence * count
             group_scores.append((group_idx, score))
-        
         # Sort by score descending and return top K
         group_scores.sort(key=lambda x: x[1], reverse=True)
         return group_scores[:top_k]
@@ -337,8 +355,7 @@ class MLHTMLParser:
     def _create_html_parser_prompt(self, html: str, query: str) -> str:
         """Create a prompt for HTML parsing."""
         prompt = f"""
-From the following HTML snippet:
-{html}
+From the following HTML, {html}
 {query}
 """
         return prompt
@@ -382,8 +399,8 @@ From the following HTML snippet:
     def _parse_response(self, response: str) -> Dict[str, Any]:
         """Parse the model response into structured data."""
         try:
-            # Expecting response "key":"value", "key2":"value2"
-            splits = response.split(',')
+            # Expecting response "key":"value", "key2":"value2", "key3":"value3, aaa"
+            splits = response.split(', "')
             result = {}
             for item in splits:
                 if ':' in item:

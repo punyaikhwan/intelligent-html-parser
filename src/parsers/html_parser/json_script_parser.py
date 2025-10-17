@@ -456,7 +456,6 @@ class JSONScriptParser:
             # Find best matches for each attribute
             for i, attr in enumerate(attributes):
                 similarities = cosine_similarity([attribute_embeddings[i]], key_embeddings)[0]
-                logging.info(f"Similarities for attribute '{attr}': {similarities}")
                 
                 # Find keys above threshold
                 for j, similarity in enumerate(similarities):

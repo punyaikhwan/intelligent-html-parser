@@ -108,9 +108,11 @@ class IntelligentHTMLParser:
                         "Could not extract entity and attributes from query",
                         time.time() - start_time
                     )
+            
+                logging.info(f"Extracted entity: {entity}, attributes: {attributes} using ML query parser")
                 
                 logging.info("Using ML-based HTML extraction method.")
-                results = self.ml_html_parser.parse_html(html, query)
+                results = self.ml_html_parser.parse_html(html, query, attributes)
                 processing_time = time.time() - start_time
                 approaches_used = {
                     "query_parsing": {
@@ -193,7 +195,7 @@ class IntelligentHTMLParser:
         message = f"Found {len(results)} {entity} on this page"
         if len(results) > 1:
             message = f"Found {len(results)} {entity_plural} on this page"
-        
+
         response = {
             "results": {
                 entity_plural: results
